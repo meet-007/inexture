@@ -1,11 +1,7 @@
 package service.Image;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,7 +9,6 @@ import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-import javax.sql.rowset.serial.SerialBlob;
 
 import dao.Image.ImageDaoImpl;
 import model.UserImages;
@@ -44,15 +39,15 @@ public class ImageServiceImpl implements ImageService {
 			Part pt = (Part) it.next();
 			if (pt.getSubmittedFileName() != null) {
 				is = pt.getInputStream();
-				ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-				int nRead;
-				byte[] data = new byte[1024];
-				while ((nRead = is.read(data, 0, data.length)) != -1) {
-					buffer.write(data, 0, nRead);
-				}
-
-				buffer.flush();
-				byte[] byteArray = buffer.toByteArray();
+				//				ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+				//				int nRead;
+				//				byte[] data = new byte[1024];
+				//				while ((nRead = is.read(data, 0, data.length)) != -1) {
+				//					buffer.write(data, 0, nRead);
+				//				}
+				//
+				//				buffer.flush();
+				//				buffer.toByteArray();
 
 				uimg[i] = new UserImages();
 				uimg[i].setIduser(iduser);
@@ -72,8 +67,9 @@ public class ImageServiceImpl implements ImageService {
 		// System.out.println(bytereaded);
 		if(totalImageInserted > 0) {
 			return true;
-		}else
-		return false;
+		} else {
+			return false;
+		}
 	}
 
 }

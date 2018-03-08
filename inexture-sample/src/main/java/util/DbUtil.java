@@ -48,7 +48,9 @@ public class DbUtil {
 			// String typename = ob.getClass().getName();
 			if(ob instanceof InputStream)
 			{
-				pst.setBinaryStream(index, (InputStream)ob);
+				if(ob!=null) {
+					pst.setBlob(index, (InputStream)ob);
+				}
 			}else {
 				pst.setObject(index, ob);
 			}
