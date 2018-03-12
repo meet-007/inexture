@@ -9,9 +9,29 @@
 
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-hello Admin
-welcome<c:out value="${sessionScope.user.firstname}"></c:out><br/>
-Update Profile:<a href="UpdateProfile">UpdateProfile</a><br/>
-<a href="Logout">logout</a>
+<jsp:include page="header-footer/newheader.jsp"></jsp:include>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h1>hello Admin</h1>                   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+</div>
+
+<script>
+window.history.forward();
+	function noBack() { window.history.forward(); }
+	</script>
+
 </body>
-</html>
+</html>>

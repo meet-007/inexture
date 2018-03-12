@@ -12,6 +12,7 @@ import model.Address;
 public class AddressServiceImpl implements AddressService {
 
 	public boolean addAddress(HttpServletRequest request, int userid)
+
 			throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		String addressline1[] = request.getParameterValues("addressline1");
@@ -40,4 +41,9 @@ public class AddressServiceImpl implements AddressService {
 		return false;
 	}
 
+	public Address[] getUserAddress(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		AddressDao ado = new AddressDaoImpl();
+		return ado.selectAddress(iduser);
+	}
+	
 }

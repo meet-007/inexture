@@ -28,14 +28,24 @@ public class ShowRegServ extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			String page = "";
+			
 			TechServ ts = new TechServImpl();
 			ArrayList technologies = ts.getTech();
 			request.setAttribute("tech", technologies);
 			LangServ ls = new LangServImpl();
 			ArrayList languages = ls.getLang();
 			request.setAttribute("lang", languages);
-			RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
-			rd.forward(request, response);
+			if(request.getParameter("page")!=null) {
+				page="UpdateProfile.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+			}else {
+				page="Registration.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
