@@ -1,4 +1,5 @@
 controller\login\Logout.class
+controller\Update.class
 controller\registration\RegUser.class
 controller\login\LoginFilter.class
 controller\registration\ShowRegServ.class

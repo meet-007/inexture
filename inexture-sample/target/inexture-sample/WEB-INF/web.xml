@@ -36,6 +36,13 @@
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>controller.login.Logout</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Update</display-name>
+		<servlet-name>Update</servlet-name>
+		<servlet-class>controller.Update</servlet-class>
+	</servlet>
 	<!--mapping -->
 	<servlet-mapping>
 		<servlet-name>UserHome</servlet-name>
@@ -52,5 +59,9 @@
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Update</servlet-name>
+		<url-pattern>/Update</url-pattern>
 	</servlet-mapping>
 </web-app>
