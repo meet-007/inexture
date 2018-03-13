@@ -160,6 +160,7 @@
 													<div class="recordset">
 														<div class="fieldRow clearfix">
 															<div class="panel-body" id="pbody">
+															<input type="hidden" name="idaddress" id="id_idaddress_1_">
 																<div class="form-group">
 																	<label for="inputEmail3" class="col-sm-2 control-label">Address
 																		line 1</label>
@@ -269,5 +270,34 @@
 		//One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
 		$("#czContainer").czMore();
 	</script>
+	<script type="text/javascript">
+	var plusbtn = document.getElementById("btnPlus");
+	<%Address[] adrs = (Address[]) request.getAttribute("addrslist"); 
+ 			for (int i = 0; i<adrs.length; i++) {%> 
+ 	    plusbtn.click();
+ 	    var idaddress = "<%=adrs[i].getIdadress()%>";
+		var address1 = "<%=adrs[i].getAddressline1()%>";
+		var address2 = "<%=adrs[i].getAddressline2()%>";
+		var pin = "<%=adrs[i].getPin()%>";
+		var city = "<%=adrs[i].getCity()%>";
+		var state = "<%=adrs[i].getState()%>";
+		var country = "<%=adrs[i].getCountry()%>";
+		var idaddrselement = document.getElementById("id_idaddress_"+ <%=i+1%> +"_");
+		var addrselement1 = document.getElementById("id_address1_" + <%=i+1%> + "_");
+		var addrselement2 = document.getElementById("id_address2_" +  <%=i+1%> + "_");
+		var pinelement = document.getElementById("id_pin_" +  <%=i+1%> + "_");
+		var cityelement = document.getElementById("id_city_" +  <%=i+1%> + "_");
+		var stateselement = document.getElementById("id_state_" + <%=i+1%> + "_");
+		var countryelement = document.getElementById("id_country_" +  <%=i+1%> + "_");
+		idaddrselement.value = idaddress;
+		addrselement1.innerHTML = address1;
+		addrselement2.innerHTML = address2;
+		pinelement.value = pin;
+		cityelement.value = city;
+		stateselement.value = state;
+		countryelement.value = country;
+	<%}%>
+		
+	</script> 
 </body>
 </html>
