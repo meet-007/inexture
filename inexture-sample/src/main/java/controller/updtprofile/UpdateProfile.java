@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 import service.Address.AddressService;
 import service.Address.AddressServiceImpl;
+import service.LangTransaction.LangTransImpl;
+import service.LangTransaction.LangTransServ;
+
 import javax.servlet.http.HttpSession;
 import model.Address;
 
@@ -26,7 +29,7 @@ public class UpdateProfile extends HttpServlet {
     public UpdateProfile() {
         // TODO Auto-generated constructor stub
     }
-
+  
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -38,6 +41,9 @@ public class UpdateProfile extends HttpServlet {
 			AddressService adrserv = new AddressServiceImpl();
 			Address[] adrsarr = adrserv.getUserAddress(user.getIduser());
 			request.setAttribute("addrslist",adrsarr);
+			LangTransServ lts = new LangTransImpl();
+			
+			request.setAttribute("languages",lts.getUserLanguages(user.getIduser()));
 			RequestDispatcher rd = request.getRequestDispatcher("ShowRegServ?page=update");
 			rd.forward(request, response);
 

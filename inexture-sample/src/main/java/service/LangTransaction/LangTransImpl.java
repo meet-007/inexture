@@ -2,9 +2,11 @@ package service.LangTransaction;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.Lang.LangDaoImpl;
 import dao.LangTransaction.LangTrans;
 import model.LangTransact;
 
@@ -27,6 +29,13 @@ public class LangTransImpl implements LangTransServ {
 		}else {
 		return false;
 		}
+	}
+
+	public ArrayList<LangTransact> getUserLanguages(int iduser)
+			throws ClassNotFoundException, SQLException, IOException {
+		LangTrans lt = new dao.LangTransaction.LangTransImpl();
+		
+		return lt.selectUserLanguages(iduser);
 	}
 
 }

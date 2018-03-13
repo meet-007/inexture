@@ -1,7 +1,9 @@
 <%@page import="model.Address"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.Date"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,18 +17,10 @@
 			<!-- Row -->
 			<div class="row">
 				<!-- Section header -->
-				<div class="section-header text-center">
-					
-				</div>
+				<div class="section-header text-center"></div>
 				<div class="col-md-8 col-md-offset-2">
 					<div class="contact-form">
-					<%Address[] ad = (Address[])request.getAttribute("addrslist");
-					%><%=ad[0].getAddressline1()%>
-				
-					<c:forEach var="adrs" items="${requestScope.addrslist}">
-						<c:out value="${adrs.city}"></c:out>
-					</c:forEach>
-
+						<c:set var="user" value="${sessionScope.user}"></c:set>
 						<form class="form-horizontal" enctype="multipart/form-data"
 							action="RegUser" method="POST">
 							<div class="form-group">
@@ -35,7 +29,8 @@
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputEmail3"
 										name="fname"
-										placeholder="Enter your first name example 'john'">
+										placeholder="Enter your first name example 'john'"
+										value="${user.firstname}">
 								</div>
 							</div>
 							<div class="form-group">
@@ -43,21 +38,26 @@
 									Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputPassword3"
-										name="lname" placeholder="Enter your last name example 'Doe'">
+										name="lname" placeholder="Enter your last name example 'Doe'"
+										value="${user.lastname}">
 								</div>
 							</div>
+
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputPassword3"
-										placeholder="johndoe@example.com" name="email">
+										placeholder="johndoe@example.com" name="email"
+										${(requestScope.addrslist ne null) ? 'disabled' : ''}
+										value="${user.email}">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="inputPassword3"
-										placeholder="1@Mypass" name="pass">
+										value="${user.password}" placeholder="1@Mypass" name="pass"
+										${(requestScope.addrslist ne null) ? 'disabled' : ''}>
 								</div>
 							</div>
 
@@ -65,16 +65,18 @@
 								<label for="inputPassword3" class="col-sm-2 control-label">Moblie</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputPassword3"
-										placeholder="8844662211" name="mobile">
+										placeholder="8844662211" name="mobile" value="${user.mobile}">
 								</div>
 							</div>
+							<fmt:formatDate value="${user.dob}" pattern="yyyy-MM-dd"
+								var="date" />
 
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Date
 									of birth</label>
 								<div class="col-sm-10">
 									<input type="date" class="form-control" id="inputPassword3"
-										placeholder="21/2/1997" name="dob">
+										placeholder="21/2/1997" name="dob" value="${date}">
 								</div>
 							</div>
 
@@ -96,7 +98,8 @@
 
 										<c:forEach items="${requestScope.tech}" var="technologies">
 
-											<option value="${technologies.idtech}">
+											<option value="${technologies.idtech}"
+												${(user.tech eq technologies.idtech)?'selected':'' }>
 												<c:out value="${technologies.tech}" />
 											</option>
 
@@ -108,20 +111,37 @@
 								<label for="inputPassword3" class="col-sm-2 control-label">gender</label>
 								<div class="col-sm-10">
 									<label class="radio-inline"> <input type="radio"
-										value="0" name="gender"> Male
+										value="0" name="gender"
+										${(user.gender eq '0')? 'checked':''}> Male
 									</label> <label class="radio-inline"> <input type="radio"
-										value="1" name="gender"> Female
+										value="1" name="gender"
+										${(user.gender eq '1')? 'checked':''}>
+										Female
 									</label>
 								</div>
 							</div>
+							<c:forEach var="lang" items="${requestScope.languages}">
+
+								<c:out value="${lang.idlangmaster}"></c:out>
+							</c:forEach>
 							<div class="clearfix">
 								<div class="checkbox">
 									<label for="inputPassword3" class="col-sm-2 control-label">Language</label>
 									<div class=" col-sm-10">
 										<c:forEach items="${requestScope.lang}" var="languages">
+
 											<label class="checkbox-inline"> <input
 												type="checkbox" name="lang"
-												value="<c:out value="${languages.idlang}"></c:out>">
+												value="<c:out value="${languages.idlang}"  ></c:out>"
+								                 <c:forEach  var="lang" items="${requestScope.languages}">
+<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
+													
+													<c:if test="${languages.idlang == lang.idlangmaster}">  
+   													<c:out value="checked"></c:out> 
+													 </c:if> 
+													
+													
+								                 </c:forEach>>
 												<c:out value="${languages.lang}"></c:out>
 											</label>
 										</c:forEach>

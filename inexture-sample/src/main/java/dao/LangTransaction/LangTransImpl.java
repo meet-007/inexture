@@ -1,6 +1,7 @@
 package dao.LangTransaction;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +28,20 @@ public class LangTransImpl implements LangTrans{
 		
 		
 		return count;
+	}
+
+	public ArrayList<LangTransact> selectUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		ResultSet rs = DbUtil.dbOperationSelect(SELECT,iduser);
+		ArrayList<LangTransact> ltarr = new ArrayList<LangTransact>();
+		while(rs.next()) {
+			LangTransact lt = new LangTransact();
+			lt.setIdlang_transaction(rs.getInt(1));
+			lt.setIduser(rs.getInt(2));
+			lt.setIdlangmaster(rs.getInt(3));
+			ltarr.add(lt);
+		}
+	
+		return ltarr;
 	}
 
 }
