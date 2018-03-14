@@ -25,34 +25,41 @@ import model.Address;
 public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public UpdateProfile() {
-        // TODO Auto-generated constructor stub
-    }
-  
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateProfile() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+
 			HttpSession session = request.getSession();
-			User user = (User)session.getAttribute("user");
+			User user = (User) session.getAttribute("user");
 			AddressService adrserv = new AddressServiceImpl();
 			Address[] adrsarr = adrserv.getUserAddress(user.getIduser());
-			request.setAttribute("addrslist",adrsarr);
+			request.setAttribute("addrslist", adrsarr);
 			LangTransServ lts = new LangTransImpl();
 			ImageService imgserv = new ImageServiceImpl();
-			request.setAttribute("imglist",imgserv.getUserImages(user.getIduser()));
-			request.setAttribute("languages",lts.getUserLanguages(user.getIduser()));
+			request.setAttribute("imglist", imgserv.getUserImages(user.getIduser()));
+			request.setAttribute("languages", lts.getUserLanguages(user.getIduser()));
 			RequestDispatcher rd = request.getRequestDispatcher("ShowRegServ?page=update");
 			rd.forward(request, response);
 
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 }

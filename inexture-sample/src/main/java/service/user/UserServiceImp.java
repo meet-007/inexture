@@ -20,11 +20,8 @@ import service.Image.ImageServiceImpl;
 import service.LangTransaction.*;
 
 public class UserServiceImp implements UserService {
-
-	public String regesterUser(HttpServletRequest req)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
-		// TODO Auto-generated method stub
-	
+	String response = ""; // response message
+	public static User setParams(HttpServletRequest req) throws ParseException {
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
 		String lname = req.getParameter("lname");
@@ -48,11 +45,18 @@ public class UserServiceImp implements UserService {
 		user.setDob(date1);
 		user.setRole(2);
 		user.setTech(Integer.parseInt(tech));
-
-		String response = ""; // response message
+		return user;
+	}
+	
+	public String regesterUser(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+		// TODO Auto-generated method stub
+	
+		
+		User user = UserServiceImp.setParams(req);
+		
 		int userid = 0;
 		UserDao userdao = new UserDaoImpl(); // creating dao object
-		if (!userdao.insert(user)) { // calling dao method
+		if (!userdao.insert(user,"insert")) { // calling dao method
 			userid = userdao.selectUserId(user.getMobile());
 			AddressService as = new AddressServiceImpl();
 			if (as.addAddress(req, userid)) {
@@ -72,5 +76,17 @@ public class UserServiceImp implements UserService {
 		UserDao userdao = new UserDaoImpl();
 		
 		return userdao.selectUser(email,pass);
+	}
+
+	public String updateUser(HttpServletRequest req, int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException {
+		// TODO Auto-generated method stub
+		User user = UserServiceImp.setParams(req);
+		user.setIduser(iduser);
+		UserDao userdao = new UserDaoImpl();
+		if (!userdao.insert(user,"update")) {
+			response = "Registration successfull";
+		}else
+			response = "Registration unsuccessfull";
+		return response;
 	}
 }

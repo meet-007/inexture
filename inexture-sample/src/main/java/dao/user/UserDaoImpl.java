@@ -14,7 +14,7 @@ import util.DbUtil;
 
 public class UserDaoImpl implements UserDao {
 
-	public boolean insert(User u) throws ClassNotFoundException, SQLException, IOException {
+	public boolean insert(User u,String operation) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList arr = new ArrayList();
 		arr.add(u.getFirstname());
@@ -26,7 +26,10 @@ public class UserDaoImpl implements UserDao {
 		arr.add(u.getDob());
 		arr.add(u.getRole());
 		arr.add(u.getTech());
-		boolean result = DbUtil.dbOperationInsert(INSERT, arr);
+		boolean result = true;
+		if(operation.equals("insert")) {
+
+		result = DbUtil.dbOperationInsert(INSERT, arr);
 //		Connection con = util.DbUtil.getConnection();
 //		PreparedStatement pst = con.prepareStatement(INSERT);
 //		pst.setString(1, u.getFirstname());
@@ -40,8 +43,12 @@ public class UserDaoImpl implements UserDao {
 //		pst.setInt(9, u.getTech());
 //		boolean result = pst.execute();
 //		con.close();
+		
+		}else {
+			arr.add(u.getIduser());
+			result = DbUtil.dbOperationInsert(UPDATE, arr);
+		}
 		return result;
-
 	}
 
 	public int selectUserId(long mobile) throws ClassNotFoundException, SQLException, IOException {

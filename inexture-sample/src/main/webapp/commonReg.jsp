@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.Date"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,7 +29,7 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="contact-form">
 						<c:set var="user" value="${sessionScope.user}"></c:set>
-						<form class="form-horizontal" enctype="multipart/form-data"
+						<form name="myform" class="form-horizontal" enctype="multipart/form-data"
 							action="RegUser" method="POST">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">First
@@ -56,7 +56,7 @@
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputPassword3"
 										placeholder="johndoe@example.com" name="email"
-										${(requestScope.addrslist ne null) ? 'disabled' : ''}
+										${(requestScope.addrslist ne null) ? 'readonly' : ''}
 										value="${user.email}">
 								</div>
 							</div>
@@ -65,7 +65,7 @@
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="inputPassword3"
 										value="${user.password}" placeholder="1@Mypass" name="pass"
-										${(requestScope.addrslist ne null) ? 'disabled' : ''}>
+										${(requestScope.addrslist ne null) ? 'readonly' : ''}>
 								</div>
 							</div>
 
@@ -254,7 +254,7 @@
 								<ul class="list-group" id="list">
 									
 								</ul>
-									<li class="list-group-item">Dapibus ac facilisis in</li>
+									<li class="list-group-item">Dapibus ac facilisis in</li>''
 									<li class="list-group-item">Morbi leo risus</li>
 									<li class="list-group-item">Porta ac consectetur ac</li>
 									<li class="list-group-item">Vestibulum at eros</li>
@@ -263,7 +263,14 @@
 							</div>
 							<div class="form-group">
 								<div>
+								<c:choose>
+								<c:when test="${empty requestScope.addrslist}">
 									<button type="submit" class="btn btn-primary">Sign Up</button>
+								</c:when>
+								<c:otherwise>
+									<button type="submit" class="btn btn-primary" onclick='document.myform.action="UpdateServ"'>Update</button>
+								</c:otherwise>
+								</c:choose>
 								</div>
 							</div>
 						</form>

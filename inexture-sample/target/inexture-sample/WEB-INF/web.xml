@@ -50,6 +50,13 @@
 		<servlet-name>UpdateProfile</servlet-name>
 		<servlet-class>controller.updtprofile.UpdateProfile</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UpdateServ</display-name>
+		<servlet-name>UpdateServ</servlet-name>
+		<servlet-class>controller.updtprofile.UpdateServ</servlet-class>
+	</servlet>
 	<!--mapping -->
 	<servlet-mapping>
 		<servlet-name>UserHome</servlet-name>
@@ -74,5 +81,9 @@
 	<servlet-mapping>
 		<servlet-name>UpdateProfile</servlet-name>
 		<url-pattern>/UpdateProfile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdateServ</servlet-name>
+		<url-pattern>/UpdateServ</url-pattern>
 	</servlet-mapping>
 </web-app>
