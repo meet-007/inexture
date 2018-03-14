@@ -8,7 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
+<link rel="stylesheet"
+	href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/fileupload.css">
 </head>
 <body>
 	<jsp:include page="header-footer/header.jsp"></jsp:include>
@@ -78,7 +80,11 @@
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">image</label>
 								<div class="col-sm-10">
-									<input type="file" id="inputPassword3" multiple name="img">
+									<ul id="media-list" class="clearfix">
+										<li class="myupload"><span><i class="fa fa-plus"
+												aria-hidden="true"></i><input type="file" click-type="type2"
+												id="picupload" class="picupload" multiple></span></li>
+									</ul>
 								</div>
 							</div>
 
@@ -243,18 +249,21 @@
 
 
 
+
 	<script src="js/jquery.min.js" type="text/javascript"></script>
-	<script src="js/jquery.min.js" type="text/javascript"></script>
+
 	<script src="js/jquery.czMore-latest.js"></script>
 	<script src="js/jquery.czMore-1.5.3.2.js"></script>
 	<script type="text/javascript">
 		//One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
 		$("#czContainer").czMore();
 	</script>
+	<script src="js/fileupload.js"></script>
+	
 	<script type="text/javascript">
 	var plusbtn = document.getElementById("btnPlus");
-	<%Address[] adrs = (Address[]) request.getAttribute("addresslist"); 
- 			for (int i = 1; i<adrs.length; i++) {%> 
+	<%Address[] adrs = (Address[]) request.getAttribute("addresslist");
+			for (int i = 1; i < adrs.length; i++) {%> 
  	    plusbtn.click();
 		var address1 = "<%=adrs[i].getAddressline1()%>";
 		var address2 = "<%=adrs[i].getAddressline2()%>";
@@ -262,12 +271,25 @@
 		var city = "<%=adrs[i].getCity()%>";
 		var state = "<%=adrs[i].getState()%>";
 		var country = "<%=adrs[i].getCountry()%>";
-		var addrselement1 = document.getElementById("id_address1_" + <%=i%> + "_");
-		var addrselement2 = document.getElementById("id_address2_" +  <%=i%> + "_");
-		var pinelement = document.getElementById("id_pin_" +  <%=i%> + "_");
-		var cityelement = document.getElementById("id_city_" +  <%=i%> + "_");
-		var stateselement = document.getElementById("id_state_" + <%=i%> + "_");
-		var countryelement = document.getElementById("id_country_" +  <%=i%> + "_");
+		
+		var addrselement1 = document.getElementById("id_address1_" +
+	<%=i%>
+		+ "_");
+		var addrselement2 = document.getElementById("id_address2_" +
+	<%=i%>
+		+ "_");
+		var pinelement = document.getElementById("id_pin_" +
+	<%=i%>
+		+ "_");
+		var cityelement = document.getElementById("id_city_" +
+	<%=i%>
+		+ "_");
+		var stateselement = document.getElementById("id_state_" +
+	<%=i%>
+		+ "_");
+		var countryelement = document.getElementById("id_country_" +
+	<%=i%>
+		+ "_");
 		addrselement1.innerHTML = address1;
 		addrselement2.innerHTML = address2;
 		pinelement.value = pin;
@@ -276,7 +298,7 @@
 		countryelement.value = country;
 	<%}%>
 		
-	</script> 
+	</script>
 
 </body>
 </html>

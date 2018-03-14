@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 import service.Address.AddressService;
 import service.Address.AddressServiceImpl;
+import service.Image.ImageService;
+import service.Image.ImageServiceImpl;
 import service.LangTransaction.LangTransImpl;
 import service.LangTransaction.LangTransServ;
 
@@ -42,7 +44,8 @@ public class UpdateProfile extends HttpServlet {
 			Address[] adrsarr = adrserv.getUserAddress(user.getIduser());
 			request.setAttribute("addrslist",adrsarr);
 			LangTransServ lts = new LangTransImpl();
-			
+			ImageService imgserv = new ImageServiceImpl();
+			request.setAttribute("imglist",imgserv.getUserImages(user.getIduser()));
 			request.setAttribute("languages",lts.getUserLanguages(user.getIduser()));
 			RequestDispatcher rd = request.getRequestDispatcher("ShowRegServ?page=update");
 			rd.forward(request, response);

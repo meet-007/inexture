@@ -1,3 +1,7 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.UserImages"%>
 <%@page import="model.Address"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -9,6 +13,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/fileupload.css">
 </head>
 <body>
 	<div class="home-wrapper">
@@ -83,8 +89,11 @@
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">image</label>
 								<div class="col-sm-10">
-									<input type="file" id="inputPassword3" multiple name="img">
-								</div>
+									<ul id="media-list" class="clearfix">
+										<li class="myupload"><span><i class="fa fa-plus"
+												aria-hidden="true"></i><input type="file" click-type="type2"
+												id="picupload" class="picupload" name="img" multiple></span></li>
+									</ul>								</div>
 							</div>
 
 
@@ -270,9 +279,12 @@
 		//One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
 		$("#czContainer").czMore();
 	</script>
+	<script src="js/fileupload.js"></script>
 	<script type="text/javascript">
 	var plusbtn = document.getElementById("btnPlus");
-	<%Address[] adrs = (Address[]) request.getAttribute("addrslist"); 
+	<%
+	if(request.getAttribute("addrslist")!=null){
+	Address[] adrs = (Address[]) request.getAttribute("addrslist"); 
  			for (int i = 0; i<adrs.length; i++) {%> 
  	    plusbtn.click();
  	    var idaddress = "<%=adrs[i].getIdadress()%>";
@@ -296,7 +308,38 @@
 		cityelement.value = city;
 		stateselement.value = state;
 		countryelement.value = country;
-	<%}%>
+	<%}
+ 			ArrayList<UserImages> ui = (ArrayList<UserImages>) request.getAttribute("imglist");
+ 			for(UserImages userImage : ui){
+ 				%>
+ 				var idimg = "<%=userImage.getIduser_images()%>";
+ 				var iduser = "<%=userImage.getIduser()%>";
+ 				var  img = [];
+ 				<%
+ 				InputStream is = userImage.getImage();
+ 				int index = 0,i=-2;
+ 				while(( i = is.read())!=-1){
+ 					%>
+ 					img[i]=<%=i%>;
+ 					<%
+ 					index++;
+ 				}
+ 				%>
+ 				var fh = fopen("c:\\MyFile.jpg", 3); // Open the file for writing
+
+ 				if(fh!=-1) // If the file has been successfully opened
+ 				{
+ 				    var str = "Some text goes here...";
+ 				   for (var i = 0; i < img.length; i++) {
+ 					  fwrite(fh, img[i]);
+ 					}
+ 				     
+ 				    fclose(fh); // Close the file 
+ 				}
+ 				
+ 				<%
+ 			}
+	}%>
 		
 	</script> 
 </body>

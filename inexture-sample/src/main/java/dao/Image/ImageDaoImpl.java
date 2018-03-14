@@ -1,6 +1,7 @@
 package dao.Image;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,11 +28,19 @@ public class ImageDaoImpl implements ImageDao {
 		return count;
 	}
 
-	public ArrayList selectImages(int iduser) {
+	public ArrayList selectImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
-//		Integer id = (Integer)iduser;
-//		DbUtil.dbOperationInsert(SELECT,id.toString() )
-		return null;
+		Integer id = (Integer)iduser;
+		ResultSet rs = DbUtil.dbOperationSelect(SELECT,id.toString());
+		ArrayList<UserImages> uiarr = new ArrayList<UserImages>();
+		while(rs.next()) {
+			UserImages ui = new UserImages();
+			ui.setIduser_images(rs.getInt(1));
+			ui.setIduser(rs.getInt(2));
+			ui.setImage(rs.getBinaryStream(3));
+			uiarr.add(ui);
+		}
+		return uiarr;
 	}
 
 }

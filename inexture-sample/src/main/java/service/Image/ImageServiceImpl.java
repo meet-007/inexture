@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import dao.Image.ImageDao;
 import dao.Image.ImageDaoImpl;
 import model.UserImages;
 
@@ -70,6 +71,12 @@ public class ImageServiceImpl implements ImageService {
 		} else {
 			return false;
 		}
+	}
+
+	public ArrayList<UserImages> getUserImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		ImageDao imdao = new ImageDaoImpl();
+		return imdao.selectImages(iduser);
 	}
 
 }
