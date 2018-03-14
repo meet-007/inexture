@@ -1,6 +1,7 @@
 package service.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -84,9 +85,13 @@ public class UserServiceImp implements UserService {
 		user.setIduser(iduser);
 		UserDao userdao = new UserDaoImpl();
 		if (!userdao.insert(user,"update")) {
-			response = "Registration successfull";
+			LangTransServ lts = new LangTransImpl();
+		if (lts.updateLangTransaction(req, iduser)) {
+			
+		}
+			response = "update successfull";
 		}else
-			response = "Registration unsuccessfull";
+			response = "update unsuccessfull";
 		return response;
 	}
 }

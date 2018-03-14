@@ -38,7 +38,8 @@ public class UpdateServ extends HttpServlet {
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("user");
 			rspmsg = new UserServiceImp().updateUser(request, user.getIduser());
-			
+			session.removeAttribute("user");
+			session.setAttribute("user",new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
 		} catch (Exception e1) {
 			rspmsg = e1.getMessage();
 			e1.printStackTrace();

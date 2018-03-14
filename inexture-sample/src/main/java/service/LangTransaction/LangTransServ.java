@@ -11,5 +11,5 @@ import model.LangTransact;
 public interface LangTransServ {
 	boolean addLangTransaction (HttpServletRequest request,int userid) throws ClassNotFoundException, SQLException, IOException;
 	ArrayList<LangTransact> getUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException;
-
+	boolean updateLangTransaction(HttpServletRequest request,int userid) throws ClassNotFoundException,SQLException,IOException;
 }

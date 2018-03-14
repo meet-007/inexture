@@ -38,4 +38,32 @@ public class LangTransImpl implements LangTransServ {
 		return lt.selectUserLanguages(iduser);
 	}
 
+	public boolean updateLangTransaction(HttpServletRequest request, int iduser) throws ClassNotFoundException,SQLException,IOException {
+		// TODO Auto-generated method stub
+		LangTrans lt = new dao.LangTransaction.LangTransImpl();
+		ArrayList<LangTransact> dblanguages = lt.selectUserLanguages(iduser);
+		String newlanguages[] =  request.getParameterValues("lang");
+		int flag=0;
+			for(String newlang : newlanguages) {
+				for(LangTransact dblang : dblanguages) {
+					if(dblang.getIdlangmaster()==Integer.parseInt(newlang)) {
+						System.out.println("update id"+newlang);
+						dblanguages.remove(dblang);
+						flag=1;
+						break;
+					}
+				}
+				if(flag==0) {
+				System.out.println("insert id"+newlang);
+				}
+				flag=0;
+			} 
+			if(dblanguages.size()>0) {
+			for(LangTransact dblang : dblanguages) {
+				System.out.println("delete id"+dblang.getIdlangmaster());
+			}
+			}
+		return false;
+	}
+
 }
