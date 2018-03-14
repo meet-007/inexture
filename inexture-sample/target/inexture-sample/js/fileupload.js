@@ -27,7 +27,7 @@ $(function() {
 
 
                         div.innerHTML = "<img src='" + picFile.result + "'" +
-                            "title='" + picFile.name + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+                            "title='" + picFile.name + "' id='idimg'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
 
                         $("#media-list").prepend(div);
 

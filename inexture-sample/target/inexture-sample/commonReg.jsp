@@ -1,8 +1,10 @@
+<%@page import="java.util.Base64"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.UserImages"%>
 <%@page import="model.Address"%>
+<%@page import="org.apache.commons.io.IOUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.Date"%>
@@ -268,6 +270,7 @@
 					</div>
 
 					<c:out value="${requestScope.rspmsg}"></c:out>
+					<img id="ItemPreview" src="" />
 				</div>
 			</div>
 		</div>
@@ -315,28 +318,33 @@
  				var idimg = "<%=userImage.getIduser_images()%>";
  				var iduser = "<%=userImage.getIduser()%>";
  				var  img = [];
+ 				var i=0;
  				<%
  				InputStream is = userImage.getImage();
  				int index = 0,i=-2;
- 				while(( i = is.read())!=-1){
- 					%>
- 					img[i]=<%=i%>;
- 					<%
- 					index++;
- 				}
- 				%>
- 				var fh = fopen("c:\\MyFile.jpg", 3); // Open the file for writing
-
- 				if(fh!=-1) // If the file has been successfully opened
- 				{
- 				    var str = "Some text goes here...";
- 				   for (var i = 0; i < img.length; i++) {
- 					  fwrite(fh, img[i]);
- 					}
- 				     
- 				    fclose(fh); // Close the file 
- 				}
  				
+ 					
+ 					%>
+<%--  					img[i]=<%=i%>; --%>
+//  					i=i+1;
+ 					<%
+ 					
+ 				    byte[] bytes = IOUtils.toByteArray(is);
+ 				   String encoded = Base64.getEncoder().encodeToString(bytes);
+ 					
+ 				
+ 				
+ 				System.out.println(index);
+ 				%>
+ 				 var div = document.createElement("li");
+                 div.innerHTML = "<img src='"+"data:image/jpg;base64,"+"<%=encoded%>"+"' />"
+				+"<div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='"+" "+ "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+                 $("#media-list").prepend(div);
+
+ 				var up = document.getElementById("picupload");
+ 				
+<%--  			//	document.getElementById("id").src = "data:image/jpg;base64,"+"<%=encoded%>"; --%>
+
  				<%
  			}
 	}%>
