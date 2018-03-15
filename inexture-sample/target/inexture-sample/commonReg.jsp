@@ -171,7 +171,10 @@
 													<div class="recordset">
 														<div class="fieldRow clearfix">
 															<div class="panel-body" id="pbody">
+															<c:if test="${requestScope.addrslist ne null}">
 															<input type="hidden" name="idaddress" id="id_idaddress_1_">
+															</c:if>
+															
 																<div class="form-group">
 																	<label for="inputEmail3" class="col-sm-2 control-label">Address
 																		line 1</label>
@@ -294,16 +297,16 @@
 	var plusbtn = document.getElementById("btnPlus");
 	<%
 	if(request.getAttribute("addrslist")!=null){
-	Address[] adrs = (Address[]) request.getAttribute("addrslist"); 
- 			for (int i = 0; i<adrs.length; i++) {%> 
+	ArrayList<Address> adrs = (ArrayList<Address>) request.getAttribute("addrslist"); 
+ 			for (int i = 0; i<adrs.size(); i++) {%> 
  	    plusbtn.click();
- 	    var idaddress = "<%=adrs[i].getIdadress()%>";
-		var address1 = "<%=adrs[i].getAddressline1()%>";
-		var address2 = "<%=adrs[i].getAddressline2()%>";
-		var pin = "<%=adrs[i].getPin()%>";
-		var city = "<%=adrs[i].getCity()%>";
-		var state = "<%=adrs[i].getState()%>";
-		var country = "<%=adrs[i].getCountry()%>";
+ 	    var idaddress = "<%=adrs.get(i).getIdadress()%>";
+		var address1 = "<%=adrs.get(i).getAddressline1()%>";
+		var address2 = "<%=adrs.get(i).getAddressline2()%>";
+		var pin = "<%=adrs.get(i).getPin()%>";
+		var city = "<%=adrs.get(i).getCity()%>";
+		var state = "<%=adrs.get(i).getState()%>";
+		var country = "<%=adrs.get(i).getCountry()%>";
 		var idaddrselement = document.getElementById("id_idaddress_"+ <%=i+1%> +"_");
 		var addrselement1 = document.getElementById("id_address1_" + <%=i+1%> + "_");
 		var addrselement2 = document.getElementById("id_address2_" +  <%=i+1%> + "_");

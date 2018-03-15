@@ -10,19 +10,37 @@ import util.DbUtil;
 
 public class LangTransImpl implements LangTrans{
 
-	public int InsertLangTrans(LangTransact[] it) throws ClassNotFoundException, SQLException, IOException {
+	public int InsertLangTrans(ArrayList<LangTransact> it,String operation) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList arr = new ArrayList();
 		int count = 0;
-		for(int i=0;i<it.length;i++)
+		for(int i=0;i<it.size();i++)
 		{
-			arr.add(0,it[i].getIdlangmaster());
-			arr.add(1,it[i].getIduser());
-			if(!DbUtil.dbOperationInsert(INSERT,arr  )) {
-				count ++;
+			arr.add(0,it.get(i).getIdlangmaster());
+			arr.add(1,it.get(i).getIduser());
+			if(operation.equals("insert")) {
+				if(!DbUtil.dbOperationInsert(INSERT,arr  )) {
+					
+				}
+				
+			}else if(operation.equals("update")) {
+				
+				if(!DbUtil.dbOperationInsert(UPDATE,arr  )) {
+					
+				}
+			
+				
+			}else {
+				
+				if(!DbUtil.dbOperationInsert(DELETE,arr  )) {
+					
+				}
+				
 			}
+			count++;
 			arr.remove(0);
 			arr.remove(0);
+			
 		}
 		
 		

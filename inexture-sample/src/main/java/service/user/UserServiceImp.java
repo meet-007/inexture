@@ -87,9 +87,12 @@ public class UserServiceImp implements UserService {
 		if (!userdao.insert(user,"update")) {
 			LangTransServ lts = new LangTransImpl();
 		if (lts.updateLangTransaction(req, iduser)) {
-			
-		}
+			AddressService as = new AddressServiceImpl();
+			if (as.updateAddress(req, iduser)) {
 			response = "update successfull";
+			}
+		}
+			
 		}else
 			response = "update unsuccessfull";
 		return response;

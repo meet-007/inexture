@@ -18,6 +18,7 @@ import service.LangTransaction.LangTransServ;
 
 import javax.servlet.http.HttpSession;
 import model.Address;
+import java.util.ArrayList;
 
 /**
  * Servlet implementation class UpdateProfile
@@ -44,7 +45,7 @@ public class UpdateProfile extends HttpServlet {
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("user");
 			AddressService adrserv = new AddressServiceImpl();
-			Address[] adrsarr = adrserv.getUserAddress(user.getIduser());
+			ArrayList<Address> adrsarr = adrserv.getUserAddress(user.getIduser());
 			request.setAttribute("addrslist", adrsarr);
 			LangTransServ lts = new LangTransImpl();
 			ImageService imgserv = new ImageServiceImpl();
