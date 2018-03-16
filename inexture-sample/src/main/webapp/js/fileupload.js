@@ -99,15 +99,35 @@ $(function() {
     });
 
     $('body').on('click', '.remove-pic', function() {
-        $(this).parent().parent().parent().remove();
-        var removeItem = $(this).attr('data-id');
-        var yet = names.indexOf(removeItem);
+    		
+    		
+    		 if( $(this).attr('id') == undefined){
+    		 $(this).parent().parent().parent().remove();
+    	        var removeItem = $(this).attr('data-id');
+    	        var yet = names.indexOf(removeItem);
 
-        if (yet != -1) {
-            names.splice(yet, 1);
-        }
-        // return array of file name
-        console.log(names);
+    	        if (yet != -1) {
+    	            names.splice(yet, 1);
+    	        }
+    	        // return array of file name
+    	        console.log(names);
+    		 }else{
+    			 var id = $(this).attr('id');
+        		 
+        		 var div = "<input type='hidden' name='delimg' value='"+id+"'>";
+        		 $("#media-list").prepend(div);
+        		 $(this).parent().parent().parent().remove();
+     	        var removeItem = $(this).attr('data-id');
+     	        var yet = names.indexOf(removeItem);
+
+     	        if (yet != -1) {
+     	            names.splice(yet, 1);
+     	        }
+     	        // return array of file name
+     	        console.log(names);
+    		 }
+    	        
+       
     });
     $('#hint_brand').on('hidden.bs.modal', function(e) {
         names = [];

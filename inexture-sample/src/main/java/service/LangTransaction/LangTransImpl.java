@@ -128,7 +128,7 @@ public class LangTransImpl implements LangTransServ {
 //		}
 		}
 		if(updated.size()>0) {
-			rowsAffected += langtrans.InsertLangTrans(newlangarr,"update");	
+			rowsAffected += langtrans.InsertLangTrans(newlangarr,"insert");	
 		}
 		if(rowsAffected>0) {
 			return true;

@@ -21,6 +21,7 @@ public class AddressServiceImpl implements AddressService {
 		String city[] = request.getParameterValues("city");
 		String state[] = request.getParameterValues("state");
 		String country[] = request.getParameterValues("country");
+		String idaddress[] = request.getParameterValues("idaddress");
 		int noOfAddressDetails = country.length;
 		ArrayList<Address> adrs = new ArrayList<Address>();
 		for (int i = 0; i < noOfAddressDetails; i++) {
@@ -33,7 +34,9 @@ public class AddressServiceImpl implements AddressService {
 		    address.setCountry(country[i]);
 		    address.setIduser(iduser);
 		    if(request.getParameter("idaddress")!=null) {
-		    	address.setIdadress(Integer.parseInt(request.getParameter("idaddress")));
+		    	if(!idaddress[i].equals("x")) {
+		    	address.setIdadress(Integer.parseInt(idaddress[i]));
+		    	}
 		    }
 		    adrs.add(address);
 		    
@@ -90,10 +93,10 @@ public class AddressServiceImpl implements AddressService {
 		}
 		
 		if(updateaddrs.size()>0) {
-			rowsAffected += ado.insertAddress(oldaddresslist, "update");
+			rowsAffected += ado.insertAddress(updateaddrs, "update");
 		}
 		if(insertaddrs.size()>0) {
-			rowsAffected += ado.insertAddress(oldaddresslist, "insert");
+			rowsAffected += ado.insertAddress(insertaddrs, "insert");
 		}
 		if(rowsAffected>0) {
 			return true;

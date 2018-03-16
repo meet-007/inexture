@@ -172,7 +172,7 @@
 														<div class="fieldRow clearfix">
 															<div class="panel-body" id="pbody">
 															<c:if test="${requestScope.addrslist ne null}">
-															<input type="hidden" name="idaddress" id="id_idaddress_1_">
+															<input type="hidden" name="idaddress" id="id_idaddress_1_" value="x">
 															</c:if>
 															
 																<div class="form-group">
@@ -330,25 +330,14 @@
  				var  img = [];
  				var i=0;
  				<%
- 				InputStream is = userImage.getImage();
- 				int index = 0,i=-2;
- 				
- 					
- 					%>
-<%--  					img[i]=<%=i%>; --%>
-//  					i=i+1;
- 					<%
- 					
+ 					InputStream is = userImage.getImage();
  				    byte[] bytes = IOUtils.toByteArray(is);
- 				   String encoded = Base64.getEncoder().encodeToString(bytes);
- 					
- 				
- 				
- 				System.out.println(index);
+ 				   	String encoded = Base64.getEncoder().encodeToString(bytes);
+ 			
  				%>
  				 var div = document.createElement("li");
                  div.innerHTML = "<img src='"+"data:image/jpg;base64,"+"<%=encoded%>"+"' />"
-				+"<div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='"+" "+ "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+				+"<div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' id='"+idimg+"'  class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
                  $("#media-list").prepend(div);
 
  				var up = document.getElementById("picupload");

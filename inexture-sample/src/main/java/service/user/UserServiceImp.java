@@ -79,22 +79,21 @@ public class UserServiceImp implements UserService {
 		return userdao.selectUser(email,pass);
 	}
 
-	public String updateUser(HttpServletRequest req, int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException {
+	public String updateUser(HttpServletRequest req, int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException , ServletException {
 		// TODO Auto-generated method stub
 		User user = UserServiceImp.setParams(req);
 		user.setIduser(iduser);
 		UserDao userdao = new UserDaoImpl();
-		if (!userdao.insert(user,"update")) {
+		userdao.insert(user,"update");
 			LangTransServ lts = new LangTransImpl();
-		if (lts.updateLangTransaction(req, iduser)) {
+		lts.updateLangTransaction(req, iduser);
 			AddressService as = new AddressServiceImpl();
-			if (as.updateAddress(req, iduser)) {
+			as.updateAddress(req, iduser);
 			response = "update successfull";
-			}
-		}
+			ImageService is = new ImageServiceImpl();
+			is.UpdateImage(req, iduser);
 			
-		}else
-			response = "update unsuccessfull";
+		
 		return response;
 	}
 }

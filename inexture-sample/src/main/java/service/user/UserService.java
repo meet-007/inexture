@@ -14,5 +14,5 @@ import model.User;
 public interface UserService {
 	String regesterUser(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException;
 	User getUser(String email,String pass) throws ClassNotFoundException, SQLException, IOException;
-	String updateUser(HttpServletRequest req,int idUser) throws ClassNotFoundException,ParseException,SQLException,IOException;
+	String updateUser(HttpServletRequest req,int idUser) throws ClassNotFoundException,ParseException,SQLException,IOException, ServletException;
 }

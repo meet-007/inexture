@@ -39,6 +39,7 @@ public class AddressDaoImpl implements AddressDao {
 			
 				
 			}else {
+				arr.removeAll(arr);
 				arr.add(it.get(i).getIdadress());
 				if(!DbUtil.dbOperationInsert(DELETE,arr  )) {
 					
