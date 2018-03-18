@@ -29,6 +29,9 @@
 			</a></li>
 			<li><a href="UpdateProfile">Update profile</a></li>
 			<li><a href="#">Home</a></li>
+			<c:if test="${sessionScope.user.role eq 1}">
+			<li><a href="ShowAllUser">Manage Users</a></li>
+			</c:if>
 			<li><a href="#">About</a></li>
 			<li><a href="#">Events</a></li>
 			<li><a href="#">Team</a></li>

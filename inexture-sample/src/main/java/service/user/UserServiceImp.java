@@ -75,7 +75,6 @@ public class UserServiceImp implements UserService {
 	public User getUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		UserDao userdao = new UserDaoImpl();
-		
 		return userdao.selectUser(email,pass);
 	}
 
@@ -95,5 +94,10 @@ public class UserServiceImp implements UserService {
 			
 		
 		return response;
+	}
+
+	public ArrayList<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		return new dao.user.UserDaoImpl().selectAllUser(role);
 	}
 }

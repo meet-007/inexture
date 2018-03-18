@@ -114,13 +114,14 @@ public class ImageServiceImpl implements ImageService {
 		ArrayList<UserImages> dbimages = it.selectImages(iduser);
 		ArrayList<UserImages> newimages = ImageServiceImpl.setParams(request, iduser);
 		List<UserImages> updated = new ArrayList<UserImages>();
+		List<UserImages> deleted = new ArrayList<UserImages>();
 		int rowsAffected = 0;
-		UserImages dbimage=null;
 		int flag = 0;
 		for (UserImages newimage : newimages) {
-			for (dbimage : dbimages) {
+			for (UserImages dbimage : dbimages) {
 				if (dbimage.getIduser_images() == newimage.getIduser_images()) {
 					System.out.println("Delete id" + newimage.getIduser_images());
+					deleted.add(dbimage);
 					flag = 1;
 					break;
 				}
@@ -128,16 +129,15 @@ public class ImageServiceImpl implements ImageService {
 			}
 			if (flag == 0) {
 				updated.add(newimage);
-				dbimages.remove(dbimage);
 				// rowsAffected += langtrans.InsertLangTrans(newlang,"update");
 			}
 			flag = 0;
 		}
-		if (dbimages.size() > 0) {
-			rowsAffected = it.insertImage(dbimages, "delete");
+		if (deleted.size() > 0) {
+			rowsAffected = it.insertImage((ArrayList<UserImages>)deleted, "delete");
 		}
 		if (updated.size() > 0) {
-			rowsAffected += it.insertImage(newimages, "insert");
+			rowsAffected += it.insertImage((ArrayList<UserImages>)updated, "insert");
 		}
 		if (rowsAffected > 0) {
 			return true;

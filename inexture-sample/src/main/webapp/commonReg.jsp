@@ -28,7 +28,15 @@
 				<div class="section-header text-center"></div>
 				<div class="col-md-8 col-md-offset-2">
 					<div class="contact-form">
+						<c:choose>
+						<c:when test="${not empty param.email}">
+						<c:set var="user" value="${requestScope.user}"></c:set>
+						</c:when>
+						<c:otherwise>
 						<c:set var="user" value="${sessionScope.user}"></c:set>
+						</c:otherwise>
+						</c:choose>
+<%-- 						<c:set var="user" value="${sessionScope.user}"></c:set> --%>
 						<form name="myform" class="form-horizontal" enctype="multipart/form-data"
 							action="RegUser" method="POST">
 							<div class="form-group">

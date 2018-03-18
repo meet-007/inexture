@@ -15,6 +15,7 @@ import service.Image.ImageService;
 import service.Image.ImageServiceImpl;
 import service.LangTransaction.LangTransImpl;
 import service.LangTransaction.LangTransServ;
+import service.user.UserServiceImp;
 
 import javax.servlet.http.HttpSession;
 import model.Address;
@@ -41,9 +42,16 @@ public class UpdateProfile extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-
+			User user = null;
+			if(request.getParameter("email")!=null) {
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
+				user = new UserServiceImp().getUser(email, password);
+				request.setAttribute("user",user);
+			}else {
 			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute("user");
+			user = (User) session.getAttribute("user");
+			}
 			AddressService adrserv = new AddressServiceImpl();
 			ArrayList<Address> adrsarr = adrserv.getUserAddress(user.getIduser());
 			request.setAttribute("addrslist", adrsarr);
