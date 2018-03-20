@@ -20,5 +20,5 @@ public interface UserService {
 	User getUser(int iduser) throws ClassNotFoundException, SQLException, IOException;
 	boolean deleteUser(int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException;
 	String updatePass(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException;
-
+	boolean checkUserExist(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException;
 }

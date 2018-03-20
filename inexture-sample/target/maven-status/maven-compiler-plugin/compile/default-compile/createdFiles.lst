@@ -1,5 +1,6 @@
 controller\login\Logout.class
 dao\Image\ImageDaoImpl.class
+controller\general\CheckUser.class
 dao\Lang\LangDao.class
 util\DbUtil.class
 service\Image\ImageServiceImpl.class
@@ -39,6 +40,7 @@ service\Lang\LangServ.class
 dao\Address\AddressDao.class
 model\LangMaster.class
 service\Address\AddressService.class
+controller\general\ChngPassServ.class
 dao\user\UserDaoImpl.class
 model\LangTransact.class
 controller\registration\ShowRegServ.class

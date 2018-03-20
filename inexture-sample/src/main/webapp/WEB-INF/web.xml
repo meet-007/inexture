@@ -78,6 +78,20 @@
 		<servlet-name>ForgotPassServ</servlet-name>
 		<servlet-class>controller.login.ForgotPassServ</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ChngPassServ</display-name>
+		<servlet-name>ChngPassServ</servlet-name>
+		<servlet-class>controller.general.ChngPassServ</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>CheckUser</display-name>
+		<servlet-name>CheckUser</servlet-name>
+		<servlet-class>controller.general.CheckUser</servlet-class>
+	</servlet>
 	<!--mapping -->
 	<servlet-mapping>
 		<servlet-name>UserHome</servlet-name>
@@ -118,5 +132,13 @@
 	<servlet-mapping>
 		<servlet-name>ForgotPassServ</servlet-name>
 		<url-pattern>/ForgotPassServ</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChngPassServ</servlet-name>
+		<url-pattern>/ChngPassServ</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckUser</servlet-name>
+		<url-pattern>/CheckUser</url-pattern>
 	</servlet-mapping>
 </web-app>

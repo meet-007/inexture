@@ -45,7 +45,7 @@
 					<li><a href="#">Separated link</a></li>
 					<li><a href="#">One more separated link</a></li>
 				</ul></li>
-			<li><a href="#">Services</a></li>
+			<li><a href="ChangePass.jsp">Change Password</a></li>
 			<li><a href="Logout">logout</a><br /></li>
 			<li><a href="https://twitter.com/maridlcrmn">Follow me</a></li>
 		</ul>

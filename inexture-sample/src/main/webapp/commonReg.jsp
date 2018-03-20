@@ -62,11 +62,12 @@
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputPassword3"
+									<input type="text" class="form-control" id="emailid"
 										placeholder="johndoe@example.com" name="email"
 										${(requestScope.addrslist ne null) ? 'readonly' : ''}
 										value="${user.email}">
 								</div>
+								<p id="demo"></p>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
@@ -275,11 +276,11 @@
 							<div class="form-group">
 								<div>
 								<c:choose>
-								<c:when test="${empty requestScope.addrslist}">
-									<button type="submit" class="btn btn-primary">Sign Up</button>
+								<c:when test="${pageContext.request.servletPath eq '/Registration.jsp'}">
+									<button type="button" id="mybtn" class="btn btn-primary" onclick="frmsubmit()">Sign Up</button>
 								</c:when>
 								<c:otherwise>
-									<button type="submit" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
+									<button type="submit" id="mybtn" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
 								</c:otherwise>
 								</c:choose>
 								</div>
@@ -357,5 +358,35 @@
 	}%>
 		
 	</script> 
+	<script>
+	function checkUser(){
+		$(document).ready(function() {
+			
+				$.ajax({
+					url : 'CheckUser',
+					data : {
+						email : $('#emailid').val()
+					},
+					success : function(responseText) {
+					//	$('#ajaxGetUserServletResponse').text(responseText);
+					var obj = xhttp.responseText;
+			     	var jobj = JSON.parse(obj);
+			     	if(jobj.bool === '0') {
+			    	 return true;
+			     	}else{
+			    	 $("#demo").innerHTML = "email already exist";
+			    	 return false;
+			     	}
+					}
+				});
+			});
+		
+		}
+	function frmsubmit(){
+		if(checkUser()){
+			$(".myform").submit();
+		}
+	}
+	</script>
 </body>
 </html>

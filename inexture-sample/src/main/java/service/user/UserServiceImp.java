@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import dao.user.UserDao;
 import dao.user.UserDaoImpl;
@@ -22,6 +23,7 @@ import service.LangTransaction.*;
 
 public class UserServiceImp implements UserService {
 	String response = ""; // response message
+
 	public static User setParams(HttpServletRequest req) throws ParseException {
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
@@ -48,51 +50,52 @@ public class UserServiceImp implements UserService {
 		user.setTech(Integer.parseInt(tech));
 		return user;
 	}
-	
-	public String regesterUser(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+
+	public String regesterUser(HttpServletRequest req)
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
 		// TODO Auto-generated method stub
-	
-		
+
 		User user = UserServiceImp.setParams(req);
-		
+
 		int userid = 0;
 		UserDao userdao = new UserDaoImpl(); // creating dao object
-		if (!userdao.insert(user,"insert")) { // calling dao method
+		if (!userdao.insert(user, "insert")) { // calling dao method
 			userid = userdao.selectUserId(user.getMobile());
 			AddressService as = new AddressServiceImpl();
 			if (as.addAddress(req, userid)) {
 				LangTransServ its = new LangTransImpl();
 				if (its.addLangTransaction(req, userid)) {
 					ImageService is = new ImageServiceImpl();
-					if(is.SaveImage(req, userid))
+					if (is.SaveImage(req, userid))
 						response = "Registration successfull";
 				}
-			}else
+			} else
 				response = "Registration unsuccessfull";
-		}return response;
-}
+		}
+		return response;
+	}
 
 	public User getUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		UserDao userdao = new UserDaoImpl();
-		return userdao.selectUser(email,pass);
+		return userdao.selectUser(email, pass);
 	}
 
-	public String updateUser(HttpServletRequest req, int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException , ServletException {
+	public String updateUser(HttpServletRequest req, int iduser)
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
 		// TODO Auto-generated method stub
 		User user = UserServiceImp.setParams(req);
 		user.setIduser(iduser);
 		UserDao userdao = new UserDaoImpl();
-		userdao.insert(user,"update");
-			LangTransServ lts = new LangTransImpl();
+		userdao.insert(user, "update");
+		LangTransServ lts = new LangTransImpl();
 		lts.updateLangTransaction(req, iduser);
-			AddressService as = new AddressServiceImpl();
-			as.updateAddress(req, iduser);
-			response = "update successfull";
-			ImageService is = new ImageServiceImpl();
-			is.UpdateImage(req, iduser);
-			
-		
+		AddressService as = new AddressServiceImpl();
+		as.updateAddress(req, iduser);
+		response = "update successfull";
+		ImageService is = new ImageServiceImpl();
+		is.UpdateImage(req, iduser);
+
 		return response;
 	}
 
@@ -112,29 +115,52 @@ public class UserServiceImp implements UserService {
 		User u = new User();
 		u.setIduser(iduser);
 		String msg = "";
-		
+
 		return new UserDaoImpl().insert(u, "delete");
 	}
-	
-	
 
 	public String updatePass(HttpServletRequest req)
 			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
 		// TODO Auto-generated method stub
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
 		String resp = "";
+		User u = null;
 		UserDao udao = new UserDaoImpl();
-		User u = udao.selectUser(email);
-		if(u != null) {
-			u.setPassword(password);
-			if(!udao.updatePassword(u)) {
-				resp = "password updated";
+		if (req.getParameter("email") != null && req.getParameter("password") != null) {
+			String email = req.getParameter("email");
+			String password = req.getParameter("password");
+			u = udao.selectUser(email);
+			if (u != null) {
+				u.setPassword(password);
+				if (!udao.updatePassword(u)) {
+					resp = "password updated";
+				}
+			} else {
+				resp = "user not found ! please try again";
+			}
+		} else {
+			HttpSession session = req.getSession();
+			u = (User)session.getAttribute("user");
+			if (u.getPassword().equals(req.getParameter("oldpass"))) {
+				u.setPassword(req.getParameter("newpass"));
+				if (!udao.updatePassword(u)) {
+					resp = "password updated";
+				}
+			}else {
+				resp = "user not found ! please try again";
 			}
 		}
-		else {
-			resp = "user not found ! please try again";
-		}
+
 		return resp;
+	}
+
+	
+	public boolean checkUserExist(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		String email = req.getParameter("email");
+		User u = new UserDaoImpl().selectUser(email);
+		if(u!=null) {
+			return true;
+		}
+		return false;
 	}
 }
