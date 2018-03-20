@@ -10,6 +10,7 @@ model\Address.class
 model\UserImages.class
 dao\Lang\LangDaoImpl.class
 controller\Update.class
+controller\Admin\DeleteUserServ.class
 model\Role.class
 dao\user\UserDao.class
 service\Tech\TechServ.class
@@ -18,6 +19,7 @@ dao\LangTransaction\LangTrans.class
 model\TechMaster.class
 service\Address\AddressServiceImpl.class
 model\User.class
+controller\login\ForgotPassServ.class
 dao\Role\RoleDao.class
 service\LangTransaction\LangTransImpl.class
 service\user\UserService.class

@@ -17,4 +17,8 @@ public interface UserService {
 	User getUser(String email,String pass) throws ClassNotFoundException, SQLException, IOException;
 	String updateUser(HttpServletRequest req,int idUser) throws ClassNotFoundException,ParseException,SQLException,IOException, ServletException;
 	ArrayList<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException;
+	User getUser(int iduser) throws ClassNotFoundException, SQLException, IOException;
+	boolean deleteUser(int iduser) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException;
+	String updatePass(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException;
+
 }

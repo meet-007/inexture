@@ -64,6 +64,20 @@
 		<servlet-name>ShowAllUser</servlet-name>
 		<servlet-class>controller.Admin.ShowAllUser</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>DeleteUserServ</display-name>
+		<servlet-name>DeleteUserServ</servlet-name>
+		<servlet-class>controller.Admin.DeleteUserServ</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ForgotPassServ</display-name>
+		<servlet-name>ForgotPassServ</servlet-name>
+		<servlet-class>controller.login.ForgotPassServ</servlet-class>
+	</servlet>
 	<!--mapping -->
 	<servlet-mapping>
 		<servlet-name>UserHome</servlet-name>
@@ -96,5 +110,13 @@
 	<servlet-mapping>
 		<servlet-name>ShowAllUser</servlet-name>
 		<url-pattern>/ShowAllUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteUserServ</servlet-name>
+		<url-pattern>/DeleteUserServ</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ForgotPassServ</servlet-name>
+		<url-pattern>/ForgotPassServ</url-pattern>
 	</servlet-mapping>
 </web-app>

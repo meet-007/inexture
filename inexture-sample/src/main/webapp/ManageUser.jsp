@@ -7,8 +7,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script src="js/jquery.min.js"></script>
+<script>
+function getData(httpreq){
+	 document.getElementById("demo").innerHTML = httpreq.responseText;
+}
+$(document).ready(function(){
+	$(".btn").click(function(){
+	var id = $(this).attr("id");
+	var row = $(this);
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "DeleteUserServ?iduser="+id, true);
+	xhttp.send();
+	 xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		     // getData(xhttp);
+		     var obj = xhttp.responseText;
+		     var jobj = JSON.parse(obj);
+		     if(jobj.bool === '0') {
+		    	 document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
+		    	 $(row).parents("tr").hide();
+		     }else{
+		    	 document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
+		     }
+		    }
+	 		  };
+	});
+	});
+</script>
 </head>
 <body>
+<p id="demo"></p>
 	<jsp:include page="header-footer/newheader.jsp"></jsp:include>
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
@@ -20,9 +49,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 col-sm-offset-2">
-					<h3>
-						Users list
-					</h3>
+					<h3>Users list</h3>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -39,16 +66,16 @@
 							<c:set var="index" value="1"></c:set>
 							<c:forEach var="user" items="${requestScope.userslist}">
 								<tr>
-								
+
 									<td><c:out value="${index}"></c:out></td>
 									<td><c:out value="${user.firstname} ${user.lastname}"></c:out></td>
 									<td><c:out value="${user.email}"></c:out></td>
 									<td><c:out value="${user.mobile}"></c:out></td>
-									<td>
-									<c:out value="${(user.gender eq 0)?'male':''}"></c:out>
-									<c:out value="${(user.gender eq 1)?'female':''}"></c:out></td>
-									<td><a href="UpdateProfile?email=<c:out value="${user.email}"></c:out>&password=<c:out value="${user.password}"></c:out>">edit</a></td>
-									<td><a href="UpdateProfile?user=<c:out value="${user}"></c:out>">delete</a></td>
+									<td><c:out value="${(user.gender eq 0)?'male':''}"></c:out>
+										<c:out value="${(user.gender eq 1)?'female':''}"></c:out></td>
+									<td><a
+										href="UpdateProfile?iduser=<c:out value="${user.iduser}"></c:out>">edit</a></td>
+									<td><button type="button" class="btn" id="<c:out value ="${user.iduser}"></c:out>">delete</button></td>
 								</tr>
 								<c:set var="index" value="${index+1}"></c:set>
 							</c:forEach>

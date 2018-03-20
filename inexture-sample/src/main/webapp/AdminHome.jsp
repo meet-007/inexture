@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 
 </head>
-<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+<body>
 <jsp:include page="header-footer/newheader.jsp"></jsp:include>
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -28,10 +28,10 @@
         <!-- /#page-content-wrapper -->
 </div>
 
-<script>
-window.history.forward();
-	function noBack() { window.history.forward(); }
-	</script>
+<!-- <script> -->
+// window.history.forward();
+// 	function noBack() { window.history.forward(); }
+<!-- 	</script> -->
 
 </body>
 </html>>

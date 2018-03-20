@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/login.css">
-<script src="js/login.js"></script>
-<script>
-window.history.forward();
-	function noBack() { window.history.forward(); }
-	</script>
+
 </head>
-<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <jsp:include page="header-footer/header.jsp"></jsp:include>
 	<div class="container">
 
@@ -22,12 +17,12 @@ window.history.forward();
 
 			<div class="col-md-4">
 				<section class="login-form">
-				<form method="post" action="LoginFilter" role="login">
+				<form method="post" action="ForgotPassServ" role="login">
 					<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
-						alt="" /> <input type="email" name="email" placeholder="Email"
+						alt="" /> <input type="email" name="email" placeholder="Registered Email"
 						required class="form-control input-lg"
 						value="" /> <input type="password"
-						class="form-control input-lg" id="password" placeholder="Password"
+						class="form-control input-lg" id="password" placeholder="New  Password"
 						required="" name="password" />
 
 
@@ -35,9 +30,8 @@ window.history.forward();
 					
 
 					<button type="submit" name="go"
-						class="btn btn-lg btn-primary btn-block">Sign in</button>
+						class="btn btn-lg btn-primary btn-block">Update</button>
 					<div>
-						<a href="ShowRegServ">Create account</a> or <a href="ForgotPassword.jsp">forgot password</a>
 					</div>
 					<c:out value="${requestScope.rspmsg}"></c:out>
 				</form>
@@ -54,6 +48,6 @@ window.history.forward();
 
 
 	</div>
-	
+	<script src="js/login.js"></script>
 </body>
 </html>

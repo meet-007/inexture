@@ -1,6 +1,8 @@
 package controller.login;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -36,6 +38,7 @@ public class LoginFilter implements Filter {
 	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
+		System.out.println("hello0000000000000000000");
 	}
 
 	/**
@@ -65,6 +68,8 @@ public class LoginFilter implements Filter {
 				}else {
 					// pass the request along the filter chain
 					chain.doFilter(request, response);
+					PrintWriter pt = response.getWriter();
+					pt.println("asdfffffffffff");
 				}
 			}
 			else {
@@ -89,6 +94,8 @@ public class LoginFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
+		System.out.println("filter initiallizeddddddddddddddddddd");
+		
 	}
 
 }

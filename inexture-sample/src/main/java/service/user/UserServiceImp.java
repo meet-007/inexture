@@ -100,4 +100,41 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		return new dao.user.UserDaoImpl().selectAllUser(role);
 	}
+
+	public User getUser(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		UserDao userdao = new UserDaoImpl();
+		return userdao.selectUser(iduser);
+	}
+
+	public boolean deleteUser(int iduser)
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+		// TODO Auto-generated method stub
+		User u = new User();
+		u.setIduser(iduser);
+		String msg = "";
+		
+		return new UserDaoImpl().insert(u, "delete");
+	}
+	
+	
+
+	public String updatePass(HttpServletRequest req)
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+		// TODO Auto-generated method stub
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		String resp = "";
+		UserDao udao = new UserDaoImpl();
+		User u = udao.selectUser(email);
+		if(u != null) {
+			u.setPassword(password);
+			if(!udao.updatePassword(u)) {
+				resp = "password updated";
+			}
+		}
+		else {
+			resp = "user not found ! please try again";
+		}
+		return resp;
+	}
 }

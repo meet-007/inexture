@@ -43,10 +43,9 @@ public class UpdateProfile extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			User user = null;
-			if(request.getParameter("email")!=null) {
-				String email = request.getParameter("email");
-				String password = request.getParameter("password");
-				user = new UserServiceImp().getUser(email, password);
+			if(request.getParameter("iduser")!=null) {
+				int iduser = Integer.parseInt(request.getParameter("iduser"));
+				user = new UserServiceImp().getUser(iduser);
 				request.setAttribute("user",user);
 			}else {
 			HttpSession session = request.getSession();

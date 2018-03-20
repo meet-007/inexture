@@ -29,7 +29,7 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="contact-form">
 						<c:choose>
-						<c:when test="${not empty param.email}">
+						<c:when test="${not empty param.iduser}">
 						<c:set var="user" value="${requestScope.user}"></c:set>
 						</c:when>
 						<c:otherwise>
@@ -279,7 +279,7 @@
 									<button type="submit" class="btn btn-primary">Sign Up</button>
 								</c:when>
 								<c:otherwise>
-									<button type="submit" class="btn btn-primary" onclick='document.myform.action="UpdateServ"'>Update</button>
+									<button type="submit" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
 								</c:otherwise>
 								</c:choose>
 								</div>

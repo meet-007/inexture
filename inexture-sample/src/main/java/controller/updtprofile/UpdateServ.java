@@ -35,8 +35,17 @@ public class UpdateServ extends HttpServlet {
 		// TODO Auto-generated method stub
 		String rspmsg = null;
 		try {
-			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute("user");
+			User user = null;
+			HttpSession session = null;
+			if(request.getParameter("iduser")==null) {
+				session = request.getSession();
+				user = (User) session.getAttribute("user");	
+			}else {
+				int iduser = Integer.parseInt(request.getParameter("iduser"));
+				user = new UserServiceImp().getUser(iduser);
+				request.setAttribute("user",user);
+			}
+			
 			rspmsg = new UserServiceImp().updateUser(request, user.getIduser());
 			session.removeAttribute("user");
 			session.setAttribute("user",new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
