@@ -32,16 +32,16 @@ public class CheckUser extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		boolean result = false;
-		PrintWriter out = null;
+		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		String json = "";
 		try {
 			UserService userserv = new UserServiceImp();
 			result = userserv.checkUserExist(request);
 			if (result) {
-				json = "{\"bool\":\"0\"}";
+				json = "{\"result\":\"Email id already exist try another email \",\"bool\":\"0\"}";
 			} else {
-				json = "{\"bool\":\"1\"}";
+				json = "{\"result\":\"\",\"bool\":\"1\"}";
 			}
 		} catch (Exception e) {
 			// msg = e.getMessage();

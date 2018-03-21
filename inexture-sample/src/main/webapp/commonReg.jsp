@@ -67,8 +67,9 @@
 										${(requestScope.addrslist ne null) ? 'readonly' : ''}
 										value="${user.email}">
 								</div>
-								<p id="demo"></p>
+								
 							</div>
+							<div id="demo"></div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 								<div class="col-sm-10">
@@ -277,7 +278,7 @@
 								<div>
 								<c:choose>
 								<c:when test="${pageContext.request.servletPath eq '/Registration.jsp'}">
-									<button type="button" id="mybtn" class="btn btn-primary" onclick="frmsubmit()">Sign Up</button>
+									<button type="button" id="mybtn" class="btn btn-primary" onclick="checkUser()">Sign Up</button>
 								</c:when>
 								<c:otherwise>
 									<button type="submit" id="mybtn" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
@@ -360,7 +361,6 @@
 	</script> 
 	<script>
 	function checkUser(){
-		$(document).ready(function() {
 			
 				$.ajax({
 					url : 'CheckUser',
@@ -369,17 +369,18 @@
 					},
 					success : function(responseText) {
 					//	$('#ajaxGetUserServletResponse').text(responseText);
-					var obj = xhttp.responseText;
-			     	var jobj = JSON.parse(obj);
-			     	if(jobj.bool === '0') {
+					var obj = responseText;
+			     	
+			     	if(obj.bool === '1') {
+			     	$("#demo").html("");
 			    	 return true;
 			     	}else{
-			    	 $("#demo").innerHTML = "email already exist";
+			    	 $("#demo").html(obj.result);
 			    	 return false;
 			     	}
 					}
 				});
-			});
+		
 		
 		}
 	function frmsubmit(){
