@@ -15,7 +15,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/fileupload.css">
 </head>
 <body>
@@ -37,69 +36,94 @@
 						</c:otherwise>
 						</c:choose>
 <%-- 						<c:set var="user" value="${sessionScope.user}"></c:set> --%>
-						<form name="myform" class="form-horizontal" enctype="multipart/form-data"
-							action="RegUser" method="POST">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">First
+						<form id="myform" class="form-horizontal" enctype="multipart/form-data"
+							action="RegUser" method="POST" data-toggle="validator" >
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">First
 									Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputEmail3"
+									<input type="text" class="form-control" id="inputName"
 										name="fname"
 										placeholder="Enter your first name example 'john'"
-										value="${user.firstname}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Last
-									Name</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputPassword3"
-										name="lname" placeholder="Enter your last name example 'Doe'"
-										value="${user.lastname}">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Email</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="emailid"
-										placeholder="johndoe@example.com" name="email"
-										${(requestScope.addrslist ne null) ? 'readonly' : ''}
-										value="${user.email}">
+										value="${user.firstname}" data-error="first name should not be blank"  required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
 								</div>
 								
 							</div>
-							<div id="demo"></div>
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+							
+							<div class="form-group has-feedback">
+								<label class="col-sm-2 control-label">Last
+									Name</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="inputPassword3"
-										value="${user.password}" placeholder="1@Mypass" name="pass"
-										${(requestScope.addrslist ne null) ? 'readonly' : ''}>
+									<input type="text" class="form-control" id="inputlname"
+										name="lname" placeholder="Enter your last name example 'Doe'"
+										value="${user.lastname}" data-error="last name should not be blank" required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Moblie</label>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputPassword3"
-										placeholder="8844662211" name="mobile" value="${user.mobile}">
+									<input type="email" class="form-control" id="inputemailid"
+										placeholder="johndoe@example.com" name="email"
+										${(requestScope.addrslist ne null) ? 'readonly' : ''}
+										value="${user.email}" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format"required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
+										<div id="demo" class="help-block with-errors"></div>
+								</div>
+								
+							</div>
+							<div class="form-group has-feedback" >
+								<label  class="col-sm-2 control-label">Password</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" id="inputPassword"
+										value="${user.password}" placeholder="1@Mypass" name="pass"
+										${(requestScope.addrslist ne null) ? 'readonly' : ''} data-minlength="6" required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
+								</div>
+							</div>
+							<c:out value="${pageContext.request.servletPath}"></c:out>
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">Confirm Password</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control"
+										value="${user.password}" placeholder="1@Mypass" 
+										${(user ne null) ? 'hidden' : ''} data-minlength="6" data-match="#inputPassword"
+										 data-match-error="Whoops, these don't match" placeholder="Confirm password" required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
+								</div>
+							</div>
+
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">Moblie</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="inputmobile"
+										placeholder="8844662211" name="mobile" value="${user.mobile}" pattern="^[0-9]+$" maxlength="10" required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
 								</div>
 							</div>
 							<fmt:formatDate value="${user.dob}" pattern="yyyy-MM-dd"
 								var="date" />
 
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Date
+							<div class="form-group has-feedback">
+								<label  class="col-sm-2 control-label">Date
 									of birth</label>
 								<div class="col-sm-10">
-									<input type="date" class="form-control" id="inputPassword3"
-										placeholder="21/2/1997" name="dob" value="${date}">
+									<input type="date" class="form-control" id="inputdob"
+										placeholder="21/2/1997" name="dob" value="${date}" required>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+										<div class="help-block with-errors"></div>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">image</label>
+								<label class="col-sm-2 control-label">image</label>
 								<div class="col-sm-10">
 									<ul id="media-list" class="clearfix">
 										<li class="myupload"><span><i class="fa fa-plus"
@@ -111,12 +135,12 @@
 
 
 
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Technology</label>
+							<div class="form-group has-feedback" >
+								<label class="col-sm-2 control-label">Technology</label>
 								<div class="col-sm-10">
-									<select class="form-control" name="tech">
+									<select class="form-control" name="tech" data-error="please select any one" required>
 
-
+										  <option value="">None</option>
 										<c:forEach items="${requestScope.tech}" var="technologies">
 
 											<option value="${technologies.idtech}"
@@ -126,46 +150,51 @@
 
 										</c:forEach>
 									</select>
+									
+									<div class="help-block with-errors"></div>
 								</div>
 							</div>
+							<div class="form-group has-feedback">
 							<div class="radio">
-								<label for="inputPassword3" class="col-sm-2 control-label">gender</label>
+								<label  class="col-sm-2 control-label">gender</label>
 								<div class="col-sm-10">
 									<label class="radio-inline"> <input type="radio"
 										value="0" name="gender"
-										${(user.gender eq '0')? 'checked':''}> Male
+										${(user.gender eq '0')? 'checked':''} required> Male
 									</label> <label class="radio-inline"> <input type="radio"
 										value="1" name="gender"
-										${(user.gender eq '1')? 'checked':''}>
+										${(user.gender eq '1')? 'checked':''} required>
 										Female
 									</label>
 								</div>
+							</div>
 							</div>
 							<c:forEach var="lang" items="${requestScope.languages}">
 
 								<c:out value="${lang.idlangmaster}"></c:out>
 							</c:forEach>
 							<div class="clearfix">
-								<div class="checkbox">
-									<label for="inputPassword3" class="col-sm-2 control-label">Language</label>
-									<div class=" col-sm-10">
-										<c:forEach items="${requestScope.lang}" var="languages">
-
-											<label class="checkbox-inline"> <input
-												type="checkbox" name="lang"
-												value="<c:out value="${languages.idlang}"  ></c:out>"
-								                 <c:forEach  var="lang" items="${requestScope.languages}">
-<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
-													
-													<c:if test="${languages.idlang == lang.idlangmaster}">  
-   													<c:out value="checked"></c:out> 
-													 </c:if> 
-													
-													
-								                 </c:forEach>>
-												<c:out value="${languages.lang}"></c:out>
-											</label>
-										</c:forEach>
+								<div class="form-group has-feedback">
+									<div class="checkbox">
+										<label for="inputPassword3" class="col-sm-2 control-label">Language</label>
+										<div class=" col-sm-10">
+											<c:forEach items="${requestScope.lang}" var="languages">
+	
+												<label class="checkbox-inline"> <input
+													type="checkbox" name="lang" data-error="please check on languages you know"
+													value="<c:out value="${languages.idlang}"  ></c:out>"
+									                 <c:forEach  var="lang" items="${requestScope.languages}">
+	<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
+														
+														<c:if test="${languages.idlang == lang.idlangmaster}">  
+	   													<c:out value="checked"></c:out> 
+														 </c:if> 
+									                 </c:forEach> onchange="frmsubmit()" >
+													<c:out value="${languages.lang}"></c:out>
+												</label>
+											</c:forEach>
+											<div class="help-block with-errors"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -278,7 +307,7 @@
 								<div>
 								<c:choose>
 								<c:when test="${pageContext.request.servletPath eq '/Registration.jsp'}">
-									<button type="button" id="mybtn" class="btn btn-primary" onclick="checkUser()">Sign Up</button>
+									<button type="submit" id="mybutton" class="btn btn-primary" onclick="checkUser()" >Sign Up</button>
 								</c:when>
 								<c:otherwise>
 									<button type="submit" id="mybtn" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
@@ -295,7 +324,10 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/jquery.min.js" type="text/javascript"></script>
+		
+<!-- 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
+	
 	<script src="js/jquery.czMore-latest.js"></script>
 	<script src="js/jquery.czMore-1.5.3.2.js"></script>
 	<script type="text/javascript">
@@ -365,7 +397,7 @@
 				$.ajax({
 					url : 'CheckUser',
 					data : {
-						email : $('#emailid').val()
+						email : $('#inputemailid').val()
 					},
 					success : function(responseText) {
 					//	$('#ajaxGetUserServletResponse').text(responseText);
@@ -376,6 +408,8 @@
 			    	 return true;
 			     	}else{
 			    	 $("#demo").html(obj.result);
+			    	 $("#inputemailid").parents(".form-group.has-feedback.has-success").removeClass("has-success");
+			    	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-error has-danger");
 			    	 return false;
 			     	}
 					}
@@ -383,10 +417,29 @@
 		
 		
 		}
-	function frmsubmit(){
-		if(checkUser()){
-			$(".myform").submit();
+	function validateCheck(){
+		var checkboxes = document.getElementsByName("lang");
+		var flag = false;
+		for(var i=0;i<checkboxes.length;i++){
+			if(checkboxes[i].checked == true){
+				flag=true;
+				break;
+			}
 		}
+		return flag;
+	}
+	function frmsubmit(){
+		
+			if(validateCheck()){
+				$(".checkbox").parent().addClass("has-success");
+				$("#mybutton").attr("disabled",false);
+				//document.getElementById("myform").submit();
+			}else{
+				$(".checkbox").parent().removeClass("has-success");
+				$(".checkbox").parent().addClass("has-error has-danger");
+				$("#mybutton").attr("disabled",true);
+			}
+		
 	}
 	</script>
 </body>

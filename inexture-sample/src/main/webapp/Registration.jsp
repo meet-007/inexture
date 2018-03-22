@@ -11,6 +11,6 @@
 <body>
 	<jsp:include page="header-footer/header.jsp"></jsp:include>
 	<div class="section-header text-center">Register here</div>
-	<jsp:include page="commonReg.jsp"></jsp:include>
+	<jsp:include page="commonReg.jsp"></jsp:include>s
 </body>
 </html>

@@ -45,7 +45,7 @@ public class DeleteUserServ extends HttpServlet {
 				json = "{\"result\":\"fail to delete\",\"bool\":\"1\"}";
 			}
 		}catch(Exception e) {
-			//msg = e.getMessage();
+			e.printStackTrace();
 		}
 		out.println(json);
 		
