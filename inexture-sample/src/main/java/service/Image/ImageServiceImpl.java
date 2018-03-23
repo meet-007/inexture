@@ -25,18 +25,7 @@ public class ImageServiceImpl implements ImageService {
 		ArrayList arr = new ArrayList();
 		arr = (ArrayList) request.getParts();
 		Iterator it = arr.iterator();
-		int count = 0;
-		for (Object ob : arr) {
-			Part p = (Part) ob;
-			if (p.getContentType() != null) {
-				if (p.getContentType().equals("image/jpeg")) {
-					System.out.println("-----------------" + p.getSubmittedFileName());
-					count++;
-				}
-			}
-		}
 		ArrayList<UserImages> uimg = new ArrayList<UserImages>();
-		int i = 0;
 		// File f = new File("d:/img.jpg");
 		// FileOutputStream fos = new FileOutputStream(f);
 		InputStream is = null;
@@ -61,7 +50,6 @@ public class ImageServiceImpl implements ImageService {
 					userimage.setIduser(iduser);
 					userimage.setImage(is);
 					uimg.add(userimage);
-					i++;
 				}
 			}
 
@@ -85,7 +73,14 @@ public class ImageServiceImpl implements ImageService {
 		System.out.println(request.getContentType());
 		// UserImages uimg[] = new UserImages[];
 		ArrayList<UserImages> uimg = ImageServiceImpl.setParams(request, iduser);
-		int totalImageInserted = new ImageDaoImpl().insertImage(uimg, "insert");
+		int totalImageInserted=0;
+		if(uimg.size()>0) {
+			totalImageInserted = new ImageDaoImpl().insertImage(uimg, "insert");
+		}else {
+			System.out.println("no need to insert because no images found from user side" + "--------"+"returning true");
+
+			return true;
+		}
 		// while(( read = is.read())!=-1) {
 		// fos.write(read);
 		// }

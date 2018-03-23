@@ -39,7 +39,8 @@
 						<form id="myform" class="form-horizontal" enctype="multipart/form-data"
 							action="RegUser" method="POST" data-toggle="validator" >
 							<div class="form-group has-feedback">
-								<label class="col-sm-2 control-label">First
+							
+								<label class="col-sm-2 control-label"><span class="text-danger">*</span> First
 									Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputName"
@@ -53,7 +54,7 @@
 							</div>
 							
 							<div class="form-group has-feedback">
-								<label class="col-sm-2 control-label">Last
+								<label class="col-sm-2 control-label"><span class="text-danger">*</span> Last
 									Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputlname"
@@ -64,20 +65,20 @@
 								</div>
 							</div>
 
-							<div class="form-group has-feedback">
-								<label  class="col-sm-2 control-label">Email</label>
+							<div class="form-group has-feedback" id="emaildiv">
+								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Email</label>
 								<div class="col-sm-10">
 									<input type="email" class="form-control" id="inputemailid"
 										placeholder="johndoe@example.com" name="email"
 										${(requestScope.addrslist ne null) ? 'readonly' : ''}
-										value="${user.email}" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format"required>
+										value="${user.email}" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format" onchange="checkUser()" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
 										<div id="demo" class="help-block with-errors"></div>
 								</div>
 								
 							</div>
-							<div class="form-group has-feedback" >
-								<label  class="col-sm-2 control-label">Password</label>
+							<div class="form-group has-feedback" id="pwddiv" >
+								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Password</label>
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="inputPassword"
 										value="${user.password}" placeholder="1@Mypass" name="pass"
@@ -87,12 +88,12 @@
 								</div>
 							</div>
 							<c:out value="${pageContext.request.servletPath}"></c:out>
-							<div class="form-group has-feedback">
-								<label  class="col-sm-2 control-label">Confirm Password</label>
+							<div class="form-group has-feedback" id="confpassdiv">
+								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Confirm Password</label>
 								<div class="col-sm-10">
 									<input type="password" class="form-control"
 										value="${user.password}" placeholder="1@Mypass" 
-										${(user ne null) ? 'hidden' : ''} data-minlength="6" data-match="#inputPassword"
+										${(empty user) ? '' : 'hidden'} data-minlength="6" data-match="#inputPassword"
 										 data-match-error="Whoops, these don't match" placeholder="Confirm password" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
@@ -100,10 +101,10 @@
 							</div>
 
 							<div class="form-group has-feedback">
-								<label  class="col-sm-2 control-label">Moblie</label>
+								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Moblie</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputmobile"
-										placeholder="8844662211" name="mobile" value="${user.mobile}" pattern="^[0-9]+$" maxlength="10" required>
+										placeholder="8844662211" data-minlength="10" name="mobile" value="${user.mobile}" pattern="^[0-9]+$" maxlength="10" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
 								</div>
@@ -112,7 +113,7 @@
 								var="date" />
 
 							<div class="form-group has-feedback">
-								<label  class="col-sm-2 control-label">Date
+								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Date
 									of birth</label>
 								<div class="col-sm-10">
 									<input type="date" class="form-control" id="inputdob"
@@ -122,21 +123,23 @@
 								</div>
 							</div>
 
-							<div class="form-group">
+							<div class="form-group  has-feedback">
 								<label class="col-sm-2 control-label">image</label>
 								<div class="col-sm-10">
 									<ul id="media-list" class="clearfix">
 										<li class="myupload"><span><i class="fa fa-plus"
 												aria-hidden="true"></i><input type="file" click-type="type2"
-												id="picupload" class="picupload" name="img" multiple></span></li>
-									</ul>								</div>
+												id="picupload" class="picupload" name="img" onchange="checkImage()" multiple></span></li>
+									</ul>		
+									<div id="fluploadmsg" class="help-block with-errors"></div>						
+								</div>
 							</div>
 
 
 
 
 							<div class="form-group has-feedback" >
-								<label class="col-sm-2 control-label">Technology</label>
+								<label class="col-sm-2 control-label"><span class="text-danger">*</span> Technology</label>
 								<div class="col-sm-10">
 									<select class="form-control" name="tech" data-error="please select any one" required>
 
@@ -156,16 +159,18 @@
 							</div>
 							<div class="form-group has-feedback">
 							<div class="radio">
-								<label  class="col-sm-2 control-label">gender</label>
-								<div class="col-sm-10">
-									<label class="radio-inline"> <input type="radio"
-										value="0" name="gender"
-										${(user.gender eq '0')? 'checked':''} required> Male
-									</label> <label class="radio-inline"> <input type="radio"
-										value="1" name="gender"
-										${(user.gender eq '1')? 'checked':''} required>
-										Female
-									</label>
+								<div class="fix-label">
+									<label  class="col-sm-2 control-label"><span class="text-danger">*</span> gender</label>
+										<div class="col-sm-10">
+											<label class="radio-inline"> <input type="radio"
+												value="0" name="gender"
+												${(user.gender eq '0')? 'checked':''} required> Male
+											</label> <label class="radio-inline"> <input type="radio"
+												value="1" name="gender"
+												${(user.gender eq '1')? 'checked':''} required>
+												Female
+											</label>
+										</div>
 								</div>
 							</div>
 							</div>
@@ -176,24 +181,26 @@
 							<div class="clearfix">
 								<div class="form-group has-feedback">
 									<div class="checkbox">
-										<label for="inputPassword3" class="col-sm-2 control-label">Language</label>
-										<div class=" col-sm-10">
-											<c:forEach items="${requestScope.lang}" var="languages">
-	
-												<label class="checkbox-inline"> <input
-													type="checkbox" name="lang" data-error="please check on languages you know"
-													value="<c:out value="${languages.idlang}"  ></c:out>"
-									                 <c:forEach  var="lang" items="${requestScope.languages}">
-	<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
-														
-														<c:if test="${languages.idlang == lang.idlangmaster}">  
-	   													<c:out value="checked"></c:out> 
-														 </c:if> 
-									                 </c:forEach> onchange="frmsubmit()" >
-													<c:out value="${languages.lang}"></c:out>
-												</label>
-											</c:forEach>
-											<div class="help-block with-errors"></div>
+										<div class="fix-label">
+											<label for="inputPassword3" class="col-sm-2 control-label"><span class="text-danger">*</span> Language</label>
+											<div class=" col-sm-10">
+												<c:forEach items="${requestScope.lang}" var="languages">
+		
+													<label class="checkbox-inline"> <input
+														type="checkbox" name="lang" data-error="please check on languages you know"
+														value="<c:out value="${languages.idlang}"  ></c:out>"
+										                 <c:forEach  var="lang" items="${requestScope.languages}">
+		<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
+															
+															<c:if test="${languages.idlang == lang.idlangmaster}">  
+		   													<c:out value="checked"></c:out> 
+															 </c:if> 
+										                 </c:forEach> onchange="validateCheck()" >
+														<c:out value="${languages.lang}"></c:out>
+													</label>
+												</c:forEach>
+												<div class="help-block with-errors"></div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -307,10 +314,10 @@
 								<div>
 								<c:choose>
 								<c:when test="${pageContext.request.servletPath eq '/Registration.jsp'}">
-									<button type="submit" id="mybutton" class="btn btn-primary" onclick="checkUser()" >Sign Up</button>
+									<button type="submit" id="mybutton" class="btn btn-primary">Sign Up</button>
 								</c:when>
 								<c:otherwise>
-									<button type="submit" id="mybtn" class="btn btn-primary" onclick='document.myform.action="UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>"'>Update</button>
+									<button type="submit" id="mybutton" class="btn btn-primary" onclick='$("form").attr("action","UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>")'>Update</button>
 								</c:otherwise>
 								</c:choose>
 								</div>
@@ -391,9 +398,47 @@
 	}%>
 		
 	</script> 
+	<script type="text/javascript">
+	$(document).ready(function(){
+		<c:if test="${pageContext.request.servletPath eq '/UpdateProfile.jsp'}">
+		$("#confpassdiv").hide();
+		$("#emaildiv").hide();
+		$("#pwddiv").hide();
+		
+		</c:if>
+	});
+	</script>
 	<script>
+	function checkImage(){
+		var fileupload = document.getElementById("picupload");
+		var file,flag = true;
+		for(var i=0;i<fileupload.files.length;i++){
+			file = fileupload.files[i];
+			if ('name' in file) {
+               console.log(file.name);
+               var filename = file.name;
+               var ext = filename.split('.').pop().toLowerCase();
+               console.log('extension' + ext);
+               if($.inArray(ext, ['jpg','jpeg']) == -1) {
+            	   	$("#picupload").parents(".form-group.has-feedback").addClass("has-error has-danger");
+            	   	$("#mybutton").attr("disabled",true);
+			    	$("#fluploadmsg").html("invalid extensions try uploading only jpg and jpeg files");
+            	  	flag = false;
+            	  	break;
+            	}
+				
+            }
+		}
+		if(flag==true){
+	    	$("#fluploadmsg").html("");
+	    	$("#picupload").parents(".form-group.has-feedback").removeClass("has-error has-danger");
+	    	$("#picupload").parents(".form-group.has-feedback").addClass("has-success");
+	    	$("#mybutton").attr("disabled",false);
+		}
+		return flag;
+	}
 	function checkUser(){
-			
+			var flag = true;
 				$.ajax({
 					url : 'CheckUser',
 					data : {
@@ -405,19 +450,23 @@
 			     	
 			     	if(obj.bool === '1') {
 			     	$("#demo").html("");
-			    	 return true;
+			     	
+			     	$("#mybutton").attr("disabled",false);
+			     	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-success");
+			    	 flag = true;
 			     	}else{
 			    	 $("#demo").html(obj.result);
 			    	 $("#inputemailid").parents(".form-group.has-feedback.has-success").removeClass("has-success");
 			    	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-error has-danger");
-			    	 return false;
+			    	 $("#mybutton").attr("disabled",true);
+			    	 flag = false;
 			     	}
 					}
 				});
 		
-		
+		return flag;
 		}
-	function validateCheck(){
+	function determineCheck(){
 		var checkboxes = document.getElementsByName("lang");
 		var flag = false;
 		for(var i=0;i<checkboxes.length;i++){
@@ -428,19 +477,36 @@
 		}
 		return flag;
 	}
-	function frmsubmit(){
+	function validateCheck(){
 		
-			if(validateCheck()){
-				$(".checkbox").parent().addClass("has-success");
+			if(determineCheck()){
 				$("#mybutton").attr("disabled",false);
 				//document.getElementById("myform").submit();
+				return true
 			}else{
 				$(".checkbox").parent().removeClass("has-success");
 				$(".checkbox").parent().addClass("has-error has-danger");
 				$("#mybutton").attr("disabled",true);
+				return false
 			}
 		
 	}
 	</script>
+	<script type='text/javascript'>
+	 $(document).ready(function() {
+      
+            $("form").submit(function(e){
+            	 alert('submit intercepted');
+            	if(!checkUser())
+          			 e.preventDefault(e);
+               		if(!validateCheck())
+            			 e.preventDefault(e);
+	               		if(!checkImage())
+	           			 e.preventDefault(e);
+            });
+    
+	 });
+    </script>
+	
 </body>
 </html>
