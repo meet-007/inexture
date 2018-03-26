@@ -14,7 +14,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- sidebar -->
 <link href="css/sidebar.css" rel="stylesheet">
-
+<link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -55,8 +55,11 @@
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery.min.js"></script>
+	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
+	<!-- datepicker -->
+	<script src="js/bootstrap-datepicker.min.js"></script>
 	<script src="js/sidebar.js"></script>
 </body>
 </html>

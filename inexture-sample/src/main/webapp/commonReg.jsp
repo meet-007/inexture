@@ -25,7 +25,7 @@
 			<div class="row">
 				<!-- Section header -->
 				<div class="section-header text-center"></div>
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-9 col-md-offset-1">
 					<div class="contact-form">
 						<c:choose>
 						<c:when test="${not empty param.iduser}">
@@ -103,7 +103,7 @@
 							<div class="form-group has-feedback">
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Moblie</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputmobile"
+									<input type="text" class="form-control" id="inputmobile" min="1" max="10" oninput="validateMobile()"
 										placeholder="8844662211" data-minlength="10" name="mobile" value="${user.mobile}" pattern="^[0-9]+$" maxlength="10" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
@@ -116,10 +116,16 @@
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Date
 									of birth</label>
 								<div class="col-sm-10">
-									<input type="date" class="form-control" id="inputdob"
-										placeholder="21/2/1997" name="dob" value="${date}" required>
-										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-										<div class="help-block with-errors"></div>
+								<div class="input-group date" data-provide="datepicker">
+    								<input type="text" class="form-control" id="inputdob"  placeholder="21/2/1997"  name="dob"  value="${date}" >
+   									 <div class="input-group-addon">
+        								<span class="glyphicon glyphicon-th"></span>
+    								</div>
+										
+								</div>
+								<div class="help-block with-errors"></div>
+								<!--  	<input type="date" class="form-control" id="inputdob"
+										placeholder="21/2/1997" name="dob" value="${date}" required>-->
 								</div>
 							</div>
 
@@ -346,7 +352,7 @@
 	var plusbtn = document.getElementById("btnPlus");
 	<%
 	if(request.getAttribute("addrslist")!=null){
-	ArrayList<Address> adrs = (ArrayList<Address>) request.getAttribute("addrslist"); 
+		ArrayList<Address> adrs = (ArrayList<Address>) request.getAttribute("addrslist"); 
  			for (int i = 0; i<adrs.size(); i++) {%> 
  	    plusbtn.click();
  	    var idaddress = "<%=adrs.get(i).getIdadress()%>";
@@ -490,6 +496,15 @@
 				return false
 			}
 		
+	}
+	function validateMobile(){
+		var input = $("#inputmobile").val();
+		if(!/^[0-9]+$/.test(input)){
+		var newinput	= input.substr(0,input.length-1);
+		$("#inputmobile").val(newinput);
+		}else{
+			$("#inputmobile").val(input);
+		}
 	}
 	</script>
 	<script type='text/javascript'>
