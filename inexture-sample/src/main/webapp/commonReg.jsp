@@ -103,7 +103,7 @@
 							<div class="form-group has-feedback">
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Moblie</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputmobile" min="1" max="10" oninput="validateMobile()"
+									<input type="text" class="only-number form-control" id="inputmobile" min="1" max="10" 
 										placeholder="8844662211" data-minlength="10" name="mobile" value="${user.mobile}" pattern="^[0-9]+$" maxlength="10" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
@@ -116,8 +116,8 @@
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Date
 									of birth</label>
 								<div class="col-sm-10">
-								<div class="input-group date" data-provide="datepicker">
-    								<input type="text" class="form-control" id="inputdob"  placeholder="21/2/1997"  name="dob"  value="${date}" >
+								<div class="input-group date" >
+    								<input type="text" class="datepicker form-control" id="inputdob"  placeholder="21/2/1997"  name="dob"  value="${date}" required>
    									 <div class="input-group-addon">
         								<span class="glyphicon glyphicon-th"></span>
     								</div>
@@ -184,11 +184,14 @@
 
 								<c:out value="${lang.idlangmaster}"></c:out>
 							</c:forEach>
-							<div class="clearfix">
-								<div class="form-group has-feedback">
+						
+							<div class="form-group has-feedback">
+							<div>
 									<div class="checkbox">
 										<div class="fix-label">
+										
 											<label for="inputPassword3" class="col-sm-2 control-label"><span class="text-danger">*</span> Language</label>
+											
 											<div class=" col-sm-10">
 												<c:forEach items="${requestScope.lang}" var="languages">
 		
@@ -201,7 +204,7 @@
 															<c:if test="${languages.idlang == lang.idlangmaster}">  
 		   													<c:out value="checked"></c:out> 
 															 </c:if> 
-										                 </c:forEach> onchange="validateCheck()" >
+										                 </c:forEach> data-validate="false" onchange="validateCheck()" >
 														<c:out value="${languages.lang}"></c:out>
 													</label>
 												</c:forEach>
@@ -210,7 +213,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+								</div>
 							<div class="padding-30"></div>
 							<div class="panel panel-default">
 								<!-- Default panel contents -->
@@ -226,13 +229,15 @@
 															<c:if test="${requestScope.addrslist ne null}">
 															<input type="hidden" name="idaddress" id="id_idaddress_1_" value="x">
 															</c:if>
-															
-																<div class="form-group">
+																
+																<div class="form-group  has-feedback">
 																	<label for="inputEmail3" class="col-sm-2 control-label">Address
 																		line 1</label>
 																	<div class="col-sm-10">
-																		<textarea rows="3" class="form-control"
-																			name="addressline1" id="id_address1_1_"></textarea>
+																		<textarea rows="3" class="dynmc-input form-control"
+																			name="addressline1" id="id_address1_1_" maxlength="100"  required></textarea>
+																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																			<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 																<div class="form-group">
@@ -244,50 +249,57 @@
 																	</div>
 																</div>
 
-																<div class="form-group">
+																<div class="form-group has-feedback">
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">pin</label>
 																	<div class="col-sm-10">
-																		<input type="text" class="form-control"
-																			placeholder="382481" name="pin" id="id_pin_1_">
+																		<input type="text" class="dynmc-input only-number form-control"
+																			placeholder="382481" name="pin" id="id_pin_1_" data-minlength="6"  maxlength="6" data-error="first name should not be blank"  required>
+																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																			<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 
 
-																<div class="form-group">
+																<div class="form-group has-feedback">
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">city</label>
 																	<div class="col-sm-10">
-																		<select class="form-control" name="city"
-																			id="id_city_1_">
+																		<select class="dynmc-input form-control" name="city"
+																			id="id_city_1_" required>
+																			<option value="">none</option>
 																			<option>Ahmedabad</option>
 																			<option>jaipur</option>
 																		</select>
+																		<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 
 
-																<div class="form-group">
+																<div class="form-group has-feedback">
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">state</label>
 																	<div class="col-sm-10">
-																		<select class="form-control" name="state"
-																			id="id_state_1_">
+																		<select class="dynmc-input form-control" name="state"
+																			id="id_state_1_" required>
+																			<option value="">none</option>
 																			<option>gujarat</option>
 																			<option>rajasthan</option>
 																		</select>
+																		<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 
-																<div class="form-group">
+																<div class="form-group has-feedback">
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">country</label>
-																	<div class="col-sm-10">
-																		<select class="form-control" name="country"
-																			id="id_country_1_">
-																			<option>--Select--</option>
+																	<div class="col-sm-10" >
+																		<select class="dynmc-input form-control" name="country"
+																			id="id_country_1_" required>
+																			<option value="">none</option>
 																			<option>india</option>
 																		</select>
+																		<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 
@@ -340,15 +352,19 @@
 		
 <!-- 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
-	
 	<script src="js/jquery.czMore-latest.js"></script>
 	<script src="js/jquery.czMore-1.5.3.2.js"></script>
 	<script type="text/javascript">
 		//One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
 		$("#czContainer").czMore();
+		
 	</script>
+	
+	<script src="js/validate-email.js"></script>
+	<script src="js/myvalidation.js"></script>
 	<script src="js/fileupload.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function(){
 	var plusbtn = document.getElementById("btnPlus");
 	<%
 	if(request.getAttribute("addrslist")!=null){
@@ -402,126 +418,13 @@
  				<%
  			}
 	}%>
-		
-	</script> 
-	<script type="text/javascript">
-	$(document).ready(function(){
-		<c:if test="${pageContext.request.servletPath eq '/UpdateProfile.jsp'}">
-		$("#confpassdiv").hide();
-		$("#emaildiv").hide();
-		$("#pwddiv").hide();
-		
-		</c:if>
-	});
-	</script>
-	<script>
-	function checkImage(){
-		var fileupload = document.getElementById("picupload");
-		var file,flag = true;
-		for(var i=0;i<fileupload.files.length;i++){
-			file = fileupload.files[i];
-			if ('name' in file) {
-               console.log(file.name);
-               var filename = file.name;
-               var ext = filename.split('.').pop().toLowerCase();
-               console.log('extension' + ext);
-               if($.inArray(ext, ['jpg','jpeg']) == -1) {
-            	   	$("#picupload").parents(".form-group.has-feedback").addClass("has-error has-danger");
-            	   	$("#mybutton").attr("disabled",true);
-			    	$("#fluploadmsg").html("invalid extensions try uploading only jpg and jpeg files");
-            	  	flag = false;
-            	  	break;
-            	}
-				
-            }
-		}
-		if(flag==true){
-	    	$("#fluploadmsg").html("");
-	    	$("#picupload").parents(".form-group.has-feedback").removeClass("has-error has-danger");
-	    	$("#picupload").parents(".form-group.has-feedback").addClass("has-success");
-	    	$("#mybutton").attr("disabled",false);
-		}
-		return flag;
-	}
-	function checkUser(){
-			var flag = true;
-				$.ajax({
-					url : 'CheckUser',
-					data : {
-						email : $('#inputemailid').val()
-					},
-					success : function(responseText) {
-					//	$('#ajaxGetUserServletResponse').text(responseText);
-					var obj = responseText;
-			     	
-			     	if(obj.bool === '1') {
-			     	$("#demo").html("");
-			     	
-			     	$("#mybutton").attr("disabled",false);
-			     	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-success");
-			    	 flag = true;
-			     	}else{
-			    	 $("#demo").html(obj.result);
-			    	 $("#inputemailid").parents(".form-group.has-feedback.has-success").removeClass("has-success");
-			    	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-error has-danger");
-			    	 $("#mybutton").attr("disabled",true);
-			    	 flag = false;
-			     	}
-					}
-				});
-		
-		return flag;
-		}
-	function determineCheck(){
-		var checkboxes = document.getElementsByName("lang");
-		var flag = false;
-		for(var i=0;i<checkboxes.length;i++){
-			if(checkboxes[i].checked == true){
-				flag=true;
-				break;
-			}
-		}
-		return flag;
-	}
-	function validateCheck(){
-		
-			if(determineCheck()){
-				$("#mybutton").attr("disabled",false);
-				//document.getElementById("myform").submit();
-				return true
-			}else{
-				$(".checkbox").parent().removeClass("has-success");
-				$(".checkbox").parent().addClass("has-error has-danger");
-				$("#mybutton").attr("disabled",true);
-				return false
-			}
-		
-	}
-	function validateMobile(){
-		var input = $("#inputmobile").val();
-		if(!/^[0-9]+$/.test(input)){
-		var newinput	= input.substr(0,input.length-1);
-		$("#inputmobile").val(newinput);
-		}else{
-			$("#inputmobile").val(input);
-		}
-	}
-	</script>
-	<script type='text/javascript'>
-	 $(document).ready(function() {
-      
-            $("form").submit(function(e){
-            	 alert('submit intercepted');
-            	if(!checkUser())
-          			 e.preventDefault(e);
-               		if(!validateCheck())
-            			 e.preventDefault(e);
-	               		if(!checkImage())
-	           			 e.preventDefault(e);
-            });
-    
-	 });
-    </script>
 	
+	});
+	<c:if test="${pageContext.request.servletPath eq '/UpdateProfile.jsp'}">
+	var bool= false;
+	doCheck(bool);
+	</c:if>
+	</script> 
+    
 </body>
 </html>

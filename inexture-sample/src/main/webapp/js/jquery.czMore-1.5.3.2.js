@@ -52,7 +52,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
                 'width': '25px',
                 'cursor': 'pointer'
             });
-
+            $(".dynmc-input").validator('update')
             if (recordset.length) {
                 obj.siblings("#btnPlus").click(function () {
                     var i = obj.children(".recordset").size();
