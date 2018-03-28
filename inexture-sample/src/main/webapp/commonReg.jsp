@@ -71,7 +71,7 @@
 									<input type="email" class="form-control" id="inputemailid"
 										placeholder="johndoe@example.com" name="email"
 										${(requestScope.addrslist ne null) ? 'readonly' : ''}
-										value="${user.email}" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format" onchange="checkUser()" required>
+										value="${user.email}" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format" onfocusout="checkUser()" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
 										<div id="demo" class="help-block with-errors"></div>
 								</div>

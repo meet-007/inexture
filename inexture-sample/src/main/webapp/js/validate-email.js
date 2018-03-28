@@ -1,15 +1,22 @@
 /**
  * 
  */
-function checkUser(){
-		var flag = true;
+
+var flag;
+function getFlag(){
+	return flag;
+}
+function checkUser(getCheckUserFlag){
 			$.ajax({
+			//	async: false,
 				url : 'CheckUser',
+				
 				data : {
 					email : $('#inputemailid').val()
 				},
-				success : function(responseText) {
+				success :  function getCheckUserFlag(responseText) {
 				//	$('#ajaxGetUserServletResponse').text(responseText);
+					flag = true;
 				var obj = responseText;
 		     	
 		     	if(obj.bool === '1') {
@@ -17,16 +24,15 @@ function checkUser(){
 		     	
 		     	$("#mybutton").attr("disabled",false);
 		     	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-success");
-		    	 flag = true;
+		    	 
 		     	}else{
+		     		 flag = false;
 		    	 $("#demo").html(obj.result);
 		    	 $("#inputemailid").parents(".form-group.has-feedback.has-success").removeClass("has-success");
 		    	 $("#inputemailid").parents(".form-group.has-feedback").addClass("has-error has-danger");
 		    	 $("#mybutton").attr("disabled",true);
-		    	 flag = false;
+		    	
 		     	}
 				}
 			});
-	
-	return flag;
 	}

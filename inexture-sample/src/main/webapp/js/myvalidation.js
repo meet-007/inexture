@@ -77,10 +77,10 @@ var docheck = true;
 	$("form").submit(function(e){
      	 alert('submit intercepted');
      	 $("#myform").validator('update');
-if(docheck == true){
-     	if(!checkUser())
-   			 e.preventDefault(e);
-}
+//if(docheck == true){
+//     	if(!checkUser())
+//   			 e.preventDefault(e);
+//}
         		if(!validateCheck())
      			 e.preventDefault(e);
             		if(!checkImage())
