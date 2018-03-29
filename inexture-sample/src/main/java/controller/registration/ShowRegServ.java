@@ -24,12 +24,13 @@ public class ShowRegServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try {
 			String page = "";
-			
+
 			TechServ ts = new TechServImpl();
 			ArrayList technologies = ts.getTech();
 			request.setAttribute("tech", technologies);
@@ -45,12 +46,13 @@ public class ShowRegServ extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher(page);
 				rd.forward(request, response);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		{

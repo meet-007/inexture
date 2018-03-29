@@ -1,11 +1,11 @@
 package service.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,23 +13,25 @@ import javax.servlet.http.HttpSession;
 
 import dao.user.UserDao;
 import dao.user.UserDaoImpl;
-import model.LangTransact;
 import model.User;
 import service.Address.AddressService;
 import service.Address.AddressServiceImpl;
 import service.Image.ImageService;
 import service.Image.ImageServiceImpl;
-import service.LangTransaction.*;
+import service.LangTransaction.LangTransImpl;
+import service.LangTransaction.LangTransServ;
+import util.AESCrypt;
 
 public class UserServiceImp implements UserService {
 	String response = ""; // response message
 
-	public static User setParams(HttpServletRequest req) throws ParseException {
+	public static User setParams(HttpServletRequest req) throws Exception {
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
 		String lname = req.getParameter("lname");
 		String email = req.getParameter("email");
 		String pass = req.getParameter("pass");
+
 		String mobile = req.getParameter("mobile");
 		String dob = req.getParameter("dob");
 		String gender = req.getParameter("gender");
@@ -52,25 +54,27 @@ public class UserServiceImp implements UserService {
 	}
 
 	public String regesterUser(HttpServletRequest req)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+			throws Exception {
 		// TODO Auto-generated method stub
 
 		User user = UserServiceImp.setParams(req);
 
-		int userid = 0;
+		user.setPassword(AESCrypt.encrypt(user.getPassword()));
 		UserDao userdao = new UserDaoImpl(); // creating dao object
 		if (!userdao.insert(user, "insert")) { // calling dao method
-			userid = userdao.selectUserId(user.getMobile());
+			user = userdao.selectUser(user.getEmail());
 			AddressService as = new AddressServiceImpl();
-			if (as.addAddress(req, userid)) {
+			if (as.addAddress(req, user.getIduser())) {
 				LangTransServ its = new LangTransImpl();
-				if (its.addLangTransaction(req, userid)) {
+				if (its.addLangTransaction(req, user.getIduser())) {
 					ImageService is = new ImageServiceImpl();
-					if (is.SaveImage(req, userid))
+					if (is.SaveImage(req, user.getIduser())) {
 						response = "Registration successfull";
+					}
 				}
-			} else
+			} else {
 				response = "Registration unsuccessfull";
+			}
 		}
 		return response;
 	}
@@ -82,7 +86,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	public String updateUser(HttpServletRequest req, int iduser)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+			throws Exception {
 		// TODO Auto-generated method stub
 		User user = UserServiceImp.setParams(req);
 		user.setIduser(iduser);
@@ -120,16 +124,17 @@ public class UserServiceImp implements UserService {
 	}
 
 	public String updatePass(HttpServletRequest req)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+			throws Exception {
 		// TODO Auto-generated method stub
 		String resp = "";
 		User u = null;
 		UserDao udao = new UserDaoImpl();
-		if (req.getParameter("email") != null && req.getParameter("password") != null) {
+		if ((req.getParameter("email") != null) && (req.getParameter("password") != null)) {
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
 			u = udao.selectUser(email);
 			if (u != null) {
+				password =	AESCrypt.encrypt(password);
 				u.setPassword(password);
 				if (!udao.updatePassword(u)) {
 					resp = "password updated";
@@ -140,7 +145,7 @@ public class UserServiceImp implements UserService {
 		} else {
 			HttpSession session = req.getSession();
 			u = (User)session.getAttribute("user");
-			if (u.getPassword().equals(req.getParameter("oldpass"))) {
+			if (u.getPassword().equals(AESCrypt.encrypt(req.getParameter("oldpass")))) {
 				u.setPassword(req.getParameter("newpass"));
 				if (!udao.updatePassword(u)) {
 					resp = "password updated";
@@ -153,7 +158,7 @@ public class UserServiceImp implements UserService {
 		return resp;
 	}
 
-	
+
 	public boolean checkUserExist(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		String email = req.getParameter("email");

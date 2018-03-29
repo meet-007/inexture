@@ -28,7 +28,8 @@
 				<div class="col-md-9 col-md-offset-1">
 					<div class="contact-form">
 						<c:choose>
-						<c:when test="${not empty param.iduser}">
+<%-- 						<c:when test="${not empty param.iduser}"> --%>
+						<c:when test="${requestScope.user ne null}">
 						<c:set var="user" value="${requestScope.user}"></c:set>
 						</c:when>
 						<c:otherwise>
@@ -82,7 +83,7 @@
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="inputPassword"
 										value="${user.password}" placeholder="1@Mypass" name="pass"
-										${(requestScope.addrslist ne null) ? 'readonly' : ''} data-minlength="6" required>
+										${(requestScope.addrslist ne null) ? 'readonly' : ''} data-minlength="6" maxlength="15"  required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
 								</div>
@@ -392,7 +393,7 @@
 		cityelement.value = city;
 		stateselement.value = state;
 		countryelement.value = country;
-	<%}
+	<%}if(request.getAttribute("imglist")!=null){
  			ArrayList<UserImages> ui = (ArrayList<UserImages>) request.getAttribute("imglist");
  			for(UserImages userImage : ui){
  				%>
@@ -416,6 +417,7 @@
 <%--  			//	document.getElementById("id").src = "data:image/jpg;base64,"+"<%=encoded%>"; --%>
 
  				<%
+ 			}
  			}
 	}%>
 	

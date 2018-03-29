@@ -29,28 +29,35 @@
 						<div class="well well-lg">
 							<h4>Change your password</h4>
 							<form class="form-horizontal" action="ChngPassServ" method="post">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-4 control-label">Old
+								<div class="form-group has-feedback">
+									<label for="inputEmail" class="col-sm-4 control-label">Old
 										Password :</label>
 									<div class="col-sm-8">
-										<input type="password" class="form-control" id="inputEmail3"
+										<input type="password" class="form-control" id="inputoldpass"
 											placeholder="Old Password" name="oldpass">
+											<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+											<div class="help-block with-errors" required></div>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group has-feedback">
 									<label for="inputPassword3" class="col-sm-4 control-label">New
 										Password :</label>
 									<div class="col-sm-8">
 										<input type="password" class="form-control"
-											id="inputPassword3" placeholder="New Password" name="newpass">
+											id="inputnewpass" placeholder="New Password" name="newpass" required>
+											<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
+											<div class="help-block with-errors"></div>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group has-feedback">
 									<label for="inputPassword3" class="col-sm-4 control-label">Repeat New
 										Password :</label>
 									<div class="col-sm-8">
-										<input type="password" class="form-control"
-											id="inputPassword3" placeholder="Repeat New Password">
+										<input type="password" class="form-control" data-match="#inputnewpass"
+											 data-match-error="Whoops, these don't match"
+											id="inputrptnewpass" placeholder="Repeat New Password" required>
+											<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+											<div class="help-block with-errors"></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -66,6 +73,6 @@
 			</div>
 		</div>
 	</div>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
 </body>
 </html>

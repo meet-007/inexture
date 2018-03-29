@@ -20,18 +20,18 @@ import model.Role;
 import model.User;
 import service.user.UserService;
 import service.user.UserServiceImp;
-import java.lang.*;
+import util.AESCrypt;
 /**
  * Servlet Filter implementation class LoginFilter
  */
 public class LoginFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public LoginFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public LoginFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -56,6 +56,7 @@ public class LoginFilter implements Filter {
 		UserService us = new UserServiceImp();
 		String page = null;
 		try {
+			password =	AESCrypt.encrypt(password);
 			User u =us.getUser(email, password);
 			if(u != null) {
 				System.out.println("user found");
@@ -76,17 +77,18 @@ public class LoginFilter implements Filter {
 				rspmsg = "Invalid Username or password please try again";
 				page = "Login.jsp";
 			}
-		
+
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			rspmsg = e.getLocalizedMessage();
+			rspmsg = "there is some error try login after sometime";
 			page = "Login.jsp";
 		}
-		System.out.println(rspmsg);
-		RequestDispatcher rd = request.getRequestDispatcher(page);
-		request.setAttribute("rspmsg",rspmsg);
-		rd.forward(request, response);
-		
+		if(page!=null) {
+			System.out.println(rspmsg);
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			request.setAttribute("rspmsg1",rspmsg);
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -95,7 +97,7 @@ public class LoginFilter implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("filter initiallizeddddddddddddddddddd");
-		
+
 	}
 
 }

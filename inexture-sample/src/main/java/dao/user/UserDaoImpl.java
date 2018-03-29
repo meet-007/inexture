@@ -1,12 +1,9 @@
 package dao.user;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.Date;
 
 import model.User;
@@ -30,12 +27,14 @@ public class UserDaoImpl implements UserDao {
 		if (operation.equals("insert")) {
 			result = DbUtil.dbOperationInsert(INSERT, arr);
 		} else if(operation.equals("delete"))
-		{	
+		{
 			arr.removeAll(arr);
 			arr.add(u.getIduser());
 			result = DbUtil.dbOperationInsert(DELETEUSER, arr);
 		}else{
 			arr.remove(arr.size()-2);
+			arr.remove(2);
+			arr.remove(2);
 			arr.add(u.getIduser());
 			result = DbUtil.dbOperationInsert(UPDATE, arr);
 		}
@@ -118,7 +117,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		return u;
 	}
-	
+
 	public User selectUser(String email) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		ResultSet rs = DbUtil.dbOperationSelect(SELECTUSERFRMEMAIL, email);
@@ -140,7 +139,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		return u;
 	}
-	
+
 	public boolean updatePassword(User u) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList arr = new ArrayList();

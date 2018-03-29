@@ -15,6 +15,9 @@
 			<div class="col-md-4"></div>
 
 			<div class="col-md-4">
+			<c:if test="${requestScope.rspmsg1 ne null}">
+				<div id="success_alert" class="alert alert-danger" role="alert"><c:out value="${requestScope.rspmsg1}"></c:out>.</div>
+			</c:if>
 				<section class="login-form">
 				<form method="post" name="myform" action="LoginFilter" role="login" data-toggle="validator">
 					<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
@@ -25,11 +28,14 @@
 						value=""  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" data-error="please enter valid email id format"  required/> 
 						<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
 						<div id="demo" class="help-block with-errors"></div>
-						</div>
+						
+						<div class="form-group has-feedback" id="pwddiv" >
 						<input type="password"
 						class="form-control input-lg" id="password" placeholder="Password"
-						required="" name="password" />
-
+						required="" name="password" maxlength="15" required/>
+						<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						<div class="help-block with-errors"></div>
+						</div>
 
 					<div class="pwstrength_viewport_progress"></div>
 					<c:choose>
@@ -42,13 +48,13 @@
 					</c:when>
 					<c:otherwise>
 						<button type="submit" name="go"
-						class="btn btn-lg btn-primary btn-block" onclick='document.myform.action="ForgotPassServ"'>Update</button>
+						class="btn btn-lg btn-primary btn-block" onclick='checkUserLogin();document.myform.action="ForgotPassServ;"'>Update</button>
 					</c:otherwise>
 					</c:choose>
 					
 					
 					
-					<c:out value="${requestScope.rspmsg}"></c:out>
+					
 				</form>
 				</section>
 			</div>
@@ -59,15 +65,15 @@
 <script type="text/javascript" src="js/validate-email.js"></script>
 <script>
 $(document).ready(function (){
- 	$(":password").hide();
+ 	$("#pwddiv").hide();
 });
 function checkUserLogin(){
-	checkUser(getFlag); 
+	checkUser(); 
 var flag =	getFlag()
 if(flag==false){
-	$(":password").show();
+	$("#pwddiv").show();
 }else{
-	$(":password").hide();
+	$("#pwddiv").hide();
 }
 }
 </script>
