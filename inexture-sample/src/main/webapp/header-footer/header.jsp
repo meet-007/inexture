@@ -65,7 +65,7 @@
 
 				<!--  Main navigation  -->
 				<ul class="main-nav nav navbar-nav navbar-right">
-					<li class="active"><a href="#home">Home</a></li>
+					<li class="active"><a href="/inexture-sample">Home</a></li>
 					<li><a href="#about">About</a></li>
 					<li><a href="#portfolio">Portfolio</a></li>
 					<li><a href="#service">Services</a></li>

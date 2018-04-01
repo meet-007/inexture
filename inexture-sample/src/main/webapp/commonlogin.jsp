@@ -41,14 +41,14 @@
 					<c:choose>
 					<c:when test="${pageContext.request.servletPath eq '/Login.jsp'}">
 						<button type="submit" name="go"
-						class="btn btn-lg btn-primary btn-block" onclick='checkUserLogin();'>Sign in</button>
+						class="btn btn-lg btn-primary btn-block" >Sign in</button>
 						<div>
 						<a href="ShowRegServ" >Create account</a> or <a href="ForgotPassword.jsp">forgot password</a>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<button type="submit" name="go"
-						class="btn btn-lg btn-primary btn-block" onclick='checkUserLogin();document.myform.action="ForgotPassServ;"'>Update</button>
+						class="btn btn-lg btn-primary btn-block" onclick='document.myform.action="ForgotPassServ"'>Update</button>
 					</c:otherwise>
 					</c:choose>
 					
@@ -64,18 +64,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/validate-email.js"></script>
 <script>
-$(document).ready(function (){
- 	$("#pwddiv").hide();
-});
-function checkUserLogin(){
-	checkUser(); 
-var flag =	getFlag()
-if(flag==false){
-	$("#pwddiv").show();
-}else{
-	$("#pwddiv").hide();
-}
-}
+// $(document).ready(function (){
+//  	$("#pwddiv").hide();
+// });
+// function checkUserLogin(){
+// 	checkUser(); 
+// var flag =	getFlag()
+// if(flag==false){
+// 	$("#pwddiv").show();
+// }else{
+// 	$("#pwddiv").hide();
+// }
+// }
 </script>
 </body>
 </html>

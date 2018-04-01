@@ -37,6 +37,7 @@ dao\LangTransaction\LangTrans.class
 model\TechMaster.class
 dao\Role\RoleDao.class
 service\user\UserService.class
+controller\login\BackBtnDisable.class
 dao\Tech\TechDao.class
 service\Lang\LangServImpl.class
 service\Tech\TechServImpl.class

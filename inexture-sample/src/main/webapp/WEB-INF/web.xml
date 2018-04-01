@@ -14,9 +14,20 @@
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>controller.login.LoginFilter</filter-class>
 	</filter>
+	<filter>
+		<description>
+		</description>
+		<display-name>BackBtnDisable</display-name>
+		<filter-name>BackBtnDisable</filter-name>
+		<filter-class>controller.login.BackBtnDisable</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/LoginFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>BackBtnDisable</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<servlet>
@@ -97,7 +108,7 @@
 	<!--mapping -->
 	<servlet-mapping>
 		<servlet-name>UserHome</servlet-name>
-		<url-pattern>/LoginFilter</url-pattern>
+		<url-pattern>/UserHome.jsp</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ShowRegServ</servlet-name>

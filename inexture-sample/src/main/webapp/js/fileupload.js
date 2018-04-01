@@ -103,6 +103,8 @@ $(function() {
     		
     		 if( $(this).attr('id') == undefined){
     		 $(this).parent().parent().parent().remove();
+    		 var div = "<input type='hidden' name='delnewimg' value='"+$(this).attr('data-id')+"'>";
+    		 $("#media-list").prepend(div);
     	        var removeItem = $(this).attr('data-id');
     	        var yet = names.indexOf(removeItem);
 

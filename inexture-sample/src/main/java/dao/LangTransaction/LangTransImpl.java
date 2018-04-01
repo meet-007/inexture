@@ -1,5 +1,11 @@
 package dao.LangTransaction;
 
+
+
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +15,17 @@ import model.LangTransact;
 import util.DbUtil;
 
 public class LangTransImpl implements LangTrans {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(LangTransImpl.class.getName());
 
 	public int InsertLangTrans(ArrayList<LangTransact> it, String operation)
 			throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("InsertLangTrans(ArrayList<LangTransact>, String) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		ArrayList arr = new ArrayList();
 		int count = 0;
@@ -30,17 +44,24 @@ public class LangTransImpl implements LangTrans {
 				}
 
 			}
-			
+
 			arr.remove(0);
 			arr.remove(0);
 
 		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("InsertLangTrans(ArrayList<LangTransact>, String) - end"); //$NON-NLS-1$
+		}
 		return count;
 	}
 
 	public ArrayList<LangTransact> selectUserLanguages(int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectUserLanguages(int) - start"); //$NON-NLS-1$
+		}
+
 		ResultSet rs = DbUtil.dbOperationSelect(SELECT, iduser);
 		ArrayList<LangTransact> ltarr = new ArrayList<LangTransact>();
 		while (rs.next()) {
@@ -51,6 +72,9 @@ public class LangTransImpl implements LangTrans {
 			ltarr.add(lt);
 		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectUserLanguages(int) - end"); //$NON-NLS-1$
+		}
 		return ltarr;
 	}
 

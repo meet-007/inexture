@@ -1,5 +1,11 @@
 package service.user;
 
+
+
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -23,9 +29,18 @@ import service.LangTransaction.LangTransServ;
 import util.AESCrypt;
 
 public class UserServiceImp implements UserService {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(UserServiceImp.class.getName());
+
 	String response = ""; // response message
 
 	public static User setParams(HttpServletRequest req) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("setParams(HttpServletRequest) - start"); //$NON-NLS-1$
+		}
+
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
 		String lname = req.getParameter("lname");
@@ -50,11 +65,18 @@ public class UserServiceImp implements UserService {
 		user.setDob(date1);
 		user.setRole(2);
 		user.setTech(Integer.parseInt(tech));
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("setParams(HttpServletRequest) - end"); //$NON-NLS-1$
+		}
 		return user;
 	}
 
-	public String regesterUser(HttpServletRequest req)
-			throws Exception {
+	public String regesterUser(HttpServletRequest req) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("regesterUser(HttpServletRequest) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 
 		User user = UserServiceImp.setParams(req);
@@ -76,17 +98,32 @@ public class UserServiceImp implements UserService {
 				response = "Registration unsuccessfull";
 			}
 		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("regesterUser(HttpServletRequest) - end"); //$NON-NLS-1$
+		}
 		return response;
 	}
 
 	public User getUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String, String) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		UserDao userdao = new UserDaoImpl();
-		return userdao.selectUser(email, pass);
+		User returnUser = userdao.selectUser(email, pass);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(String, String) - end"); //$NON-NLS-1$
+		}
+		return returnUser;
 	}
 
-	public String updateUser(HttpServletRequest req, int iduser)
-			throws Exception {
+	public String updateUser(HttpServletRequest req, int iduser) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("updateUser(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		User user = UserServiceImp.setParams(req);
 		user.setIduser(iduser);
@@ -100,31 +137,61 @@ public class UserServiceImp implements UserService {
 		ImageService is = new ImageServiceImpl();
 		is.UpdateImage(req, iduser);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("updateUser(HttpServletRequest, int) - end"); //$NON-NLS-1$
+		}
 		return response;
 	}
 
 	public ArrayList<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getAllUser(int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
-		return new dao.user.UserDaoImpl().selectAllUser(role);
+		ArrayList<User> returnArrayList = new dao.user.UserDaoImpl().selectAllUser(role);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getAllUser(int) - end"); //$NON-NLS-1$
+		}
+		return returnArrayList;
 	}
 
 	public User getUser(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(int) - start"); //$NON-NLS-1$
+		}
+
 		UserDao userdao = new UserDaoImpl();
-		return userdao.selectUser(iduser);
+		User returnUser = userdao.selectUser(iduser);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUser(int) - end"); //$NON-NLS-1$
+		}
+		return returnUser;
 	}
 
 	public boolean deleteUser(int iduser)
 			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("deleteUser(int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		User u = new User();
 		u.setIduser(iduser);
 		String msg = "";
 
-		return new UserDaoImpl().insert(u, "delete");
+		boolean returnboolean = new UserDaoImpl().insert(u, "delete");
+		if (logger.isDebugEnabled()) {
+			logger.debug("deleteUser(int) - end"); //$NON-NLS-1$
+		}
+		return returnboolean;
 	}
 
-	public String updatePass(HttpServletRequest req)
-			throws Exception {
+	public String updatePass(HttpServletRequest req) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("updatePass(HttpServletRequest) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		String resp = "";
 		User u = null;
@@ -134,7 +201,7 @@ public class UserServiceImp implements UserService {
 			String password = req.getParameter("password");
 			u = udao.selectUser(email);
 			if (u != null) {
-				password =	AESCrypt.encrypt(password);
+				password = AESCrypt.encrypt(password);
 				u.setPassword(password);
 				if (!udao.updatePassword(u)) {
 					resp = "password updated";
@@ -144,27 +211,41 @@ public class UserServiceImp implements UserService {
 			}
 		} else {
 			HttpSession session = req.getSession();
-			u = (User)session.getAttribute("user");
+			u = (User) session.getAttribute("user");
 			if (u.getPassword().equals(AESCrypt.encrypt(req.getParameter("oldpass")))) {
-				u.setPassword(req.getParameter("newpass"));
+				u.setPassword(AESCrypt.encrypt(req.getParameter("newpass")));
+
 				if (!udao.updatePassword(u)) {
 					resp = "password updated";
 				}
-			}else {
+			} else {
 				resp = "user not found ! please try again";
 			}
 		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("updatePass(HttpServletRequest) - end"); //$NON-NLS-1$
+		}
 		return resp;
 	}
 
-
 	public boolean checkUserExist(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("checkUserExist(HttpServletRequest) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		String email = req.getParameter("email");
 		User u = new UserDaoImpl().selectUser(email);
-		if(u!=null) {
+		if (u != null) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("checkUserExist(HttpServletRequest) - end"); //$NON-NLS-1$
+			}
 			return true;
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("checkUserExist(HttpServletRequest) - end"); //$NON-NLS-1$
 		}
 		return false;
 	}

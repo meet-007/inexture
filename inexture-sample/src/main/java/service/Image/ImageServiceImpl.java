@@ -1,5 +1,11 @@
 package service.Image;
 
+
+
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -14,14 +20,25 @@ import javax.servlet.http.Part;
 
 import dao.Image.ImageDao;
 import dao.Image.ImageDaoImpl;
-import dao.LangTransaction.LangTrans;
-import model.UserImages;
 import model.UserImages;
 
 public class ImageServiceImpl implements ImageService {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(ImageServiceImpl.class.getName());
 
 	public static ArrayList<UserImages> setParams(HttpServletRequest request, int iduser)
 			throws IOException, ParseException, ServletException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		}
+
+		String delnewimglist[] = null;
+		if (request.getParameterValues("delnewimg") != null) {
+			delnewimglist = request.getParameterValues("delnewimg");
+		}
+		boolean insert = true;
 		ArrayList arr = new ArrayList();
 		arr = (ArrayList) request.getParts();
 		Iterator it = arr.iterator();
@@ -32,24 +49,33 @@ public class ImageServiceImpl implements ImageService {
 		// int read =0;
 		while (it.hasNext()) {
 			Part pt = (Part) it.next();
-			System.out.println("--" + pt.getSubmittedFileName() + "------------" + pt.getSize()
-			+ "--" + pt.getName() + "-" + pt.getContentType());
+			System.out.println("--" + pt.getSubmittedFileName() + "------------" + pt.getSize() + "--" + pt.getName()
+					+ "-" + pt.getContentType());
 			if (pt.getContentType() != null) {
 				if (pt.getContentType().equals("image/jpeg")) {
-					System.out.println("-----------------" + pt.getSubmittedFileName() + "------------" + pt.getSize()
-							+ "-------------" + pt.getName() + "----------" + pt.getContentType());
-					is = pt.getInputStream();
-					/*
-					 * ByteArrayOutputStream buffer = new ByteArrayOutputStream(); int nRead; byte[]
-					 * data = new byte[1024]; while ((nRead = is.read(data, 0, data.length)) != -1)
-					 * { buffer.write(data, 0, nRead); }
-					 * 
-					 * buffer.flush(); buffer.toByteArray();
-					 */
-					UserImages userimage = new UserImages();
-					userimage.setIduser(iduser);
-					userimage.setImage(is);
-					uimg.add(userimage);
+					if (delnewimglist != null) {
+						for (String delnewimg : delnewimglist) {
+							if (pt.getSubmittedFileName().equals(delnewimg)) {
+								insert = false;
+							}
+						}
+					}
+					if (insert == true) {
+						System.out.println("-----------------" + pt.getSubmittedFileName() + "------------"
+								+ pt.getSize() + "-------------" + pt.getName() + "----------" + pt.getContentType());
+						is = pt.getInputStream();
+						/*
+						 * ByteArrayOutputStream buffer = new ByteArrayOutputStream(); int nRead; byte[]
+						 * data = new byte[1024]; while ((nRead = is.read(data, 0, data.length)) != -1)
+						 * { buffer.write(data, 0, nRead); }
+						 *
+						 * buffer.flush(); buffer.toByteArray();
+						 */
+						UserImages userimage = new UserImages();
+						userimage.setIduser(iduser);
+						userimage.setImage(is);
+						uimg.add(userimage);
+					}
 				}
 			}
 
@@ -64,21 +90,33 @@ public class ImageServiceImpl implements ImageService {
 				uimg.add(userimage);
 			}
 		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+		}
 		return uimg;
 	}
 
 	public boolean SaveImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("SaveImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		System.out.println(request.getContentType());
 		// UserImages uimg[] = new UserImages[];
 		ArrayList<UserImages> uimg = ImageServiceImpl.setParams(request, iduser);
-		int totalImageInserted=0;
-		if(uimg.size()>0) {
+		int totalImageInserted = 0;
+		if (uimg.size() > 0) {
 			totalImageInserted = new ImageDaoImpl().insertImage(uimg, "insert");
-		}else {
-			System.out.println("no need to insert because no images found from user side" + "--------"+"returning true");
+		} else {
+			System.out.println(
+					"no need to insert because no images found from user side" + "--------" + "returning true");
 
+			if (logger.isDebugEnabled()) {
+				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 			return true;
 		}
 		// while(( read = is.read())!=-1) {
@@ -90,20 +128,38 @@ public class ImageServiceImpl implements ImageService {
 		// // int bytereaded = is.read(b);
 		// System.out.println(bytereaded);
 		if (totalImageInserted > 0) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 			return true;
 		} else {
+			if (logger.isDebugEnabled()) {
+				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 			return false;
 		}
 	}
 
 	public ArrayList<UserImages> getUserImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserImages(int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		ImageDao imdao = new ImageDaoImpl();
-		return imdao.selectImages(iduser);
+		ArrayList<UserImages> returnArrayList = imdao.selectImages(iduser);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getUserImages(int) - end"); //$NON-NLS-1$
+		}
+		return returnArrayList;
 	}
 
 	public boolean UpdateImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("UpdateImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		ImageDao it = new ImageDaoImpl();
 		ArrayList<UserImages> dbimages = it.selectImages(iduser);
@@ -120,7 +176,7 @@ public class ImageServiceImpl implements ImageService {
 					flag = 1;
 					break;
 				}
-				
+
 			}
 			if (flag == 0) {
 				updated.add(newimage);
@@ -129,14 +185,20 @@ public class ImageServiceImpl implements ImageService {
 			flag = 0;
 		}
 		if (deleted.size() > 0) {
-			rowsAffected = it.insertImage((ArrayList<UserImages>)deleted, "delete");
+			rowsAffected = it.insertImage((ArrayList<UserImages>) deleted, "delete");
 		}
 		if (updated.size() > 0) {
-			rowsAffected += it.insertImage((ArrayList<UserImages>)updated, "insert");
+			rowsAffected += it.insertImage((ArrayList<UserImages>) updated, "insert");
 		}
 		if (rowsAffected > 0) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 			return true;
 		} else {
+			if (logger.isDebugEnabled()) {
+				logger.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 			return false;
 		}
 

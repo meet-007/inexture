@@ -1,5 +1,11 @@
 package controller.Admin;
 
+
+
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,19 +21,30 @@ import service.user.UserServiceImp;
  * Servlet implementation class DeleteUserServ
  */
 public class DeleteUserServ extends HttpServlet {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(DeleteUserServ.class.getName());
+
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public DeleteUserServ() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public DeleteUserServ() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		boolean result = true;
 		PrintWriter out = null;
@@ -35,28 +52,43 @@ public class DeleteUserServ extends HttpServlet {
 		String json = "";
 		try {
 			out = response.getWriter();
-			//out.println("hello");
+			// out.println("hello");
 			System.out.println(request.getParameter("iduser"));
 			UserService userserv = new UserServiceImp();
 			result = userserv.deleteUser(Integer.parseInt(request.getParameter("iduser")));
-			if(!result) {
+			if (!result) {
 				json = "{\"result\":\"deleted success\",\"bool\":\"0\"}";
-			}else {
+			} else {
 				json = "{\"result\":\"fail to delete\",\"bool\":\"1\"}";
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
+			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
 			e.printStackTrace();
 		}
 		out.println(json);
-		
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		}
+
 		// TODO Auto-generated method stub
 		doGet(request, response);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		}
 	}
 
 }

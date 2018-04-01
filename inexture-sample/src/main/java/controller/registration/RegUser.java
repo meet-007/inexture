@@ -1,5 +1,11 @@
 package controller.registration;
 
+
+
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,11 +30,20 @@ import service.user.UserServiceImp;
  */
 @MultipartConfig
 public class RegUser extends HttpServlet {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(RegUser.class.getName());
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		}
+
 		String rspmsg = null;
 		User u = null;
 		ArrayList<LangTransact> newlangarr = null;
@@ -37,23 +52,25 @@ public class RegUser extends HttpServlet {
 		String page = "";
 		try {
 			rspmsg = new UserServiceImp().regesterUser(request);
-
 			page = "Login.jsp";
-			throw new ServletException();
 		} catch (Exception e1) {
+			logger.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
+
 			try {
 				u = UserServiceImp.setParams(request);
-				newlangarr =  LangTransImpl.setParams(request, -1);
+				newlangarr = LangTransImpl.setParams(request, -1);
 				adrsarr = AddressServiceImpl.setParams(request, -1);
 				uimglist = ImageServiceImpl.setParams(request, -1);
 			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			request.setAttribute("addrslist", adrsarr);
 			request.setAttribute("user", u);
-			request.setAttribute("languages",newlangarr);
+			request.setAttribute("languages", newlangarr);
 			request.setAttribute("imglist", uimglist);
 			rspmsg = e1.getMessage();
 			e1.printStackTrace();
@@ -63,6 +80,10 @@ public class RegUser extends HttpServlet {
 		request.setAttribute("rspmsg", rspmsg);
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		}
 	}
 
 }

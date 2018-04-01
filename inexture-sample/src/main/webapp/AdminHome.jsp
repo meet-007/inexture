@@ -9,6 +9,7 @@
 
 </head>
 <body>
+
 <jsp:include page="header-footer/newheader.jsp"></jsp:include>
         <!-- Page Content -->
         <div id="page-content-wrapper">
