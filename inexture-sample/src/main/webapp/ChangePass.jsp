@@ -13,7 +13,6 @@
 </style>
 </head>
 <body>
-
 	<jsp:include page="header-footer/newheader.jsp"></jsp:include>
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
@@ -28,7 +27,7 @@
 					<div class="col-md-6">
 						<div class="well well-lg">
 							<h4>Change your password</h4>
-							<form class="form-horizontal" action="ChngPassServ" method="post">
+							<form class="form-horizontal" action="ChngPassServ" method="post" data-toggle="validator">
 								<div class="form-group has-feedback">
 									<label for="inputEmail" class="col-sm-4 control-label">Old
 										Password :</label>
@@ -74,5 +73,6 @@
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
+	<script src="js/matchold-newpass.js" type="text/javascript"></script>
 </body>
 </html>

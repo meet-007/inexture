@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
 	<header id="home">
 		<!-- Background Image -->
 		<div class="bg-img" style="background-image: url('./img/background1.jpg');">
@@ -16,12 +15,10 @@
 		</div>
 		<!-- /Background Image -->
 	<jsp:include page="header-footer/header.jsp"></jsp:include>
-	
 		<!-- home wrapper -->
 		<div class="home-wrapper">
 			<div class="container">
 				<div class="row">
-
 					<!-- home content -->
 					<div class="col-md-10 col-md-offset-1">
 						<div class="home-content">
@@ -38,6 +35,5 @@
 			</div>
 		</div>
 		<!-- /home wrapper -->
-	
 </body>
 </html>

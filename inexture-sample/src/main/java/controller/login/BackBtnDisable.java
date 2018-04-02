@@ -3,9 +3,6 @@ package controller.login;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -18,6 +15,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet Filter implementation class BackBtnDisable
@@ -58,26 +58,19 @@ public class BackBtnDisable implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		System.out.println(req.getRequestURI());
-		// .*(js|css|png|jpg|woff|woff2|ttf)$
 		if (req.getRequestURI().matches(".*(js|css|png|jpg|woff|woff2|ttf)$")) {
-
 			chain.doFilter(request, response);
-
 		} else {
-
 			if ((session.getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
 				RequestDispatcher rd = req.getRequestDispatcher("Login.jsp");
 				rd.forward(request, response);
-
 			} else {
 				chain.doFilter(request, response);
-
 			}
 			resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 			resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			resp.setHeader("Pragma", "no-cache");
 			resp.setDateHeader("Expires", 0);
-
 		}
 
 		if (logger.isDebugEnabled()) {

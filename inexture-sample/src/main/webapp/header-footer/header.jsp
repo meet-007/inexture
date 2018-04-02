@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>HTML Template</title>
+	<title>Inexture demo project</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
@@ -20,32 +20,19 @@
 	<!-- Owl Carousel -->
 	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
 	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
-
 	<!-- Magnific Popup -->
 	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
-
 	<!-- Font Awesome Icon -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-	
 	<!-- my css -->
 	<link type="text/css" rel="stylesheet" href="css/mycss.css" />
-	
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 </head>
-
 	<body>
 		<!-- Header -->
 	<nav id="nav" class="navbar nav-transparent">
 			<div class="container">
-
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
@@ -55,14 +42,12 @@
 						</a>
 					</div>
 					<!-- /Logo -->
-
 					<!-- Collapse nav button -->
 					<div class="nav-collapse">
 						<span></span>
 					</div>
 					<!-- /Collapse nav button -->
 				</div>
-
 				<!--  Main navigation  -->
 				<ul class="main-nav nav navbar-nav navbar-right">
 					<li class="active"><a href="/inexture-sample">Home</a></li>
@@ -79,19 +64,16 @@
 					<li><a href="Login.jsp">Login</a></li>
 				</ul>
 				<!-- /Main navigation -->
-
 			</div>
 		</nav>
 	<!-- /Header -->
 	<!-- jQuery Plugins -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<!-- datepicker -->
-	
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-datepicker.min.js"></script>
 	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-
 	</body>
 </html>

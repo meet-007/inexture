@@ -66,9 +66,8 @@ public class UpdateServ extends HttpServlet {
 		ArrayList<UserImages> uimglist = null;
 		try {
 			User user = null;
-			HttpSession session = null;
+			HttpSession session = session = request.getSession();
 			if (request.getParameter("iduser") == null) {
-				session = request.getSession();
 				user = (User) session.getAttribute("user");
 			} else {
 				int iduser = Integer.parseInt(request.getParameter("iduser"));
@@ -82,7 +81,7 @@ public class UpdateServ extends HttpServlet {
 				session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
 				page="UpdateProfile";
 			}else {
-				page="UpdateProfile.jsp";
+				page="UpdateProfile";
 				throw new Exception("enable javaScript if it is disabled");
 
 			}

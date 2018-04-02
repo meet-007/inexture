@@ -1,11 +1,5 @@
 package controller.general;
 
-
-
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import service.user.UserServiceImp;
 
@@ -81,7 +78,6 @@ public class ChngPassServ extends HttpServlet {
 		request.setAttribute("rspmsg1", rspmsg);
 		RequestDispatcher rd = request.getRequestDispatcher("ChangePass.jsp");
 		rd.forward(request, response);
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}

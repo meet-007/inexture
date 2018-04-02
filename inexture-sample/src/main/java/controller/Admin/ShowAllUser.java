@@ -1,10 +1,7 @@
+/*
+ * 
+ */
 package controller.Admin;
-
-
-
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
 
 import java.io.IOException;
 
@@ -14,19 +11,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import service.user.UserServiceImp;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class ShowAllUser
+ * Servlet implementation class ShowAllUser.
  */
 public class ShowAllUser extends HttpServlet {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(ShowAllUser.class.getName());
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -9,35 +9,48 @@
 <title>Insert title here</title>
 <script src="js/jquery.min.js"></script>
 <script>
-function getData(httpreq){
-	 document.getElementById("demo").innerHTML = httpreq.responseText;
-}
-$(document).ready(function(){
-	$(".btn").click(function(){
-	var id = $(this).attr("id");
-	var row = $(this);
-	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET", "DeleteUserServ?iduser="+id, true);
-	xhttp.send();
-	 xhttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		     // getData(xhttp);
-		     var obj = xhttp.responseText;
-		     var jobj = JSON.parse(obj);
-		     if(jobj.bool === '0') {
-		    	 document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
-		    	 $(row).parents("tr").hide();
-		     }else{
-		    	 document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
-		     }
-		    }
-	 		  };
-	});
-	});
+	function getData(httpreq) {
+		document.getElementById("demo").innerHTML = httpreq.responseText;
+	}
+	$(document)
+			.ready(
+					function() {
+						$(".btn")
+								.click(
+										function() {
+											var id = $(this).attr("id");
+											var row = $(this);
+											var xhttp = new XMLHttpRequest();
+											xhttp.open("GET","DeleteUserServ?iduser="+ id, true);
+											xhttp.send();
+											xhttp.onreadystatechange = function() {
+												if (this.readyState == 4
+														&& this.status == 200) {
+													// getData(xhttp);
+													var obj = xhttp.responseText;
+													var jobj = JSON.parse(obj);
+													if (jobj.bool === '0') {
+														document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
+														$(row).parents("tr")	.hide();
+														$("#demo").removeClass("alert alert-danger");
+														$("#demo").addClass("alert alert-success");
+														$("#demo").show();
+														$("#demo").fadeOut(500);
+													} else {
+														document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
+														$("#demo").removeClass("alert alert-success");
+														$("#demo").addClass("alert alert-danger");
+														$("#demo").show();
+														$("#demo").fadeOut(500);
+													}
+												}
+											};
+										});
+					});
 </script>
 </head>
 <body>
-<p id="demo"></p>
+
 	<jsp:include page="header-footer/newheader.jsp"></jsp:include>
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
@@ -48,6 +61,10 @@ $(document).ready(function(){
 		</button>
 		<div class="container">
 			<div class="row">
+			<div class="col-md-offset-4"></div>
+				<div class="col-md-4">
+					<div id="demo" class="" role="alert"></div>
+				</div>
 				<div class="col-sm-8 col-sm-offset-2">
 					<h3>Users list</h3>
 					<table class="table table-bordered">
@@ -66,7 +83,6 @@ $(document).ready(function(){
 							<c:set var="index" value="1"></c:set>
 							<c:forEach var="user" items="${requestScope.userslist}">
 								<tr>
-
 									<td><c:out value="${index}"></c:out></td>
 									<td><c:out value="${user.firstname} ${user.lastname}"></c:out></td>
 									<td><c:out value="${user.email}"></c:out></td>
@@ -75,7 +91,8 @@ $(document).ready(function(){
 										<c:out value="${(user.gender eq 1)?'female':''}"></c:out></td>
 									<td><a
 										href="UpdateProfile?iduser=<c:out value="${user.iduser}"></c:out>">edit</a></td>
-									<td><button type="button" class="btn" id="<c:out value ="${user.iduser}"></c:out>">delete</button></td>
+									<td><button type="button" class="btn"
+											id="<c:out value ="${user.iduser}"></c:out>">delete</button></td>
 								</tr>
 								<c:set var="index" value="${index+1}"></c:set>
 							</c:forEach>

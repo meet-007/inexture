@@ -3,9 +3,6 @@ package controller.login;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -18,6 +15,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import dao.Role.RoleDao;
 import dao.Role.RoleDaoImpl;
@@ -50,10 +50,7 @@ public class LoginFilter implements Filter {
 		if (logger.isDebugEnabled()) {
 			logger.debug("destroy() - start"); //$NON-NLS-1$
 		}
-
 		// TODO Auto-generated method stub
-		System.out.println("hello0000000000000000000");
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("destroy() - end"); //$NON-NLS-1$
 		}
@@ -72,7 +69,6 @@ public class LoginFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println("filter called");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String rspmsg = "";
@@ -90,16 +86,12 @@ public class LoginFilter implements Filter {
 				if (role.getRole().equals("admin")) {
 					page = "AdminHome.jsp";
 				} else {
-					// pass the request along the filter chain
-					// chain.doFilter(request, response);
-					// PrintWriter pt = response.getWriter();
 					page = "UserHome.jsp";
 				}
 			} else {
 				rspmsg = "Invalid Username or password please try again";
 
 			}
-
 		} catch (Exception e) {
 			logger.error("doFilter(ServletRequest, ServletResponse, FilterChain)", e); //$NON-NLS-1$
 
@@ -126,10 +118,7 @@ public class LoginFilter implements Filter {
 		if (logger.isDebugEnabled()) {
 			logger.debug("init(FilterConfig) - start"); //$NON-NLS-1$
 		}
-
 		// TODO Auto-generated method stub
-		System.out.println("filter initiallizeddddddddddddddddddd");
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("init(FilterConfig) - end"); //$NON-NLS-1$
 		}

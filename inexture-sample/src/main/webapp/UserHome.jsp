@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>user area</title>
 </head>
 <body>
-
 <jsp:include page="header-footer/newheader.jsp"></jsp:include>
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -32,8 +31,5 @@
         </div>
         <!-- /#page-content-wrapper -->
 </div>
-
-
-
 </body>
 </html>

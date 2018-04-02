@@ -1,8 +1,5 @@
 package controller.registration;
 
-
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 

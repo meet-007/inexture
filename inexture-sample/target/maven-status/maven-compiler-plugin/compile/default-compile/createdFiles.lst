@@ -31,7 +31,6 @@ dao\Image\ImageDaoImpl.class
 util\AESCrypt.class
 util\DbUtil.class
 controller\updtprofile\UpdateServ.class
-controller\Update.class
 model\Role.class
 dao\LangTransaction\LangTrans.class
 model\TechMaster.class

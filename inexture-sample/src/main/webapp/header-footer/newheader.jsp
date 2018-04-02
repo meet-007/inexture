@@ -9,21 +9,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Bootstrap 101 Template</title>
-
+<title>Inexture Demo project</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 <!-- sidebar -->
 <link href="css/sidebar.css" rel="stylesheet">
+<!-- Datepicker css -->
 <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
 </head>
 <body>
-
 	<div id="wrapper">
 		<div class="overlay"></div>
-
 		<!-- Sidebar -->
 		<nav class="navbar navbar-inverse navbar-fixed-top"
 			id="sidebar-wrapper" role="navigation">
@@ -34,7 +32,7 @@
 			<li><a href="UpdateProfile">Update profile</a></li>
 			<li><a href="#">Home</a></li>
 			<c:if test="${sessionScope.user.role eq 1}">
-			<li><a href="ShowAllUser">Manage Users</a></li>
+				<li><a href="ShowAllUser">Manage Users</a></li>
 			</c:if>
 			<li><a href="#">About</a></li>
 			<li><a href="#">Events</a></li>
@@ -55,15 +53,13 @@
 		</ul>
 		</nav>
 		<!-- /#sidebar-wrapper -->
-	
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery.min.js"></script>
-	
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- datepicker -->
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	<script src="js/sidebar.js"></script>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- datepicker -->
+		<script src="js/bootstrap-datepicker.min.js"></script>
+		<!-- sidebar js -->
+		<script src="js/sidebar.js"></script>
 </body>
 </html>

@@ -1,11 +1,7 @@
+/*
+ * 
+ */
 package controller.Admin;
-
-
-
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -14,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import service.user.UserService;
 import service.user.UserServiceImp;
-
 /**
  * Servlet implementation class DeleteUserServ
  */
@@ -39,6 +37,7 @@ public class DeleteUserServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {
@@ -52,7 +51,6 @@ public class DeleteUserServ extends HttpServlet {
 		String json = "";
 		try {
 			out = response.getWriter();
-			// out.println("hello");
 			System.out.println(request.getParameter("iduser"));
 			UserService userserv = new UserServiceImp();
 			result = userserv.deleteUser(Integer.parseInt(request.getParameter("iduser")));
@@ -63,7 +61,6 @@ public class DeleteUserServ extends HttpServlet {
 			}
 		} catch (Exception e) {
 			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-
 			e.printStackTrace();
 		}
 		out.println(json);
@@ -77,6 +74,7 @@ public class DeleteUserServ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {

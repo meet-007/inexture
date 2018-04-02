@@ -28,14 +28,25 @@ import service.LangTransaction.LangTransImpl;
 import service.LangTransaction.LangTransServ;
 import util.AESCrypt;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserServiceImp.
+ */
 public class UserServiceImp implements UserService {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(UserServiceImp.class.getName());
 
+	/** The response. */
 	String response = ""; // response message
 
+	/**
+	 * Sets the params.
+	 *
+	 * @param req the req
+	 * @return the user
+	 * @throws Exception the exception
+	 */
 	public static User setParams(HttpServletRequest req) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("setParams(HttpServletRequest) - start"); //$NON-NLS-1$
@@ -92,6 +103,9 @@ public class UserServiceImp implements UserService {
 		return user;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#regesterUser(javax.servlet.http.HttpServletRequest)
+	 */
 	public String regesterUser(HttpServletRequest req) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("regesterUser(HttpServletRequest) - start"); //$NON-NLS-1$
@@ -125,6 +139,9 @@ public class UserServiceImp implements UserService {
 		return response;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#getUser(java.lang.String, java.lang.String)
+	 */
 	public User getUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(String, String) - start"); //$NON-NLS-1$
@@ -139,6 +156,9 @@ public class UserServiceImp implements UserService {
 		return returnUser;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#updateUser(javax.servlet.http.HttpServletRequest, int)
+	 */
 	public String updateUser(HttpServletRequest req, int iduser) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("updateUser(HttpServletRequest, int) - start"); //$NON-NLS-1$
@@ -163,6 +183,9 @@ public class UserServiceImp implements UserService {
 		return response;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#getAllUser(int)
+	 */
 	public ArrayList<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getAllUser(int) - start"); //$NON-NLS-1$
@@ -176,6 +199,9 @@ public class UserServiceImp implements UserService {
 		return returnArrayList;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#getUser(int)
+	 */
 	public User getUser(int iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getUser(int) - start"); //$NON-NLS-1$
@@ -189,6 +215,9 @@ public class UserServiceImp implements UserService {
 		return returnUser;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#deleteUser(int)
+	 */
 	public boolean deleteUser(int iduser)
 			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException {
 		if (logger.isDebugEnabled()) {
@@ -207,6 +236,9 @@ public class UserServiceImp implements UserService {
 		return returnboolean;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#updatePass(javax.servlet.http.HttpServletRequest)
+	 */
 	public String updatePass(HttpServletRequest req) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("updatePass(HttpServletRequest) - start"); //$NON-NLS-1$
@@ -249,6 +281,9 @@ public class UserServiceImp implements UserService {
 		return resp;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.user.UserService#checkUserExist(javax.servlet.http.HttpServletRequest)
+	 */
 	public boolean checkUserExist(HttpServletRequest req) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("checkUserExist(HttpServletRequest) - start"); //$NON-NLS-1$
