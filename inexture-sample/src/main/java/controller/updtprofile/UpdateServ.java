@@ -3,22 +3,28 @@ package controller.updtprofile;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
-import service.user.UserService;
-import service.user.UserServiceImp;
 
-import javax.servlet.annotation.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import model.Address;
+import model.LangTransact;
+import model.User;
+import model.UserImages;
+import service.Address.AddressServiceImpl;
+import service.Image.ImageServiceImpl;
+import service.LangTransaction.LangTransImpl;
+import service.user.UserServiceImp;
 
 /**
  * Servlet implementation class UpdateServ
@@ -43,6 +49,7 @@ public class UpdateServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {
@@ -50,7 +57,13 @@ public class UpdateServ extends HttpServlet {
 		}
 
 		// TODO Auto-generated method stub
+		String page= null;
 		String rspmsg = null;
+		String error = null;
+		User u = null;
+		ArrayList<LangTransact> newlangarr = null;
+		ArrayList<Address> adrsarr = null;
+		ArrayList<UserImages> uimglist = null;
 		try {
 			User user = null;
 			HttpSession session = null;
@@ -62,18 +75,64 @@ public class UpdateServ extends HttpServlet {
 				user = new UserServiceImp().getUser(iduser);
 				request.setAttribute("user", user);
 			}
+			error = new validations.RegistrationValidation().validate(request);
+			if(error.equals("")) {
+				rspmsg = new UserServiceImp().updateUser(request, user.getIduser());
+				session.removeAttribute("user");
+				session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
+				page="UpdateProfile";
+			}else {
+				page="UpdateProfile.jsp";
+				throw new Exception("enable javaScript if it is disabled");
 
-			rspmsg = new UserServiceImp().updateUser(request, user.getIduser());
-			session.removeAttribute("user");
-			session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
+			}
 		} catch (Exception e1) {
 			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
+			try {
+				u = UserServiceImp.setParams(request);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
+				newlangarr = LangTransImpl.setParams(request, -1);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
+				adrsarr = AddressServiceImpl.setParams(request, -1);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
+				uimglist = ImageServiceImpl.setParams(request, -1);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+			if(!error.equals("")) {
+				request.setAttribute("errormsg", error);
+			}
+			request.setAttribute("addrslist", adrsarr);
+			request.setAttribute("user", u);
+			request.setAttribute("languages", newlangarr);
+			request.setAttribute("imglist", uimglist);
+			rspmsg = e1.getMessage();
+			e1.printStackTrace();
 			rspmsg = e1.getMessage();
 			e1.printStackTrace();
 		}
 		request.setAttribute("rspmsg", rspmsg);
-		RequestDispatcher rd = request.getRequestDispatcher("UpdateProfile");
+		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 
 		if (logger.isDebugEnabled()) {
@@ -85,6 +144,7 @@ public class UpdateServ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {

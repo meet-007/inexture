@@ -3,9 +3,6 @@ package service.user;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -16,6 +13,9 @@ import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import dao.user.UserDao;
 import dao.user.UserDaoImpl;
@@ -58,13 +58,33 @@ public class UserServiceImp implements UserService {
 		user.setFirstname(fname);
 		user.setLastname(lname);
 		user.setEmail(email);
+
 		user.setPassword(pass);
-		user.setMobile(Long.parseLong(mobile));
-		user.setGender(Integer.parseInt(gender));
-		Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
-		user.setDob(date1);
+
+		try {
+			user.setMobile(Long.parseLong(mobile));
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			user.setGender(Integer.parseInt(gender));
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
+			user.setDob(date1);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+
 		user.setRole(2);
-		user.setTech(Integer.parseInt(tech));
+		try {
+			user.setTech(Integer.parseInt(tech));
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("setParams(HttpServletRequest) - end"); //$NON-NLS-1$

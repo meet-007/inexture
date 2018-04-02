@@ -3,9 +3,6 @@ package controller.registration;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import model.Address;
 import model.LangTransact;
 import model.User;
@@ -24,6 +24,7 @@ import service.Address.AddressServiceImpl;
 import service.Image.ImageServiceImpl;
 import service.LangTransaction.LangTransImpl;
 import service.user.UserServiceImp;
+import validations.RegistrationValidation;
 
 /**
  * Servlet implementation class RegUser
@@ -49,17 +50,44 @@ public class RegUser extends HttpServlet {
 		ArrayList<LangTransact> newlangarr = null;
 		ArrayList<Address> adrsarr = null;
 		ArrayList<UserImages> uimglist = null;
+		String error = null;
 		String page = "";
 		try {
-			rspmsg = new UserServiceImp().regesterUser(request);
-			page = "Login.jsp";
+			validations.RegistrationValidation rvalidate = new RegistrationValidation();
+			error = rvalidate.validate(request);
+			if(error.equals("")) {
+				rspmsg = new UserServiceImp().regesterUser(request);
+				page = "Login.jsp";
+			}else {
+				page = "ShowRegServ";
+				throw new Exception("enable javaScript if it is disabled");
+
+			}
 		} catch (Exception e1) {
 			logger.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
 
 			try {
 				u = UserServiceImp.setParams(request);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
 				newlangarr = LangTransImpl.setParams(request, -1);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
 				adrsarr = AddressServiceImpl.setParams(request, -1);
+			} catch (Exception e) {
+				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}try {
 				uimglist = ImageServiceImpl.setParams(request, -1);
 			} catch (Exception e) {
 				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
@@ -68,6 +96,10 @@ public class RegUser extends HttpServlet {
 				e.printStackTrace();
 			}
 
+
+			if(!error.equals("")) {
+				request.setAttribute("errormsg", error);
+			}
 			request.setAttribute("addrslist", adrsarr);
 			request.setAttribute("user", u);
 			request.setAttribute("languages", newlangarr);

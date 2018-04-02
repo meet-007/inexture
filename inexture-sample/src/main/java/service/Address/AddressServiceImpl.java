@@ -3,20 +3,18 @@ package service.Address;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import dao.Address.AddressDao;
 import dao.Address.AddressDaoImpl;
 import model.Address;
-import util.DbUtil;
 
 public class AddressServiceImpl implements AddressService {
 	/**
@@ -44,7 +42,11 @@ public class AddressServiceImpl implements AddressService {
 			Address address = new Address();
 			address.setAddressline1(addressline1[i]);
 			address.setAddressline2(addressline2[i]);
-			address.setPin(Integer.parseInt(pin[i])); // converting into integer type
+			try {
+				address.setPin(Integer.parseInt(pin[i])); // converting into integer type
+			}catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
 			address.setCity(city[i]);
 			address.setState(state[i]);
 			address.setCountry(country[i]);

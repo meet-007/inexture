@@ -27,6 +27,9 @@
 				<div class="section-header text-center"></div>
 				<div class="col-md-9 col-md-offset-1">
 					<div class="contact-form">
+					<c:if test="${requestScope.errormsg ne null}">
+					<div id="success_alert" class="alert alert-danger" role="alert">${requestScope.errormsg }</div>
+					</c:if>
 						<c:choose>
 <%-- 						<c:when test="${not empty param.iduser}"> --%>
 						<c:when test="${requestScope.user ne null}">
