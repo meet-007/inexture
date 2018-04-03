@@ -5,7 +5,6 @@ package controller.login;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,25 +15,25 @@ import org.apache.log4j.Logger;
 
 import service.user.UserServiceImp;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class ForgotPassServ
+ * Servlet implementation class ForgotPassServ.
  */
 public class ForgotPassServ extends HttpServlet {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(ForgotPassServ.class.getName());
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default constructor.
-	 */
-	public ForgotPassServ() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
+	 * Do post.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -46,19 +45,20 @@ public class ForgotPassServ extends HttpServlet {
 		}
 
 		// TODO Auto-generated method stub
-		String rspmsg = null;
+
 		try {
-			rspmsg = new UserServiceImp().updatePass(request);
+			String error = new validations.LoginValidation().validate(request.getParameter("email"), request.getParameter("password"));
+			if(!error.equals("")) {
+				request.setAttribute("errormsg", error);
+				throw new Exception("please enable javascript");
+			}
+			request.setAttribute("rspmsg2", new UserServiceImp().updatePass(request));
 		} catch (Exception e1) {
 			logger.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
-
-			rspmsg = e1.getMessage();
+			request.setAttribute("rspmsg2", e1.getMessage());
 			e1.printStackTrace();
 		}
-		request.setAttribute("rspmsg2", rspmsg);
-		RequestDispatcher rd = request.getRequestDispatcher("ForgotPassword.jsp");
-		rd.forward(request, response);
-
+		request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
 		if (logger.isDebugEnabled()) {
 			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}

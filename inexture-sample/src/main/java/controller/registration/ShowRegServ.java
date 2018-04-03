@@ -3,35 +3,38 @@ package controller.registration;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.Lang.LangServ;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import service.Lang.LangServImpl;
-import service.Tech.TechServ;
 import service.Tech.TechServImpl;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class ShowRegServ
+ * Servlet implementation class ShowRegServ.
  */
 public class ShowRegServ extends HttpServlet {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(ShowRegServ.class.getName());
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -43,52 +46,27 @@ public class ShowRegServ extends HttpServlet {
 		}
 
 		try {
-			String page = "";
-
-			TechServ ts = new TechServImpl();
-			ArrayList technologies = ts.getTech();
-			request.setAttribute("tech", technologies);
-			LangServ ls = new LangServImpl();
-			ArrayList languages = ls.getLang();
-			request.setAttribute("lang", languages);
+			request.setAttribute("tech",  new TechServImpl().getTech());
+			request.setAttribute("lang",  new LangServImpl().getLang());
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 0);
 			if (request.getParameter("page") != null) {
-				page = "UpdateProfile.jsp";
-				RequestDispatcher rd = request.getRequestDispatcher(page);
-				rd.forward(request, response);
+				request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
 			} else {
-				page = "Registration.jsp";
-				RequestDispatcher rd = request.getRequestDispatcher(page);
-				rd.forward(request, response);
+				request.getRequestDispatcher("Registration.jsp").forward(request, response);
 			}
-
 		} catch (Exception e) {
 			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-
-			System.out.println(e.getMessage());
 		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
-
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
-		}
-
-		{
-			doGet(request, response);
-		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
-		}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 }

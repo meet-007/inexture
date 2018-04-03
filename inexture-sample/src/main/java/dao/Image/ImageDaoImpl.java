@@ -3,13 +3,13 @@ package dao.Image;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import model.UserImages;
 import util.DbUtil;
@@ -27,7 +27,7 @@ public class ImageDaoImpl implements ImageDao {
 		}
 
 		// TODO Auto-generated method stub
-		ArrayList arr = new ArrayList();
+		ArrayList<Object> arr = new ArrayList<Object>();
 		int count = 0;
 		for (int i = 0; i < uimg.size(); i++) {
 			arr.add(0, uimg.get(i).getIduser());
@@ -43,9 +43,7 @@ public class ImageDaoImpl implements ImageDao {
 					count++;
 				}
 			}
-
 			arr.removeAll(arr);
-
 		}
 
 		if (logger.isDebugEnabled()) {
@@ -54,14 +52,15 @@ public class ImageDaoImpl implements ImageDao {
 		return count;
 	}
 
-	public ArrayList selectImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
+	/* (non-Javadoc)
+	 * @see dao.Image.ImageDao#selectImages(int)
+	 */
+	public ArrayList<UserImages> selectImages(Integer iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectImages(int) - start"); //$NON-NLS-1$
 		}
-
 		// TODO Auto-generated method stub
-		Integer id = (Integer) iduser;
-		ResultSet rs = DbUtil.dbOperationSelect(SELECT, id.toString());
+		ResultSet rs = DbUtil.dbOperationSelect(SELECT,iduser.toString());
 		ArrayList<UserImages> uiarr = new ArrayList<UserImages>();
 		while (rs.next()) {
 			UserImages ui = new UserImages();

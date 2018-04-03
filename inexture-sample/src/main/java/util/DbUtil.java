@@ -3,9 +3,6 @@ package util;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class DbUtil {
 	/**
 	 * Logger for this class
@@ -28,7 +28,6 @@ public class DbUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getConnection() - start"); //$NON-NLS-1$
 		}
-
 		Properties prop = DbUtil.getProperties();
 		String driver = prop.getProperty("driver");
 		String url = prop.getProperty("url");
@@ -36,7 +35,6 @@ public class DbUtil {
 		String pass = prop.getProperty("pass");
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uname, pass);
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("getConnection() - end"); //$NON-NLS-1$
 		}
@@ -47,7 +45,6 @@ public class DbUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getProperties() - start"); //$NON-NLS-1$
 		}
-
 		Properties prop = new Properties();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream fis = classLoader.getResourceAsStream("db.properties");
@@ -59,20 +56,17 @@ public class DbUtil {
 		return prop;
 	}
 
-	public static boolean dbOperationInsert(String query, ArrayList param)
+	public static boolean dbOperationInsert(String query, ArrayList<Object> param)
 			throws SQLException, ClassNotFoundException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("dbOperationInsert(String, ArrayList) - start"); //$NON-NLS-1$
 		}
-
 		Connection con = DbUtil.getConnection();
 		PreparedStatement pst = con.prepareStatement(query);
-		Iterator it = param.iterator();
+		Iterator<Object> it = param.iterator();
 		int index = 1;
 		while (it.hasNext()) {
 			Object ob = it.next();
-
-			// String typename = ob.getClass().getName();
 			if (ob instanceof InputStream) {
 				if (ob != null) {
 					pst.setBlob(index, (InputStream) ob);
@@ -80,14 +74,6 @@ public class DbUtil {
 			} else {
 				pst.setObject(index, ob);
 			}
-			// pst.setObject(index, ob, );
-			// if(ob instanceof String) {
-			// pst.setString(index, (String)ob);
-			// }else if(ob instanceof Integer) {
-			// pst.setInt(index, (Integer)ob);
-			// }else if(ob instanceof Long) {
-			// pst.setLong(index, (Long)ob);
-			// }
 			index++;
 		}
 		boolean result = pst.execute();

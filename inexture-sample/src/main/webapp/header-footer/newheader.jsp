@@ -18,6 +18,8 @@
 <link href="css/sidebar.css" rel="stylesheet">
 <!-- Datepicker css -->
 <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+<!-- Datepicker css -->
+<link href="css/mycss.css" rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -26,9 +28,9 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top"
 			id="sidebar-wrapper" role="navigation">
 		<ul class="nav sidebar-nav">
-			<li class="sidebar-brand"><a href="#">welcome <c:out
+			<li class="sidebar-brand"><div class="fix-brand"><a href="#">welcome <c:out
 						value="${sessionScope.user.firstname}"></c:out>
-			</a></li>
+			</a></div></li>
 			<li><a href="UpdateProfile">Update profile</a></li>
 			<li><a href="#">Home</a></li>
 			<c:if test="${sessionScope.user.role eq 1}">

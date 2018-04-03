@@ -10,7 +10,12 @@
 </head>
 <body>
 	<jsp:include page="header-footer/header.jsp"></jsp:include>
-	<div class="section-header text-center">Register here</div>
-	<jsp:include page="commonReg.jsp"></jsp:include>s
+	<div class="section-header text-center"><h2 class="title">Register here</h2></div>
+	<jsp:include page="commonReg.jsp"></jsp:include>
+	<script>
+	$(document).ready(function(){
+		$("#nav").removeClass("nav-transparent");
+	});
+	</script>
 </body>
 </html>

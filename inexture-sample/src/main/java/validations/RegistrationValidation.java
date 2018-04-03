@@ -5,7 +5,21 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class RegistrationValidation.
+ */
 public class RegistrationValidation {
+
+	/**
+	 * Validate.
+	 *
+	 * @param req the req
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
+	 */
 	public String validate(HttpServletRequest req) throws IOException, ServletException {
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
@@ -75,6 +89,13 @@ public class RegistrationValidation {
 		}
 		return error;
 	}
+
+	/**
+	 * Validate lang.
+	 *
+	 * @param lang the lang
+	 * @return true, if successful
+	 */
 	static boolean validateLang(String lang[]) {
 		boolean iserror = true;
 		if(lang != null) {
@@ -86,6 +107,14 @@ public class RegistrationValidation {
 		}
 		return iserror;
 	}
+
+	/**
+	 * Validate address.
+	 *
+	 * @param req the req
+	 * @param error the error
+	 * @return the string
+	 */
 	static String validateAddress(HttpServletRequest req,String error) {
 		String addressline1[] = req.getParameterValues("addressline1");
 		String addressline2[] = req.getParameterValues("addressline2");
@@ -93,7 +122,6 @@ public class RegistrationValidation {
 		String city[] = req.getParameterValues("city");
 		String state[] = req.getParameterValues("state");
 		String country[] = req.getParameterValues("country");
-		String idaddress[] = req.getParameterValues("idaddress");
 		if(addressline1 != null) {
 			for (int i=0;i<addressline1.length;i++) {
 				if(addressline1[i].equals("")) {
@@ -101,9 +129,7 @@ public class RegistrationValidation {
 				}else if(addressline1[i].length() > 100){
 					error += "Addressline1 of address "+i+1+" should not be more than 100 characters <br/>";
 				}
-				if(addressline2[i].equals("")) {
-					error += "Addressline2 of address "+i+1+" should not be null <br/>";
-				}else if(addressline2[i].length() > 100){
+				if(addressline2[i].length() > 100){
 					error += "Addressline2 of address "+i+1+" should not be more than 100 characters <br/>";
 				}
 				if(pin[i].equals("")) {
@@ -133,10 +159,17 @@ public class RegistrationValidation {
 		return error;
 	}
 
+	/**
+	 * Validate image.
+	 *
+	 * @param request the request
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
+	 */
 	static boolean validateImage(HttpServletRequest request) throws IOException, ServletException {
 		boolean iserror = true;
 		for(Part part : request.getParts()) {
-			System.out.println("-----------"+part.getContentType()+part.getSubmittedFileName());
 			if(part.getContentType() != null) {
 				if(part.getContentType().equals("image/jpeg")||part.getContentType().equals("application/octet-stream")) {
 					iserror = false;

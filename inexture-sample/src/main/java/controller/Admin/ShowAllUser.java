@@ -1,11 +1,10 @@
 /*
- * 
+ *
  */
 package controller.Admin;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import service.user.UserServiceImp;
  * Servlet implementation class ShowAllUser.
  */
 public class ShowAllUser extends HttpServlet {
-	
+
 	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(ShowAllUser.class.getName());
 
@@ -39,20 +38,17 @@ public class ShowAllUser extends HttpServlet {
 		}
 
 		// TODO Auto-generated method stub
-		String rspmsg = "";
 		try {
 			request.setAttribute("userslist", new UserServiceImp().getAllUser(2));
+			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
+			request.getRequestDispatcher("ManageUser.jsp").forward(request, response);
 		} catch (Exception e) {
 			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-
-			rspmsg = e.getMessage();
 		}
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-		response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-		RequestDispatcher rd = request.getRequestDispatcher("ManageUser.jsp");
-		rd.forward(request, response);
+
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$

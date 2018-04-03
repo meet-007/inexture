@@ -35,5 +35,6 @@
 			</div>
 		</div>
 		<!-- /home wrapper -->
+		</header>
 </body>
 </html>

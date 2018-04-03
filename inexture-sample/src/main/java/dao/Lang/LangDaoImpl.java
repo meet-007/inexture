@@ -3,18 +3,15 @@ package dao.Lang;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import model.LangMaster;
-import model.TechMaster;
 import util.DbUtil;
 
 public class LangDaoImpl implements LangDao {
@@ -23,15 +20,15 @@ public class LangDaoImpl implements LangDao {
 	 */
 	private static final Logger logger = LogManager.getLogger(LangDaoImpl.class.getName());
 
-	public ArrayList selectLang() throws ClassNotFoundException, SQLException, IOException {
+	/* (non-Javadoc)
+	 * @see dao.Lang.LangDao#selectLang()
+	 */
+	public ArrayList<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectLang() - start"); //$NON-NLS-1$
 		}
-
-		Connection con = DbUtil.getConnection();
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(select);
-		ArrayList languages = new ArrayList();
+		ResultSet rs = DbUtil.dbOperationSelect(select);
+		ArrayList<LangMaster> languages = new ArrayList<LangMaster>();
 		while (rs.next()) {
 			LangMaster lm = new LangMaster();
 			lm.setIdlang(rs.getInt(1));

@@ -1,38 +1,72 @@
 package model;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LangTransact.
+ */
 public class LangTransact {
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger logger = LogManager.getLogger(LangTransact.class.getName());
 
+	/** Logger for this class. */
+
+	/** The idlang transaction. */
 	private int idlang_transaction;
+
+	/** The iduser. */
 	private int iduser;
+
+	/** The idlangmaster. */
 	private int idlangmaster;
 
+	/**
+	 * Gets the idlang transaction.
+	 *
+	 * @return the idlang transaction
+	 */
 	public int getIdlang_transaction() {
 		return idlang_transaction;
 	}
 
+	/**
+	 * Sets the idlang transaction.
+	 *
+	 * @param idlang_transaction the new idlang transaction
+	 */
 	public void setIdlang_transaction(int idlang_transaction) {
 		this.idlang_transaction = idlang_transaction;
 	}
 
+	/**
+	 * Gets the iduser.
+	 *
+	 * @return the iduser
+	 */
 	public int getIduser() {
 		return iduser;
 	}
 
+	/**
+	 * Sets the iduser.
+	 *
+	 * @param iduser the new iduser
+	 */
 	public void setIduser(int iduser) {
 		this.iduser = iduser;
 	}
 
+	/**
+	 * Gets the idlangmaster.
+	 *
+	 * @return the idlangmaster
+	 */
 	public int getIdlangmaster() {
 		return idlangmaster;
 	}
 
+	/**
+	 * Sets the idlangmaster.
+	 *
+	 * @param idlangmaster the new idlangmaster
+	 */
 	public void setIdlangmaster(int idlangmaster) {
 		this.idlangmaster = idlangmaster;
 	}

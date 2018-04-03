@@ -3,22 +3,28 @@ package dao.Role;
 
 
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import model.Role;
 import util.DbUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RoleDaoImpl.
+ */
 public class RoleDaoImpl implements RoleDao {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(RoleDaoImpl.class.getName());
 
+	/* (non-Javadoc)
+	 * @see dao.Role.RoleDao#getRole(int)
+	 */
 	public Role getRole(int id) throws ClassNotFoundException, SQLException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getRole(int) - start"); //$NON-NLS-1$

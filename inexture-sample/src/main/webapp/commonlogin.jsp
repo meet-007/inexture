@@ -19,6 +19,11 @@
 						.
 					</div>
 				</c:if>
+				<c:if test="${requestScope.errormsg ne null}">
+				<div id="success_alert" class="alert alert-danger" role="alert">
+						${requestScope.errormsg}
+					</div>
+				</c:if>
 				<c:if test="${requestScope.rspmsg2 ne null}">
 					<c:choose>
 						<c:when test="${requestScope.rspmsg2 eq 'password updated'}">
@@ -80,9 +85,10 @@
 	<script type="text/javascript" src="js/validate-email.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("alert").hide();
+			$(".alert").hide();
 		});
 	</script>
+	<script type="text/javascript" src="js/myjs.js"></script>
 	<script>
 		// $(document).ready(function (){
 		//  	$("#pwddiv").hide();

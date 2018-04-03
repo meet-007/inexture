@@ -9,6 +9,8 @@ dao\Lang\LangDaoImpl.class
 controller\Admin\DeleteUserServ.class
 dao\user\UserDao.class
 service\Tech\TechServ.class
+validations\LoginValidation.class
+validations\RegistrationValidation.class
 dao\Address\AddressDaoImpl.class
 service\Address\AddressServiceImpl.class
 model\User.class

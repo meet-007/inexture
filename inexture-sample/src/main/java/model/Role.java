@@ -1,29 +1,51 @@
 package model;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Role.
+ */
 public class Role {
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger logger = LogManager.getLogger(Role.class.getName());
 
+	/** Logger for this class. */
+
+	/** The idrole. */
 	private int idrole;
+
+	/** The role. */
 	private String role;
 
+	/**
+	 * Gets the idrole.
+	 *
+	 * @return the idrole
+	 */
 	public int getIdrole() {
 		return idrole;
 	}
 
+	/**
+	 * Sets the idrole.
+	 *
+	 * @param idrole the new idrole
+	 */
 	public void setIdrole(int idrole) {
 		this.idrole = idrole;
 	}
 
+	/**
+	 * Gets the role.
+	 *
+	 * @return the role
+	 */
 	public String getRole() {
 		return role;
 	}
 
+	/**
+	 * Sets the role.
+	 *
+	 * @param role the new role
+	 */
 	public void setRole(String role) {
 		this.role = role;
 	}

@@ -18,13 +18,14 @@
 <link rel="stylesheet" href="css/fileupload.css">
 </head>
 <body>
-	<div class="home-wrapper">
+	<div id="reg" class="section ">
 		<!-- Container -->
 		<div class="container">
 			<!-- Row -->
 			<div class="row">
 				<!-- Section header -->
-				<div class="section-header text-center"></div>
+				<div class="section-header text-center">
+				</div>
 				<div class="col-md-9 col-md-offset-1">
 					<div class="contact-form">
 					<c:if test="${requestScope.errormsg ne null}">
@@ -91,7 +92,6 @@
 										<div class="help-block with-errors"></div>
 								</div>
 							</div>
-							<c:out value="${pageContext.request.servletPath}"></c:out>
 							<div class="form-group has-feedback" id="confpassdiv">
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Confirm Password</label>
 								<div class="col-sm-10">

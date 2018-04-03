@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +32,8 @@ import util.AESCrypt;
  * The Class UserServiceImp.
  */
 public class UserServiceImp implements UserService {
-	
-	/** Logger for this class. */
+
+	/** The Constant logger. */
 	private static final Logger logger = LogManager.getLogger(UserServiceImp.class.getName());
 
 	/** The response. */
@@ -53,45 +52,35 @@ public class UserServiceImp implements UserService {
 		}
 
 		/* getting parameters from request object */
-		String fname = req.getParameter("fname");
-		String lname = req.getParameter("lname");
-		String email = req.getParameter("email");
-		String pass = req.getParameter("pass");
 
-		String mobile = req.getParameter("mobile");
-		String dob = req.getParameter("dob");
-		String gender = req.getParameter("gender");
-		String tech = req.getParameter("tech");
 		// String[] lang= req.getParameterValues("lang");
-		String role = req.getParameter("role");
 		/* setting data into user object */
 		User user = new User();
-		user.setFirstname(fname);
-		user.setLastname(lname);
-		user.setEmail(email);
+		user.setFirstname(req.getParameter("fname"));
+		user.setLastname(req.getParameter("lname"));
+		user.setEmail(req.getParameter("email"));
 
-		user.setPassword(pass);
+		user.setPassword(req.getParameter("pass"));
 
 		try {
-			user.setMobile(Long.parseLong(mobile));
+			user.setMobile(Long.parseLong(req.getParameter("mobile")));
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try {
-			user.setGender(Integer.parseInt(gender));
+			user.setGender(Integer.parseInt(req.getParameter("gender")));
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 		try {
-			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
-			user.setDob(date1);
+			user.setDob( new SimpleDateFormat("yyyy-MM-dd").parse( req.getParameter("dob")));
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 
 		user.setRole(2);
 		try {
-			user.setTech(Integer.parseInt(tech));
+			user.setTech(Integer.parseInt(req.getParameter("tech")));
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -227,7 +216,6 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		User u = new User();
 		u.setIduser(iduser);
-		String msg = "";
 
 		boolean returnboolean = new UserDaoImpl().insert(u, "delete");
 		if (logger.isDebugEnabled()) {

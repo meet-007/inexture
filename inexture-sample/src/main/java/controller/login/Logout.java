@@ -14,26 +14,25 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class Logout
+ * Servlet implementation class Logout.
  */
 public class Logout extends HttpServlet {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(Logout.class.getName());
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Logout() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -52,24 +51,4 @@ public class Logout extends HttpServlet {
 			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
-		}
-
-		// TODO Auto-generated method stub
-		doGet(request, response);
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
-		}
-	}
-
 }

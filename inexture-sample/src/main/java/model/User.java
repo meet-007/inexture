@@ -1,99 +1,210 @@
 package model;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
 import java.util.Date;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class User.
+ */
 public class User {
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger logger = LogManager.getLogger(User.class.getName());
 
+	/** Logger for this class. */
+
+	/** The iduser. */
 	private int iduser;
+
+	/** The firstname. */
 	private String firstname;
+
+	/** The lastname. */
 	private String lastname;
+
+	/** The email. */
 	private String email;
+
+	/** The password. */
 	private String password;
+
+	/** The mobile. */
 	private long mobile;
+
+	/** The gender. */
 	private int gender;
+
+	/** The dob. */
 	private Date dob;
+
+	/** The role. */
 	private int role;
+
+	/** The tech. */
 	private int tech;
 
+	/**
+	 * Gets the mobile.
+	 *
+	 * @return the mobile
+	 */
 	public long getMobile() {
 		return mobile;
 	}
 
+	/**
+	 * Sets the mobile.
+	 *
+	 * @param mobile the new mobile
+	 */
 	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 
+	/**
+	 * Gets the iduser.
+	 *
+	 * @return the iduser
+	 */
 	public int getIduser() {
 		return iduser;
 	}
 
+	/**
+	 * Sets the iduser.
+	 *
+	 * @param iduser the new iduser
+	 */
 	public void setIduser(int iduser) {
 		this.iduser = iduser;
 	}
 
+	/**
+	 * Gets the firstname.
+	 *
+	 * @return the firstname
+	 */
 	public String getFirstname() {
 		return firstname;
 	}
 
+	/**
+	 * Sets the firstname.
+	 *
+	 * @param firstname the new firstname
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
+	/**
+	 * Gets the lastname.
+	 *
+	 * @return the lastname
+	 */
 	public String getLastname() {
 		return lastname;
 	}
 
+	/**
+	 * Sets the lastname.
+	 *
+	 * @param lastname the new lastname
+	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email.
+	 *
+	 * @param email the new email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Gets the gender.
+	 *
+	 * @return the gender
+	 */
 	public int getGender() {
 		return gender;
 	}
 
+	/**
+	 * Sets the gender.
+	 *
+	 * @param gender the new gender
+	 */
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
 
+	/**
+	 * Gets the dob.
+	 *
+	 * @return the dob
+	 */
 	public Date getDob() {
 		return dob;
 	}
 
+	/**
+	 * Sets the dob.
+	 *
+	 * @param dob the new dob
+	 */
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
+	/**
+	 * Gets the role.
+	 *
+	 * @return the role
+	 */
 	public int getRole() {
 		return role;
 	}
 
+	/**
+	 * Sets the role.
+	 *
+	 * @param role the new role
+	 */
 	public void setRole(int role) {
 		this.role = role;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "User [iduser=" + iduser + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
@@ -101,10 +212,20 @@ public class User {
 				+ role + ", tech=" + tech + "]";
 	}
 
+	/**
+	 * Gets the tech.
+	 *
+	 * @return the tech
+	 */
 	public int getTech() {
 		return tech;
 	}
 
+	/**
+	 * Sets the tech.
+	 *
+	 * @param tech the new tech
+	 */
 	public void setTech(int tech) {
 		this.tech = tech;
 	}

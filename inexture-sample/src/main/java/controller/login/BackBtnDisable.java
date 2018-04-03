@@ -14,28 +14,23 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet Filter implementation class BackBtnDisable
+ * Servlet Filter implementation class BackBtnDisable.
  */
 public class BackBtnDisable implements Filter {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger logger = LogManager.getLogger(BackBtnDisable.class.getName());
 
-	/**
-	 * Default constructor.
-	 */
-	public BackBtnDisable() {
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
+	 * Destroy.
+	 *
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
@@ -43,6 +38,13 @@ public class BackBtnDisable implements Filter {
 	}
 
 	/**
+	 * Do filter.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @param chain the chain
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -56,12 +58,10 @@ public class BackBtnDisable implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		HttpSession session = req.getSession();
-		System.out.println(req.getRequestURI());
 		if (req.getRequestURI().matches(".*(js|css|png|jpg|woff|woff2|ttf)$")) {
 			chain.doFilter(request, response);
 		} else {
-			if ((session.getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
+			if ((req.getSession().getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
 				RequestDispatcher rd = req.getRequestDispatcher("Login.jsp");
 				rd.forward(request, response);
 			} else {
@@ -78,6 +78,12 @@ public class BackBtnDisable implements Filter {
 		}
 	}
 
+	/**
+	 * Needs authentication.
+	 *
+	 * @param url the url
+	 * @return true, if successful
+	 */
 	private boolean needsAuthentication(String url) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("needsAuthentication(String) - start"); //$NON-NLS-1$
@@ -87,9 +93,6 @@ public class BackBtnDisable implements Filter {
 				"ForgotPassword.jsp", "CheckUser", "RegUser", "ForgotPassServ" };
 		for (String validUrl : validNonAuthenticationUrls) {
 			if (url.endsWith(validUrl)) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("needsAuthentication(String) - end"); //$NON-NLS-1$
-				}
 				return false;
 			}
 		}
@@ -101,6 +104,10 @@ public class BackBtnDisable implements Filter {
 	}
 
 	/**
+	 * Inits the.
+	 *
+	 * @param fConfig the f config
+	 * @throws ServletException the servlet exception
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
