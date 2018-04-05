@@ -22,7 +22,7 @@ public class LangTransact {
 	 *
 	 * @return the idlang transaction
 	 */
-	public int getIdlang_transaction() {
+	public int getIdlangTransaction() {
 		return idlang_transaction;
 	}
 
@@ -31,7 +31,7 @@ public class LangTransact {
 	 *
 	 * @param idlang_transaction the new idlang transaction
 	 */
-	public void setIdlang_transaction(int idlang_transaction) {
+	public void setIdlangTransaction(int idlang_transaction) {
 		this.idlang_transaction = idlang_transaction;
 	}
 

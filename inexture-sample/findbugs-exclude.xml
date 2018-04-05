@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
 	<Match>
-		<Bug pattern="ODR - ODR_OPEN_DATABASE_RESOURCE" />
+		<Bug pattern="ODR_OPEN_DATABASE_RESOURCE" />
 	</Match>
 	<Match>
-	<Bug pattern="OBL - OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"/>
+	<Bug pattern="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"/>
 	</Match>
 </FindBugsFilter>

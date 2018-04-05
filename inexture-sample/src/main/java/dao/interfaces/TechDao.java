@@ -13,7 +13,7 @@ import model.TechMaster;
 public interface TechDao {
 
 	/** The Constant select. */
-	final static String select = "select * from tech_master;";
+	final static String SELECT = "select * from tech_master;";
 
 	/**
 	 * Select tech.

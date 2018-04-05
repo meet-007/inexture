@@ -1,7 +1,13 @@
 package controller;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +26,7 @@ import service.impl.UserServiceImp;
 public class ChngPassServ extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(ChngPassServ.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(ChngPassServ.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -36,29 +42,34 @@ public class ChngPassServ extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		RequestDispatcher rd = null;
+		RequestDispatcher requestDispatcher = null;
+
 		try {
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 0);
-			rd = request.getRequestDispatcher("ChangePass.jsp");
+			requestDispatcher = request.getRequestDispatcher("ChangePass.jsp");
 			request.setAttribute("rspmsg", new UserServiceImp().updatePass(request));
-		} catch (Exception e1) {
-			logger.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
+		} catch (InvalidKeyException | ClassNotFoundException | IllegalBlockSizeException | BadPaddingException
+				| NoSuchAlgorithmException | NoSuchPaddingException | SQLException e1) {
+			// TODO Auto-generated catch block
+			LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
 			request.setAttribute("rspmsg", e1.getMessage());
-			e1.printStackTrace();
 		}
-		rd.forward(request, response);
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+
+
+
+		requestDispatcher.forward(request, response);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 

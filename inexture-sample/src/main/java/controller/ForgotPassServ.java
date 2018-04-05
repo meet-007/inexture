@@ -4,7 +4,13 @@ package controller;
 
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +20,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import service.impl.UserServiceImp;
+import validations.JavaScriptEnableExcepion;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -22,7 +29,7 @@ import service.impl.UserServiceImp;
 public class ForgotPassServ extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(ForgotPassServ.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(ForgotPassServ.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -38,29 +45,30 @@ public class ForgotPassServ extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 
 		try {
-			String error = new validations.LoginValidation().validate(request.getParameter("email"), request.getParameter("password"));
-			if(!error.equals("")) {
+			final String error = new validations.LoginValidation().validate(request.getParameter("email"), request.getParameter("password"));
+			if(!error.isEmpty()) {
 				request.setAttribute("errormsg", error);
-				throw new Exception("please enable javascript");
+				throw new JavaScriptEnableExcepion("please enable javascript");
 			}
 			request.setAttribute("rspmsg2", new UserServiceImp().updatePass(request));
-		} catch (Exception e1) {
-			logger.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
-			request.setAttribute("rspmsg2", e1.getMessage());
-			e1.printStackTrace();
+		} catch (InvalidKeyException | ClassNotFoundException | IllegalBlockSizeException | BadPaddingException
+				| NoSuchAlgorithmException | NoSuchPaddingException | JavaScriptEnableExcepion | SQLException e) {
+			// TODO Auto-generated catch block.
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 		}
+
 		request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 

@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 public class Logout extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(Logout.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(Logout.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -37,18 +37,18 @@ public class Logout extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request,final HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+		final HttpSession session = request.getSession();
 		session.removeAttribute("user");
 		session.invalidate();
 		response.sendRedirect("Login.jsp");
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 }

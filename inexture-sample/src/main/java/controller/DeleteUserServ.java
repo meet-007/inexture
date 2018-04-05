@@ -4,6 +4,8 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,7 @@ import service.impl.UserServiceImp;
 public class DeleteUserServ extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(DeleteUserServ.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(DeleteUserServ.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -42,13 +44,14 @@ public class DeleteUserServ extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request,final  HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
+
 
 		try {
 			response.setContentType("application/json");
@@ -56,12 +59,13 @@ public class DeleteUserServ extends HttpServlet {
 			.println((new UserServiceImp().deleteUser(Integer.parseInt(request.getParameter("iduser"))))
 					? "{\"result\":\"fail to delete\",\"bool\":\"1\"}"
 							: "{\"result\":\"deleted success\",\"bool\":\"0\"}");
-		} catch (Exception e) {
-			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-			e.printStackTrace();
+		} catch (NumberFormatException | ClassNotFoundException | SQLException | ParseException e) {
+			// TODO Auto-generated catch block
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 }

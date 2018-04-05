@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import service.impl.UserServiceImp;
 public class CheckUser extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(CheckUser.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(CheckUser.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -40,26 +41,28 @@ public class CheckUser extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request,final  HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
+
 		try {
 			response.setContentType("application/json");
 			response.getWriter()
 			.println((new UserServiceImp().checkUserExist(request))
 					? "{\"result\":\"Email id already exist try another email \",\"bool\":\"0\"}"
 							: "{\"result\":\"\",\"bool\":\"1\"}");
-		} catch (Exception e) {
-			logger.warn("doGet(HttpServletRequest, HttpServletResponse) - exception ignored", e); //$NON-NLS-1$
-
+		} catch (ClassNotFoundException | SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			LOGGER.warn("doGet(HttpServletRequest, HttpServletResponse) - exception ignored", e); //$NON-NLS-1$
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 

@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = LogManager.getLogger(ImageServiceImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(ImageServiceImpl.class.getName());
 
 	/**
 	 * Sets the params.
@@ -40,8 +40,8 @@ public class ImageServiceImpl implements ImageService {
 	 */
 	public static ArrayList<UserImages> setParams(HttpServletRequest request, int iduser)
 			throws IOException, ParseException, ServletException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		String delnewimglist[] = null;
 		if (request.getParameterValues("delnewimg") != null) {
@@ -78,21 +78,21 @@ public class ImageServiceImpl implements ImageService {
 			String delimg[] = request.getParameterValues("delimg");
 			for (String img : delimg) {
 				UserImages userimage = new UserImages();
-				userimage.setIduser_images(Integer.parseInt(img));
+				userimage.setIduserImages(Integer.parseInt(img));
 				uimg.add(userimage);
 			}
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
 		}
 		return uimg;
 	}
 
 	public boolean saveImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("SaveImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("SaveImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
@@ -101,36 +101,36 @@ public class ImageServiceImpl implements ImageService {
 		if (uimg.size() > 0) {
 			totalImageInserted = new ImageDaoImpl().insertImage(uimg, "insert");
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("SaveImage(HttpServletRequest, int) - {}"+"no need to insert because no images found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("SaveImage(HttpServletRequest, int) - {}"+"no need to insert because no images found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		}
 		if (totalImageInserted > 0) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("SaveImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
 		}
 	}
 
 	public ArrayList<UserImages> getUserImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserImages(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserImages(int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserImages(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserImages(int) - end"); //$NON-NLS-1$
 		}
 		return new ImageDaoImpl().selectImages(iduser);
 	}
@@ -140,8 +140,8 @@ public class ImageServiceImpl implements ImageService {
 	 */
 	public boolean updateImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("UpdateImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("UpdateImage(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
@@ -154,9 +154,9 @@ public class ImageServiceImpl implements ImageService {
 		int flag = 0;
 		for (UserImages newimage : newimages) {
 			for (UserImages dbimage : dbimages) {
-				if (dbimage.getIduser_images() == newimage.getIduser_images()) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("UpdateImage(HttpServletRequest, int) - {}"+"Delete id" + newimage.getIduser_images()); //$NON-NLS-1$ //$NON-NLS-2$
+				if (dbimage.getIduserImages() == newimage.getIduserImages()) {
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("UpdateImage(HttpServletRequest, int) - {}"+"Delete id" + newimage.getIduserImages()); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 					deleted.add(dbimage);
 					flag = 1;
@@ -176,13 +176,13 @@ public class ImageServiceImpl implements ImageService {
 			rowsAffected += it.insertImage((ArrayList<UserImages>) updated, "insert");
 		}
 		if (rowsAffected > 0) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("UpdateImage(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
 		}

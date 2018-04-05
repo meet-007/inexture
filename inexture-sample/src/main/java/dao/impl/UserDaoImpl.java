@@ -23,18 +23,19 @@ import util.DbUtil;
 public class UserDaoImpl implements UserDao {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(UserDaoImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class.getName());
 
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#insert(model.User, java.lang.String)
 	 */
+	@Override
 	public boolean insert(User u, String operation) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("insert(User, String) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("insert(User, String) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		ArrayList<Object> arr = new ArrayList<>();
+		final ArrayList<Object> arr = new ArrayList<>();
 		arr.add(u.getFirstname());
 		arr.add(u.getLastname());
 		arr.add(u.getEmail());
@@ -45,15 +46,15 @@ public class UserDaoImpl implements UserDao {
 		arr.add(u.getRole());
 		arr.add(u.getTech());
 		if (operation.equals("insert")) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("insert(User, String) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
 			return DbUtil.dbOperationInsert(INSERT, arr);
 		} else if (operation.equals("delete")) {
 			arr.clear();
 			arr.add(u.getIduser());
-			if (logger.isDebugEnabled()) {
-				logger.debug("insert(User, String) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
 			return DbUtil.dbOperationInsert(DELETEUSER, arr);
 		} else {
@@ -61,8 +62,8 @@ public class UserDaoImpl implements UserDao {
 			arr.remove(2);
 			arr.remove(2);
 			arr.add(u.getIduser());
-			if (logger.isDebugEnabled()) {
-				logger.debug("insert(User, String) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
 			return DbUtil.dbOperationInsert(UPDATE, arr);
 		}
@@ -74,13 +75,14 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#selectUser(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public User selectUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(String, String) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(String, String) - start"); //$NON-NLS-1$
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(String, String) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(String, String) - end"); //$NON-NLS-1$
 		}
 		return UserDaoImpl.setUser(DbUtil.dbOperationSelect(SELECTUSERFORLOGIN, email, pass));
 	}
@@ -88,14 +90,15 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#selectAllUser(int)
 	 */
+	@Override
 	public ArrayList<User> selectAllUser(int role) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectAllUser(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectAllUser(int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		ResultSet rs = DbUtil.dbOperationSelect(SELECTALLUSER, role);
-		ArrayList<User> users = new ArrayList<>();
+		final ResultSet rs = DbUtil.dbOperationSelect(SELECTALLUSER, role);
+		final ArrayList<User> users = new ArrayList<>();
 		User u = null;
 		while (rs.next()) {
 			u = new User();
@@ -106,15 +109,15 @@ public class UserDaoImpl implements UserDao {
 			u.setPassword(rs.getString(5));
 			u.setMobile(rs.getLong(6));
 			u.setGender(rs.getInt(7));
-			Date d = new Date(rs.getDate(8).getTime());
+			final Date d = new Date(rs.getDate(8).getTime());
 			u.setDob(d);
 			u.setRole(rs.getInt(9));
 			u.setTech(rs.getInt(10));
 			users.add(u);
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectAllUser(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectAllUser(int) - end"); //$NON-NLS-1$
 		}
 		return users;
 	}
@@ -122,15 +125,16 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#selectUser(int)
 	 */
+	@Override
 	public User selectUser(int iduser) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(int) - end"); //$NON-NLS-1$
 		}
 		return UserDaoImpl.setUser(DbUtil.dbOperationSelect(SELECTUSER, iduser));
 	}
@@ -138,15 +142,16 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#selectUser(java.lang.String)
 	 */
+	@Override
 	public User selectUser(String email) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(String) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(String) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUser(String) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUser(String) - end"); //$NON-NLS-1$
 		}
 		return UserDaoImpl.setUser(DbUtil.dbOperationSelect(SELECTUSERFRMEMAIL, email));
 	}
@@ -154,18 +159,19 @@ public class UserDaoImpl implements UserDao {
 	/* (non-Javadoc)
 	 * @see dao.user.UserDao#updatePassword(model.User)
 	 */
+	@Override
 	public boolean updatePassword(User u) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("updatePassword(User) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("updatePassword(User) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		ArrayList<Object> arr = new ArrayList<>();
+		final ArrayList<Object> arr = new ArrayList<>();
 		arr.add(u.getPassword());
 		arr.add(u.getIduser());
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("updatePassword(User) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("updatePassword(User) - end"); //$NON-NLS-1$
 		}
 		return DbUtil.dbOperationInsert(UPDATEPASS, arr);
 	}
@@ -188,7 +194,7 @@ public class UserDaoImpl implements UserDao {
 			u.setPassword(rs.getString(5));
 			u.setMobile(rs.getLong(6));
 			u.setGender(rs.getInt(7));
-			Date d = new Date(rs.getDate(8).getTime());
+			final Date d = new Date(rs.getDate(8).getTime());
 			u.setDob(d);
 			u.setRole(rs.getInt(9));
 			u.setTech(rs.getInt(10));

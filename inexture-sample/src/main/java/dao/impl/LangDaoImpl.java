@@ -19,26 +19,27 @@ public class LangDaoImpl implements LangDao {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = LogManager.getLogger(LangDaoImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(LangDaoImpl.class.getName());
 
 	/* (non-Javadoc)
 	 * @see dao.Lang.LangDao#selectLang()
 	 */
+	@Override
 	public ArrayList<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectLang() - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectLang() - start"); //$NON-NLS-1$
 		}
-		ResultSet rs = DbUtil.dbOperationSelect(select);
-		ArrayList<LangMaster> languages = new ArrayList<>();
-		while (rs.next()) {
-			LangMaster lm = new LangMaster();
-			lm.setIdlang(rs.getInt(1));
-			lm.setLang(rs.getString(2));
-			languages.add(lm);
+		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT);
+		final ArrayList<LangMaster> languages = new ArrayList<>();
+		final LangMaster languageMaster = new LangMaster();
+		while (resultSet.next()) {
+			languageMaster.setIdlang(resultSet.getInt(1));
+			languageMaster.setLang(resultSet.getString(2));
+			languages.add(languageMaster);
 		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectLang() - end"); //$NON-NLS-1$
+		resultSet.close();
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectLang() - end"); //$NON-NLS-1$
 		}
 		return languages;
 	}

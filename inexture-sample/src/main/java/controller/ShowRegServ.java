@@ -4,6 +4,7 @@ package controller;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,7 @@ import service.impl.TechServImpl;
 public class ShowRegServ extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(ShowRegServ.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(ShowRegServ.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -39,11 +40,12 @@ public class ShowRegServ extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request,final  HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
+
 
 		try {
 			request.setAttribute("tech",  new TechServImpl().getTech());
@@ -52,21 +54,22 @@ public class ShowRegServ extends HttpServlet {
 			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", 0);
-			if (request.getParameter("page") != null) {
-				request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
-			} else {
+			if (request.getParameter("page") == null) {
 				request.getRequestDispatcher("Registration.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
 			}
-		} catch (Exception e) {
-			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+		} catch (ClassNotFoundException | SQLException | IOException e) {
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,final HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }

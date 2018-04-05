@@ -3,6 +3,7 @@ package dao.interfaces;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.UserImages;
 
@@ -31,7 +32,7 @@ public interface ImageDao {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	int insertImage(ArrayList<UserImages> uimg, String operation)
+	int insertImage(List<UserImages> uimg, String operation)
 			throws ClassNotFoundException, SQLException, IOException;
 
 	/**

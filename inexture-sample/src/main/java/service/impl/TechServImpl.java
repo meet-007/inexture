@@ -20,21 +20,21 @@ import service.interfaces.TechServ;
  */
 public class TechServImpl implements TechServ {
 
-	/** The Constant logger. */
-	private static final Logger logger = LogManager.getLogger(TechServImpl.class.getName());
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LogManager.getLogger(TechServImpl.class.getName());
 
 	/* (non-Javadoc)
 	 * @see service.Tech.TechServ#getTech()
 	 */
 	public ArrayList<TechMaster> getTech() throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getTech() - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getTech() - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("getTech() - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getTech() - end"); //$NON-NLS-1$
 		}
 		return new TechDaoImpl().selectTech();
 	}

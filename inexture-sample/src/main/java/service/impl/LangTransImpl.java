@@ -3,6 +3,7 @@ package service.impl;
 
 
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import service.interfaces.LangTransServ;
 public class LangTransImpl implements LangTransServ {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(LangTransImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(LangTransImpl.class.getName());
 
 	/**
 	 * Sets the params.
@@ -33,8 +34,8 @@ public class LangTransImpl implements LangTransServ {
 	 * @return the array list
 	 */
 	public static ArrayList<LangTransact> setParams(HttpServletRequest request, int userid) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		String[] lang = request.getParameterValues("lang");
@@ -46,8 +47,8 @@ public class LangTransImpl implements LangTransServ {
 			it.add(lt);
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
 		}
 		return it;
 	}
@@ -58,21 +59,21 @@ public class LangTransImpl implements LangTransServ {
 	@Override
 	public boolean addLangTransaction(HttpServletRequest request, int userid)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("addLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("addLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
 		ArrayList<LangTransact> it = LangTransImpl.setParams(request, userid);
 		LangTrans langtrans = new dao.impl.LangTransImpl();
 		int rowsAffected = langtrans.insertLangTrans(it, "insert");
 		if (rowsAffected > 0) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
 		}
@@ -84,15 +85,15 @@ public class LangTransImpl implements LangTransServ {
 	@Override
 	public ArrayList<LangTransact> getUserLanguages(int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserLanguages(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserLanguages(int) - start"); //$NON-NLS-1$
 		}
 
 		LangTrans lt = new dao.impl.LangTransImpl();
 
 		ArrayList<LangTransact> returnArrayList = lt.selectUserLanguages(iduser);
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserLanguages(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserLanguages(int) - end"); //$NON-NLS-1$
 		}
 		return returnArrayList;
 	}
@@ -103,8 +104,8 @@ public class LangTransImpl implements LangTransServ {
 	@Override
 	public boolean updateLangTransaction(HttpServletRequest request, int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("updateLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
 		LangTrans it = new dao.impl.LangTransImpl();
@@ -117,7 +118,9 @@ public class LangTransImpl implements LangTransServ {
 		for (LangTransact newlang : newlangarr) {
 			for (LangTransact dblang : dblanguages) {
 				if (dblang.getIdlangmaster() == newlang.getIdlangmaster()) {
-					System.out.println("update id" + newlang);
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - {}"+ "update id" + newlang); //$NON-NLS-1$ //$NON-NLS-2$
+					}
 					dblanguages.remove(dblang);
 					flag = 1;
 					break;
@@ -135,13 +138,13 @@ public class LangTransImpl implements LangTransServ {
 			rowsAffected += langtrans.insertLangTrans(newlangarr, "insert");
 		}
 		if (rowsAffected > 0) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("updateLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("updateLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
 		}

@@ -4,6 +4,7 @@ package controller;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ import service.impl.UserServiceImp;
 public class UpdateProfile extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(UpdateProfile.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(UpdateProfile.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -44,32 +45,34 @@ public class UpdateProfile extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request,final HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
+
 		try {
 			User user = null;
-			if (request.getParameter("iduser") != null) {
+			if (request.getParameter("iduser") == null) {
+				user = (User) request.getSession().getAttribute("user");
+			} else {
 				user = new UserServiceImp().getUser(Integer.parseInt(request.getParameter("iduser")));
 				request.setAttribute("user", user);
-			} else {
-				user = (User) request.getSession().getAttribute("user");
 			}
 			request.setAttribute("addrslist", new AddressServiceImpl().getUserAddress(user.getIduser()));
 			request.setAttribute("imglist", new ImageServiceImpl().getUserImages(user.getIduser()));
 			request.setAttribute("languages", new LangTransImpl().getUserLanguages(user.getIduser()));
-			RequestDispatcher rd = request.getRequestDispatcher("ShowRegServ?page=update");
-			rd.forward(request, response);
-		} catch (Exception e) {
-			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-			e.printStackTrace();
+			final RequestDispatcher requestDispatcher = request.getRequestDispatcher("ShowRegServ?page=update");
+			requestDispatcher.forward(request, response);
+		} catch (NumberFormatException | ClassNotFoundException | SQLException | IOException e) {
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 
@@ -77,16 +80,16 @@ public class UpdateProfile extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request,final  HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		doGet(request, response);
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 }

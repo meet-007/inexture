@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -16,30 +17,30 @@ import model.UserImages;
 import util.DbUtil;
 
 public class ImageDaoImpl implements ImageDao {
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger logger = LogManager.getLogger(ImageDaoImpl.class.getName());
 
-	public int insertImage(ArrayList<UserImages> uimg, String operation)
+	/** Logger for this class. */
+	private static final Logger LOGGER = LogManager.getLogger(ImageDaoImpl.class.getName());
+
+	@Override
+	public int insertImage(final List<UserImages> uimg, final String operation)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("insertImage(ArrayList<UserImages>, String) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("insertImage(ArrayList<UserImages>, String) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		ArrayList<Object> arr = new ArrayList<>();
+		final ArrayList<Object> arr = new ArrayList<>();
 		int count = 0;
 		for (int i = 0; i < uimg.size(); i++) {
 			arr.add(0, uimg.get(i).getIduser());
 			arr.add(1, uimg.get(i).getImage());
-			if (operation.equals("insert")) {
+			if ("insert".equals(operation)) {
 				if (!DbUtil.dbOperationInsert(INSERT, arr)) {
 					count++;
 				}
 			} else {
 				arr.clear();
-				arr.add(uimg.get(i).getIduser_images());
+				arr.add(uimg.get(i).getIduserImages());
 				if (!DbUtil.dbOperationInsert(DELETE, arr)) {
 					count++;
 				}
@@ -47,8 +48,8 @@ public class ImageDaoImpl implements ImageDao {
 			arr.clear();
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("insertImage(ArrayList<UserImages>, String) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("insertImage(ArrayList<UserImages>, String) - end"); //$NON-NLS-1$
 		}
 		return count;
 	}
@@ -56,23 +57,24 @@ public class ImageDaoImpl implements ImageDao {
 	/* (non-Javadoc)
 	 * @see dao.Image.ImageDao#selectImages(int)
 	 */
-	public ArrayList<UserImages> selectImages(Integer iduser) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectImages(int) - start"); //$NON-NLS-1$
+	@Override
+	public ArrayList<UserImages> selectImages(final Integer iduser) throws ClassNotFoundException, SQLException, IOException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectImages(int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		ResultSet rs = DbUtil.dbOperationSelect(SELECT,iduser.toString());
-		ArrayList<UserImages> uiarr = new ArrayList<>();
-		while (rs.next()) {
-			UserImages ui = new UserImages();
-			ui.setIduser_images(rs.getInt(1));
-			ui.setIduser(rs.getInt(2));
-			ui.setImage(rs.getBinaryStream(3));
-			uiarr.add(ui);
+		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT,iduser.toString());
+		final ArrayList<UserImages> uiarr = new ArrayList<>();
+		final UserImages userImage = new UserImages();
+		while (resultSet.next()) {
+			userImage.setIduserImages(resultSet.getInt(1));
+			userImage.setIduser(resultSet.getInt(2));
+			userImage.setImage(resultSet.getBinaryStream(3));
+			uiarr.add(userImage);
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectImages(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectImages(int) - end"); //$NON-NLS-1$
 		}
 		return uiarr;
 	}

@@ -1,10 +1,13 @@
 package controller;
 
-
-
-
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,6 +26,7 @@ import model.Role;
 import model.User;
 import service.impl.UserServiceImp;
 import util.AESCrypt;
+import validations.JavaScriptEnableExcepion;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,7 +35,7 @@ import util.AESCrypt;
 public class LoginFilter implements Filter {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(LoginFilter.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(LoginFilter.class.getName());
 
 	/**
 	 * Destroy.
@@ -40,88 +44,98 @@ public class LoginFilter implements Filter {
 	 */
 	@Override
 	public void destroy() {
-		if (logger.isDebugEnabled()) {
-			logger.debug("destroy() - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("destroy() - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		if (logger.isDebugEnabled()) {
-			logger.debug("destroy() - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("destroy() - end"); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * Do filter.
 	 *
-	 * @param request the request
-	 * @param response the response
-	 * @param chain the chain
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ServletException the servlet exception
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
+	 * @param chain
+	 *            the chain
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ServletException
+	 *             the servlet exception
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 		// place your code here
+		final HttpServletRequest req = (HttpServletRequest) request;
+		final HttpServletResponse resp = (HttpServletResponse) response;
 		try {
-			HttpServletRequest req = (HttpServletRequest) request;
-			HttpServletResponse resp = (HttpServletResponse) response;
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String error = new validations.LoginValidation().validate(email, password);
-			if(!error.equals("")) {
+			final String email = request.getParameter("email");
+			final String password = request.getParameter("password");
+			final String error = new validations.LoginValidation().validate(email, password);
+			if (!error.isEmpty()) {
 				request.setAttribute("errormsg", error);
-				throw new Exception("please enable javascript and then try again");
+				throw new JavaScriptEnableExcepion("please enable javascript and then try again");
 			}
-			User u =  null;
-			u = new UserServiceImp().getUser(email, AESCrypt.encrypt(password));
-			if (u != null) {
-				System.out.println("user found");
-				HttpSession session = req.getSession();
-				session.setAttribute("user", u);
-				Role role = new RoleDaoImpl().getRole(u.getRole());
+			User user = null;
+			user = new UserServiceImp().getUser(email, AESCrypt.encrypt(password));
+			if (user == null) {
+				request.setAttribute("rspmsg1", "Invalid Username or password please try again");
+				request.getRequestDispatcher("Login.jsp").forward(request, response);
+
+			} else {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - {}" + "user found"); //$NON-NLS-1$ //$NON-NLS-2$
+				}
+				final HttpSession session = req.getSession();
+				session.setAttribute("user", user);
+				final Role role = new RoleDaoImpl().getRole(user.getRole());
 				if (role.getRole().equals("admin")) {
 					resp.sendRedirect("AdminHome.jsp");
 				} else {
 					resp.sendRedirect("UserHome.jsp");
 				}
-			} else {
-				request.setAttribute("rspmsg1", "Invalid Username or password please try again");
-				request.getRequestDispatcher("Login.jsp").forward(request, response);
 			}
-		} catch (Exception e) {
-			logger.error("doFilter(ServletRequest, ServletResponse, FilterChain)", e); //$NON-NLS-1$
+		} catch (InvalidKeyException | ClassNotFoundException | IllegalBlockSizeException | BadPaddingException
+				| NoSuchAlgorithmException | NoSuchPaddingException | JavaScriptEnableExcepion | SQLException e) {
+			// TODO Auto-generated catch block
+			LOGGER.error("doFilter(ServletRequest, ServletResponse, FilterChain)", e); //$NON-NLS-1$
 			request.setAttribute("rspmsg1", e.getMessage());
 			request.getRequestDispatcher("Login.jsp").forward(request, response);
 		}
 
-
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * Inits the.
 	 *
-	 * @param fConfig the f config
-	 * @throws ServletException the servlet exception
+	 * @param fConfig
+	 *            the f config
+	 * @throws ServletException
+	 *             the servlet exception
 	 * @see Filter#init(FilterConfig)
 	 */
 	@Override
-	public void init(FilterConfig fConfig) throws ServletException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("init(FilterConfig) - start"); //$NON-NLS-1$
+	public void init(final FilterConfig fConfig) throws ServletException {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("init(FilterConfig) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		if (logger.isDebugEnabled()) {
-			logger.debug("init(FilterConfig) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("init(FilterConfig) - end"); //$NON-NLS-1$
 		}
 	}
 

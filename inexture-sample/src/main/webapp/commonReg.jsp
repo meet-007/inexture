@@ -401,7 +401,7 @@
  			ArrayList<UserImages> ui = (ArrayList<UserImages>) request.getAttribute("imglist");
  			for(UserImages userImage : ui){
  				%>
- 				var idimg = "<%=userImage.getIduser_images()%>";
+ 				var idimg = "<%=userImage.getIduserImages()%>";
  				var iduser = "<%=userImage.getIduser()%>";
  				var  img = [];
  				var i=0;

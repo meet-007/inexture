@@ -22,23 +22,24 @@ import util.DbUtil;
 public class LangTransImpl implements LangTrans {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(LangTransImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(LangTransImpl.class.getName());
 
 	/* (non-Javadoc)
 	 * @see dao.LangTransaction.LangTrans#InsertLangTrans(java.util.ArrayList, java.lang.String)
 	 */
-	public int insertLangTrans(ArrayList<LangTransact> it, String operation)
+	@Override
+	public int insertLangTrans(final ArrayList<LangTransact> languageTransaction,final  String operation)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("InsertLangTrans(ArrayList<LangTransact>, String) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("InsertLangTrans(ArrayList<LangTransact>, String) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		ArrayList<Object> arr = new ArrayList<>();
+		final ArrayList<Object> arr = new ArrayList<>();
 		int count = 0;
-		for (int i = 0; i < it.size(); i++) {
-			arr.add(0, it.get(i).getIdlangmaster());
-			arr.add(1, it.get(i).getIduser());
-			if (operation.equals("insert")) {
+		for (int i = 0; i < languageTransaction.size(); i++) {
+			arr.add(0, languageTransaction.get(i).getIdlangmaster());
+			arr.add(1, languageTransaction.get(i).getIduser());
+			if ("insert".equals(operation)) {
 				if (!DbUtil.dbOperationInsert(INSERT, arr)) {
 					count++;
 				}
@@ -51,8 +52,8 @@ public class LangTransImpl implements LangTrans {
 			arr.remove(0);
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("InsertLangTrans(ArrayList<LangTransact>, String) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("InsertLangTrans(ArrayList<LangTransact>, String) - end"); //$NON-NLS-1$
 		}
 		return count;
 	}
@@ -60,24 +61,25 @@ public class LangTransImpl implements LangTrans {
 	/* (non-Javadoc)
 	 * @see dao.LangTransaction.LangTrans#selectUserLanguages(int)
 	 */
-	public ArrayList<LangTransact> selectUserLanguages(int iduser)
+	@Override
+	public ArrayList<LangTransact> selectUserLanguages(final int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUserLanguages(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUserLanguages(int) - start"); //$NON-NLS-1$
 		}
 
-		ResultSet rs = DbUtil.dbOperationSelect(SELECT, iduser);
-		ArrayList<LangTransact> ltarr = new ArrayList<>();
-		while (rs.next()) {
-			LangTransact lt = new LangTransact();
-			lt.setIdlang_transaction(rs.getInt(1));
-			lt.setIduser(rs.getInt(2));
-			lt.setIdlangmaster(rs.getInt(3));
-			ltarr.add(lt);
+		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser);
+		final ArrayList<LangTransact> ltarr = new ArrayList<>();
+		final LangTransact languageTransaction = new LangTransact();
+		while (resultSet.next()) {
+			languageTransaction.setIdlangTransaction(resultSet.getInt(1));
+			languageTransaction.setIduser(resultSet.getInt(2));
+			languageTransaction.setIdlangmaster(resultSet.getInt(3));
+			ltarr.add(languageTransaction);
 		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("selectUserLanguages(int) - end"); //$NON-NLS-1$
+		resultSet.close();
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("selectUserLanguages(int) - end"); //$NON-NLS-1$
 		}
 		return ltarr;
 	}

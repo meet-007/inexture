@@ -22,7 +22,7 @@ import service.interfaces.AddressService;
 public class AddressServiceImpl implements AddressService {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(AddressServiceImpl.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(AddressServiceImpl.class.getName());
 
 	/**
 	 * Sets the params.
@@ -32,8 +32,8 @@ public class AddressServiceImpl implements AddressService {
 	 * @return the array list
 	 */
 	public static ArrayList<Address> setParams(HttpServletRequest request, int iduser) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		String addressline1[] = request.getParameterValues("addressline1");
@@ -51,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
 			try {
 				address.setPin(Integer.parseInt(pin[i])); // converting into integer type
 			}catch(NumberFormatException e) {
-				logger.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
+				LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
 			}
 			address.setCity(city[i]);
 			address.setState(state[i]);
@@ -65,8 +65,8 @@ public class AddressServiceImpl implements AddressService {
 			adrs.add(address);
 
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
 		}
 		return adrs;
 	}
@@ -78,8 +78,8 @@ public class AddressServiceImpl implements AddressService {
 	public boolean addAddress(HttpServletRequest request, int userid)
 
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("addAddress(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("addAddress(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
@@ -89,23 +89,23 @@ public class AddressServiceImpl implements AddressService {
 
 			if (ado.insertAddress(AddressServiceImpl.setParams(request, userid), "insert")> 0) {
 
-				if (logger.isDebugEnabled()) {
-					logger.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 				}
 				return true;
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("addAddress(HttpServletRequest, int) - {}"+"no need to insert because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addAddress(HttpServletRequest, int) - {}"+"no need to insert because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		}
@@ -116,12 +116,12 @@ public class AddressServiceImpl implements AddressService {
 	 */
 	@Override
 	public ArrayList<Address> getUserAddress(int iduser) throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserAddress(int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserAddress(int) - start"); //$NON-NLS-1$
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("getUserAddress(int) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getUserAddress(int) - end"); //$NON-NLS-1$
 		}
 		return  new AddressDaoImpl().selectAddress(iduser);
 	}
@@ -132,8 +132,8 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public boolean updateAddress(HttpServletRequest request, int userid)
 			throws ClassNotFoundException, SQLException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("updateAddress(HttpServletRequest, int) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("updateAddress(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
@@ -148,8 +148,8 @@ public class AddressServiceImpl implements AddressService {
 			for (Address newaddress : newaddresslist) {
 				for (Address oldaddress : oldaddresslist) {
 					if (oldaddress.getIdadress() == newaddress.getIdadress()) {
-						if (logger.isDebugEnabled()) {
-							logger.debug("updateAddress(HttpServletRequest, int) - {}"+ "update id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
+						if (LOGGER.isDebugEnabled()) {
+							LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+ "update id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
 						}
 						updateaddrs.add(newaddress);
 						oldaddresslist.remove(oldaddress);
@@ -158,8 +158,8 @@ public class AddressServiceImpl implements AddressService {
 					}
 				}
 				if (flag == 0) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("updateAddress(HttpServletRequest, int) - {}"+"insert id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+"insert id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 					insertaddrs.add(newaddress);
 				}
@@ -176,23 +176,23 @@ public class AddressServiceImpl implements AddressService {
 				rowsAffected += ado.insertAddress(insertaddrs, "insert");
 			}
 			if (rowsAffected > 0) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 				}
 				return true;
 			} else {
-				if (logger.isDebugEnabled()) {
-					logger.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 				}
 				return false;
 			}
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug("updateAddress(HttpServletRequest, int) - {}"+"no need to update because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+"no need to update because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
 		}

@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 public class BackBtnDisable implements Filter {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(BackBtnDisable.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(BackBtnDisable.class.getName());
 
 
 	/**
@@ -49,23 +49,23 @@ public class BackBtnDisable implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	public void doFilter( final ServletRequest request,final ServletResponse response,final FilterChain chain)
 			throws IOException, ServletException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 		// place your code here
 
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
+		final HttpServletRequest req = (HttpServletRequest) request;
+		final HttpServletResponse resp = (HttpServletResponse) response;
 		if (req.getRequestURI().matches(".*(js|css|png|jpg|woff|woff2|ttf)$")) {
 			chain.doFilter(request, response);
 		} else {
 			if ((req.getSession().getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
-				RequestDispatcher rd = req.getRequestDispatcher("Login.jsp");
-				rd.forward(request, response);
+				final RequestDispatcher requestdispatcher = req.getRequestDispatcher("Login.jsp");
+				requestdispatcher.forward(request, response);
 			} else {
 				chain.doFilter(request, response);
 			}
@@ -75,8 +75,8 @@ public class BackBtnDisable implements Filter {
 			resp.setDateHeader("Expires", 0);
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
 		}
 	}
 
@@ -86,21 +86,21 @@ public class BackBtnDisable implements Filter {
 	 * @param url the url
 	 * @return true, if successful
 	 */
-	private boolean needsAuthentication(String url) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("needsAuthentication(String) - start"); //$NON-NLS-1$
+	private boolean needsAuthentication(final String url) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("needsAuthentication(String) - start"); //$NON-NLS-1$
 		}
 
-		String[] validNonAuthenticationUrls = { "inexture-sample/", "Login.jsp", "ShowRegServ", "index.jsp",
+		final String[]  validNonAuthenticationUrls = { "inexture-sample/", "Login.jsp", "ShowRegServ", "index.jsp",
 				"ForgotPassword.jsp", "CheckUser", "RegUser", "ForgotPassServ" };
-		for (String validUrl : validNonAuthenticationUrls) {
+		for (final String validUrl : validNonAuthenticationUrls) {
 			if (url.endsWith(validUrl)) {
 				return false;
 			}
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("needsAuthentication(String) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("needsAuthentication(String) - end"); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -113,7 +113,7 @@ public class BackBtnDisable implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	@Override
-	public void init(FilterConfig fConfig) throws ServletException {
+	public void init(final FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
 

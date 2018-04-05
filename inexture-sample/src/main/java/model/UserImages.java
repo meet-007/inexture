@@ -11,7 +11,7 @@ public class UserImages {
 	/** Logger for this class. */
 
 	/** The iduser images. */
-	private int iduser_images;
+	private int iduserImages;
 
 	/** The iduser. */
 	private int iduser;
@@ -24,8 +24,8 @@ public class UserImages {
 	 *
 	 * @return the iduser images
 	 */
-	public int getIduser_images() {
-		return iduser_images;
+	public int getIduserImages() {
+		return iduserImages;
 	}
 
 	/**
@@ -33,8 +33,8 @@ public class UserImages {
 	 *
 	 * @param iduser_images the new iduser images
 	 */
-	public void setIduser_images(int iduser_images) {
-		this.iduser_images = iduser_images;
+	public void setIduserImages(int iduser_images) {
+		this.iduserImages = iduser_images;
 	}
 
 	/**

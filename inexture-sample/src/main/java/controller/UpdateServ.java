@@ -29,7 +29,7 @@ import service.impl.UserServiceImp;
 public class UpdateServ extends HttpServlet {
 
 	/** Logger for this class. */
-	private static final Logger logger = LogManager.getLogger(UpdateServ.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(UpdateServ.class.getName());
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -48,8 +48,8 @@ public class UpdateServ extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
@@ -58,7 +58,7 @@ public class UpdateServ extends HttpServlet {
 
 			User user = null;
 
-			HttpSession session  = request.getSession();
+			final HttpSession session  = request.getSession();
 			if (request.getParameter("iduser") == null) {
 				user = (User) session.getAttribute("user");
 			} else {
@@ -67,7 +67,7 @@ public class UpdateServ extends HttpServlet {
 			}
 
 
-			String error = new validations.RegistrationValidation().validate(request);
+			final String error = new validations.RegistrationValidation().validate(request);
 			if(error.equals("")) {
 				request.setAttribute("rspmsg", new UserServiceImp().updateUser(request, user.getIduser()));
 				session.removeAttribute("user");
@@ -77,36 +77,36 @@ public class UpdateServ extends HttpServlet {
 				throw new Exception("enable javaScript if it is disabled");
 
 			}
-		} catch (Exception e1) {
-			logger.error("doGet(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
+		} catch (final Exception e1) {
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
 			try {
 				request.setAttribute("user", UserServiceImp.setParams(request));
-			} catch (Exception e) {
-				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+			} catch (final Exception e) {
+				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 				// TODO Auto-generated catch block
 			}try {
 				request.setAttribute("languages", LangTransImpl.setParams(request, -1));
-			} catch (Exception e) {
-				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+			} catch (final Exception e) {
+				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 				// TODO Auto-generated catch block
 			}try {
 				request.setAttribute("addrslist", AddressServiceImpl.setParams(request, -1));
-			} catch (Exception e) {
-				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+			} catch (final Exception e) {
+				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 				// TODO Auto-generated catch block
 			}try {
 				request.setAttribute("imglist", ImageServiceImpl.setParams(request, -1));
-			} catch (Exception e) {
-				logger.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+			} catch (final Exception e) {
+				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
 				// TODO Auto-generated catch block
 			}
 			request.setAttribute("rspmsg", e1.getMessage());
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("UpdateProfile");
+		final RequestDispatcher rd = request.getRequestDispatcher("UpdateProfile");
 		rd.forward(request, response);
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
 
