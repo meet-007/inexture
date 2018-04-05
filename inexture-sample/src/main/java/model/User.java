@@ -172,7 +172,7 @@ public class User {
 	 * @return the dob
 	 */
 	public Date getDob() {
-		return dob;
+		return  (Date)dob.clone();
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class User {
 	 * @param dob the new dob
 	 */
 	public void setDob(Date dob) {
-		this.dob = dob;
+		this.dob = (Date)dob.clone();
 	}
 
 	/**

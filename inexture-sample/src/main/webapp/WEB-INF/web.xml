@@ -12,14 +12,14 @@
 		</description>
 		<display-name>LoginFilter</display-name>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>controller.login.LoginFilter</filter-class>
+		<filter-class>controller.LoginFilter</filter-class>
 	</filter>
 	<filter>
 		<description>
 		</description>
 		<display-name>BackBtnDisable</display-name>
 		<filter-name>BackBtnDisable</filter-name>
-		<filter-class>controller.login.BackBtnDisable</filter-class>
+		<filter-class>controller.BackBtnDisable</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
@@ -32,11 +32,11 @@
 
 	<servlet>
 		<servlet-name>ShowRegServ</servlet-name>
-		<servlet-class>controller.registration.ShowRegServ</servlet-class>
+		<servlet-class>controller.ShowRegServ</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>RegUser</servlet-name>
-		<servlet-class>controller.registration.RegUser</servlet-class>
+		<servlet-class>controller.RegUser</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>UserHome</servlet-name>
@@ -47,7 +47,7 @@
 		</description>
 		<display-name>Logout</display-name>
 		<servlet-name>Logout</servlet-name>
-		<servlet-class>controller.login.Logout</servlet-class>
+		<servlet-class>controller.Logout</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -61,49 +61,49 @@
 		</description>
 		<display-name>UpdateProfile</display-name>
 		<servlet-name>UpdateProfile</servlet-name>
-		<servlet-class>controller.updtprofile.UpdateProfile</servlet-class>
+		<servlet-class>controller.UpdateProfile</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>UpdateServ</display-name>
 		<servlet-name>UpdateServ</servlet-name>
-		<servlet-class>controller.updtprofile.UpdateServ</servlet-class>
+		<servlet-class>controller.UpdateServ</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>ShowAllUser</display-name>
 		<servlet-name>ShowAllUser</servlet-name>
-		<servlet-class>controller.Admin.ShowAllUser</servlet-class>
+		<servlet-class>controller.ShowAllUser</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>DeleteUserServ</display-name>
 		<servlet-name>DeleteUserServ</servlet-name>
-		<servlet-class>controller.Admin.DeleteUserServ</servlet-class>
+		<servlet-class>controller.DeleteUserServ</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>ForgotPassServ</display-name>
 		<servlet-name>ForgotPassServ</servlet-name>
-		<servlet-class>controller.login.ForgotPassServ</servlet-class>
+		<servlet-class>controller.ForgotPassServ</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>ChngPassServ</display-name>
 		<servlet-name>ChngPassServ</servlet-name>
-		<servlet-class>controller.general.ChngPassServ</servlet-class>
+		<servlet-class>controller.ChngPassServ</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
 		</description>
 		<display-name>CheckUser</display-name>
 		<servlet-name>CheckUser</servlet-name>
-		<servlet-class>controller.general.CheckUser</servlet-class>
+		<servlet-class>controller.CheckUser</servlet-class>
 	</servlet>
 	<!--mapping -->
 	<servlet-mapping>

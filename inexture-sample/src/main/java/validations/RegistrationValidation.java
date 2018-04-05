@@ -24,8 +24,12 @@ public class RegistrationValidation {
 		/* getting parameters from request object */
 		String fname = req.getParameter("fname");
 		String lname = req.getParameter("lname");
-		String email = req.getParameter("email");
-		String pass = req.getParameter("pass");
+		String email = null;
+		String pass = null;
+		if((req.getParameter("email")!=null)&&(req.getParameter("pass")!=null)) {
+			email = req.getParameter("email");
+			pass = req.getParameter("pass");
+		}
 		String mobile = req.getParameter("mobile");
 		String dob = req.getParameter("dob");
 		String gender = req.getParameter("gender");
@@ -43,18 +47,20 @@ public class RegistrationValidation {
 		}else if (lname.length() > 100) {
 			error += "lname should not be more than 100 characters <br/>";
 		}
-		if(email.equals("")) {
-			error += "email should not be null";
+		if((req.getParameter("email")!=null)&&(req.getParameter("pass")!=null)) {
+			if(email.equals("")) {
+				error += "email should not be null";
 
-		}else if (email.length() > 80) {
-			error +="email should not be more than 80 characters <br/>";
-		}else if(!email.matches("\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")){
-			error +="email should  be in valid format <br/>";
-		}
-		if(pass.equals("")) {
-			error += "password should not be null \n";
-		}else if ((pass.length() > 15) && (pass.length()<6)) {
-			error +="password should not be more than 15 characters and less than 6 characters <br/>";
+			}else if (email.length() > 80) {
+				error +="email should not be more than 80 characters <br/>";
+			}else if(!email.matches("\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")){
+				error +="email should  be in valid format <br/>";
+			}
+			if(pass.equals("")) {
+				error += "password should not be null \n";
+			}else if ((pass.length()<6)||(pass.length() > 15) ) {
+				error +="password should not be more than 15 characters and less than 6 characters <br/>";
+			}
 		}
 		if(mobile.equals("")) {
 			error +="moble should not be null \n";

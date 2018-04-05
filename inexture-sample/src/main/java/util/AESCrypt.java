@@ -1,12 +1,13 @@
 package util;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
-
+import java.nio.charset.Charset;
 import java.security.Key;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -62,7 +63,7 @@ public class AESCrypt {
 			logger.debug("generateKey() - start"); //$NON-NLS-1$
 		}
 
-		Key key = new SecretKeySpec(AESCrypt.KEY.getBytes(), AESCrypt.ALGORITHM);
+		Key key = new SecretKeySpec(AESCrypt.KEY.getBytes(Charset.defaultCharset() ), AESCrypt.ALGORITHM);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("generateKey() - end"); //$NON-NLS-1$

@@ -1,8 +1,5 @@
 package util;
 
-
-
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,23 +58,25 @@ public class DbUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("dbOperationInsert(String, ArrayList) - start"); //$NON-NLS-1$
 		}
-		Connection con = DbUtil.getConnection();
-		PreparedStatement pst = con.prepareStatement(query);
-		Iterator<Object> it = param.iterator();
-		int index = 1;
-		while (it.hasNext()) {
-			Object ob = it.next();
-			if (ob instanceof InputStream) {
-				if (ob != null) {
-					pst.setBlob(index, (InputStream) ob);
+		boolean result = true;
+		try(Connection con = DbUtil.getConnection()){
+			try(PreparedStatement pst = con.prepareStatement(query)){
+				Iterator<Object> it = param.iterator();
+				int index = 1;
+				while (it.hasNext()) {
+					Object ob = it.next();
+					if (ob instanceof InputStream) {
+						pst.setBlob(index, (InputStream) ob);
+					} else {
+						pst.setObject(index, ob);
+					}
+					index++;
 				}
-			} else {
-				pst.setObject(index, ob);
+				result = pst.execute();
+				pst.close();
+				con.close();
 			}
-			index++;
 		}
-		boolean result = pst.execute();
-		con.close();
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("dbOperationInsert(String, ArrayList) - end"); //$NON-NLS-1$
@@ -93,6 +92,7 @@ public class DbUtil {
 
 		Connection con = DbUtil.getConnection();
 		PreparedStatement st = con.prepareStatement(query);
+
 		if (params != null) {
 			int index = 1;
 			for (Object param : params) {
@@ -101,11 +101,12 @@ public class DbUtil {
 			}
 		}
 		ResultSet rs = st.executeQuery();
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("dbOperationSelect(String, Object) - end"); //$NON-NLS-1$
 		}
 		return rs;
+
+
 	}
 
 }

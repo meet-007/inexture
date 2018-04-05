@@ -5,9 +5,9 @@ var docheck = true;
 	function doCheck(bool){
 		docheck = bool;
 		if(docheck == false){
-			$("#confpassdiv").hide();
-			$("#emaildiv").hide();
-			$("#pwddiv").hide();
+			$("#confpassdiv").remove();
+			$("#emaildiv").remove();
+			$("#pwddiv").remove();
 			}
 		}
 
