@@ -29,19 +29,21 @@ public class LangDaoImpl implements LangDao {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectLang() - start"); //$NON-NLS-1$
 		}
-		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT);
-		final ArrayList<LangMaster> languages = new ArrayList<>();
-		final LangMaster languageMaster = new LangMaster();
-		while (resultSet.next()) {
-			languageMaster.setIdlang(resultSet.getInt(1));
-			languageMaster.setLang(resultSet.getString(2));
-			languages.add(languageMaster);
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT)){
+			final ArrayList<LangMaster> languages = new ArrayList<>();
+			final LangMaster languageMaster = new LangMaster();
+			while (resultSet.next()) {
+				languageMaster.setIdlang(resultSet.getInt(1));
+				languageMaster.setLang(resultSet.getString(2));
+				languages.add(languageMaster);
+			}
+
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectLang() - end"); //$NON-NLS-1$
+			}
+
+			return languages;
 		}
-		resultSet.close();
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectLang() - end"); //$NON-NLS-1$
-		}
-		return languages;
 	}
 
 }

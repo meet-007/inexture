@@ -54,7 +54,7 @@ public class User {
 	 *
 	 * @param mobile the new mobile
 	 */
-	public void setMobile(long mobile) {
+	public void setMobile(final long mobile) {
 		this.mobile = mobile;
 	}
 
@@ -72,7 +72,7 @@ public class User {
 	 *
 	 * @param iduser the new iduser
 	 */
-	public void setIduser(int iduser) {
+	public void setIduser(final int iduser) {
 		this.iduser = iduser;
 	}
 
@@ -90,7 +90,7 @@ public class User {
 	 *
 	 * @param firstname the new firstname
 	 */
-	public void setFirstname(String firstname) {
+	public void setFirstname(final String firstname) {
 		this.firstname = firstname;
 	}
 
@@ -108,7 +108,7 @@ public class User {
 	 *
 	 * @param lastname the new lastname
 	 */
-	public void setLastname(String lastname) {
+	public void setLastname(final String lastname) {
 		this.lastname = lastname;
 	}
 
@@ -126,7 +126,7 @@ public class User {
 	 *
 	 * @param email the new email
 	 */
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -144,7 +144,7 @@ public class User {
 	 *
 	 * @param password the new password
 	 */
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -162,7 +162,7 @@ public class User {
 	 *
 	 * @param gender the new gender
 	 */
-	public void setGender(int gender) {
+	public void setGender(final int gender) {
 		this.gender = gender;
 	}
 
@@ -180,7 +180,7 @@ public class User {
 	 *
 	 * @param dob the new dob
 	 */
-	public void setDob(Date dob) {
+	public void setDob(final Date dob) {
 		this.dob = (Date)dob.clone();
 	}
 
@@ -198,7 +198,7 @@ public class User {
 	 *
 	 * @param role the new role
 	 */
-	public void setRole(int role) {
+	public void setRole(final int role) {
 		this.role = role;
 	}
 
@@ -226,7 +226,7 @@ public class User {
 	 *
 	 * @param tech the new tech
 	 */
-	public void setTech(int tech) {
+	public void setTech(final int tech) {
 		this.tech = tech;
 	}
 

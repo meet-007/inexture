@@ -28,7 +28,7 @@ public class LangMaster {
 	 *
 	 * @param idlang the new idlang
 	 */
-	public void setIdlang(int idlang) {
+	public void setIdlang(final int idlang) {
 		this.idlang = idlang;
 	}
 
@@ -46,7 +46,7 @@ public class LangMaster {
 	 *
 	 * @param lang the new lang
 	 */
-	public void setLang(String lang) {
+	public void setLang(final String lang) {
 		this.lang = lang;
 	}
 

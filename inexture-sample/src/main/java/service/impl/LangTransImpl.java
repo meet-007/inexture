@@ -38,10 +38,10 @@ public class LangTransImpl implements LangTransServ {
 			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
-		String[] lang = request.getParameterValues("lang");
-		ArrayList<LangTransact> it = new ArrayList<>();
-		for (String element : lang) {
-			LangTransact lt = new LangTransact();
+		final String[] lang = request.getParameterValues("lang");
+		final ArrayList<LangTransact> it = new ArrayList<>();
+		for (final String element : lang) {
+			final LangTransact lt = new LangTransact();
 			lt.setIdlangmaster(Integer.parseInt(element));
 			lt.setIduser(userid);
 			it.add(lt);
@@ -63,9 +63,9 @@ public class LangTransImpl implements LangTransServ {
 			LOGGER.debug("addLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		ArrayList<LangTransact> it = LangTransImpl.setParams(request, userid);
-		LangTrans langtrans = new dao.impl.LangTransImpl();
-		int rowsAffected = langtrans.insertLangTrans(it, "insert");
+		final ArrayList<LangTransact> it = LangTransImpl.setParams(request, userid);
+		final LangTrans langtrans = new dao.impl.LangTransImpl();
+		final int rowsAffected = langtrans.insertLangTrans(it, "insert");
 		if (rowsAffected > 0) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
@@ -89,9 +89,9 @@ public class LangTransImpl implements LangTransServ {
 			LOGGER.debug("getUserLanguages(int) - start"); //$NON-NLS-1$
 		}
 
-		LangTrans lt = new dao.impl.LangTransImpl();
+		final LangTrans lt = new dao.impl.LangTransImpl();
 
-		ArrayList<LangTransact> returnArrayList = lt.selectUserLanguages(iduser);
+		final ArrayList<LangTransact> returnArrayList =(ArrayList<LangTransact>) lt.selectUserLanguages(iduser);
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getUserLanguages(int) - end"); //$NON-NLS-1$
 		}
@@ -108,15 +108,15 @@ public class LangTransImpl implements LangTransServ {
 			LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		LangTrans it = new dao.impl.LangTransImpl();
-		ArrayList<LangTransact> dblanguages = it.selectUserLanguages(iduser);
-		ArrayList<LangTransact> newlangarr = LangTransImpl.setParams(request, iduser);
-		List<LangTransact> updated = new ArrayList<>();
+		final LangTrans it = new dao.impl.LangTransImpl();
+		final ArrayList<LangTransact> dblanguages =(ArrayList<LangTransact>) it.selectUserLanguages(iduser);
+		final ArrayList<LangTransact> newlangarr = LangTransImpl.setParams(request, iduser);
+		final List<LangTransact> updated = new ArrayList<>();
 		int rowsAffected = 0;
-		LangTrans langtrans = new dao.impl.LangTransImpl();
+		final LangTrans langtrans = new dao.impl.LangTransImpl();
 		int flag = 0;
-		for (LangTransact newlang : newlangarr) {
-			for (LangTransact dblang : dblanguages) {
+		for (final LangTransact newlang : newlangarr) {
+			for (final LangTransact dblang : dblanguages) {
 				if (dblang.getIdlangmaster() == newlang.getIdlangmaster()) {
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - {}"+ "update id" + newlang); //$NON-NLS-1$ //$NON-NLS-2$

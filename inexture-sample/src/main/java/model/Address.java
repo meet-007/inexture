@@ -46,7 +46,7 @@ public class Address {
 	 *
 	 * @param idadress the new idadress
 	 */
-	public void setIdadress(int idadress) {
+	public void setIdadress(final int idadress) {
 		this.idadress = idadress;
 	}
 
@@ -64,7 +64,7 @@ public class Address {
 	 *
 	 * @param iduser the new iduser
 	 */
-	public void setIduser(int iduser) {
+	public void setIduser(final int iduser) {
 		this.iduser = iduser;
 	}
 
@@ -82,7 +82,7 @@ public class Address {
 	 *
 	 * @param addressline1 the new addressline 1
 	 */
-	public void setAddressline1(String addressline1) {
+	public void setAddressline1(final String addressline1) {
 		this.addressline1 = addressline1;
 	}
 
@@ -100,7 +100,7 @@ public class Address {
 	 *
 	 * @param addressline2 the new addressline 2
 	 */
-	public void setAddressline2(String addressline2) {
+	public void setAddressline2(final String addressline2) {
 		this.addressline2 = addressline2;
 	}
 
@@ -118,7 +118,7 @@ public class Address {
 	 *
 	 * @param pin the new pin
 	 */
-	public void setPin(int pin) {
+	public void setPin(final int pin) {
 		this.pin = pin;
 	}
 
@@ -136,7 +136,7 @@ public class Address {
 	 *
 	 * @param city the new city
 	 */
-	public void setCity(String city) {
+	public void setCity(final String city) {
 		this.city = city;
 	}
 
@@ -154,7 +154,7 @@ public class Address {
 	 *
 	 * @param state the new state
 	 */
-	public void setState(String state) {
+	public void setState(final String state) {
 		this.state = state;
 	}
 
@@ -172,7 +172,7 @@ public class Address {
 	 *
 	 * @param country the new country
 	 */
-	public void setCountry(String country) {
+	public void setCountry(final String country) {
 		this.country = country;
 	}
 

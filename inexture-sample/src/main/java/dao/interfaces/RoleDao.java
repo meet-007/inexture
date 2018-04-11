@@ -17,11 +17,11 @@ public interface RoleDao {
 	/**
 	 * Gets the role.
 	 *
-	 * @param id the id
+	 * @param iduser the id
 	 * @return the role
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	Role getRole(int id) throws ClassNotFoundException, SQLException, IOException;
+	Role getRole(int iduser) throws ClassNotFoundException, SQLException, IOException;
 }

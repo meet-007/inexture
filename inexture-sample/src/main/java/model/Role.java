@@ -28,7 +28,7 @@ public class Role {
 	 *
 	 * @param idrole the new idrole
 	 */
-	public void setIdrole(int idrole) {
+	public void setIdrole(final int idrole) {
 		this.idrole = idrole;
 	}
 
@@ -46,7 +46,7 @@ public class Role {
 	 *
 	 * @param role the new role
 	 */
-	public void setRole(String role) {
+	public void setRole(final String role) {
 		this.role = role;
 	}
 

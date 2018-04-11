@@ -48,16 +48,16 @@ public class ImageServiceImpl implements ImageService {
 			delnewimglist = request.getParameterValues("delnewimg");
 		}
 		boolean insert = true;
-		ArrayList<Part> 	arr = (ArrayList<Part>) request.getParts();
-		Iterator<Part> it = arr.iterator();
-		ArrayList<UserImages> uimg = new ArrayList<>();
+		final ArrayList<Part> 	arr = (ArrayList<Part>) request.getParts();
+		final Iterator<Part> it = arr.iterator();
+		final ArrayList<UserImages> uimg = new ArrayList<>();
 		InputStream is = null;
 		while (it.hasNext()) {
-			Part pt = it.next();
+			final Part pt = it.next();
 			if (pt.getContentType() != null) {
 				if (pt.getContentType().equals("image/jpeg")) {
 					if (delnewimglist != null) {
-						for (String delnewimg : delnewimglist) {
+						for (final String delnewimg : delnewimglist) {
 							if (pt.getSubmittedFileName().equals(delnewimg)) {
 								insert = false;
 							}
@@ -65,7 +65,7 @@ public class ImageServiceImpl implements ImageService {
 					}
 					if (insert == true) {
 						is = pt.getInputStream();
-						UserImages userimage = new UserImages();
+						final UserImages userimage = new UserImages();
 						userimage.setIduser(iduser);
 						userimage.setImage(is);
 						uimg.add(userimage);
@@ -75,9 +75,9 @@ public class ImageServiceImpl implements ImageService {
 
 		}
 		if (request.getParameter("delimg") != null) {
-			String delimg[] = request.getParameterValues("delimg");
-			for (String img : delimg) {
-				UserImages userimage = new UserImages();
+			final String delimg[] = request.getParameterValues("delimg");
+			for (final String img : delimg) {
+				final UserImages userimage = new UserImages();
 				userimage.setIduserImages(Integer.parseInt(img));
 				uimg.add(userimage);
 			}
@@ -89,6 +89,7 @@ public class ImageServiceImpl implements ImageService {
 		return uimg;
 	}
 
+	@Override
 	public boolean saveImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
 		if (LOGGER.isDebugEnabled()) {
@@ -96,7 +97,7 @@ public class ImageServiceImpl implements ImageService {
 		}
 
 		// TODO Auto-generated method stub
-		ArrayList<UserImages> uimg = ImageServiceImpl.setParams(request, iduser);
+		final ArrayList<UserImages> uimg = ImageServiceImpl.setParams(request, iduser);
 		int totalImageInserted = 0;
 		if (uimg.size() > 0) {
 			totalImageInserted = new ImageDaoImpl().insertImage(uimg, "insert");
@@ -123,6 +124,7 @@ public class ImageServiceImpl implements ImageService {
 		}
 	}
 
+	@Override
 	public ArrayList<UserImages> getUserImages(int iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getUserImages(int) - start"); //$NON-NLS-1$
@@ -138,6 +140,7 @@ public class ImageServiceImpl implements ImageService {
 	/* (non-Javadoc)
 	 * @see service.Image.ImageService#UpdateImage(javax.servlet.http.HttpServletRequest, int)
 	 */
+	@Override
 	public boolean updateImage(HttpServletRequest request, int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
 		if (LOGGER.isDebugEnabled()) {
@@ -145,15 +148,15 @@ public class ImageServiceImpl implements ImageService {
 		}
 
 		// TODO Auto-generated method stub
-		ImageDao it = new ImageDaoImpl();
-		ArrayList<UserImages> dbimages = it.selectImages(iduser);
-		ArrayList<UserImages> newimages = ImageServiceImpl.setParams(request, iduser);
-		List<UserImages> updated = new ArrayList<>();
-		List<UserImages> deleted = new ArrayList<>();
+		final ImageDao it = new ImageDaoImpl();
+		final ArrayList<UserImages> dbimages = (ArrayList<UserImages>)it.selectImages(iduser);
+		final ArrayList<UserImages> newimages = ImageServiceImpl.setParams(request, iduser);
+		final List<UserImages> updated = new ArrayList<>();
+		final List<UserImages> deleted = new ArrayList<>();
 		int rowsAffected = 0;
 		int flag = 0;
-		for (UserImages newimage : newimages) {
-			for (UserImages dbimage : dbimages) {
+		for (final UserImages newimage : newimages) {
+			for (final UserImages dbimage : dbimages) {
 				if (dbimage.getIduserImages() == newimage.getIduserImages()) {
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug("UpdateImage(HttpServletRequest, int) - {}"+"Delete id" + newimage.getIduserImages()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -170,10 +173,10 @@ public class ImageServiceImpl implements ImageService {
 			flag = 0;
 		}
 		if (deleted.size() > 0) {
-			rowsAffected = it.insertImage((ArrayList<UserImages>) deleted, "delete");
+			rowsAffected = it.insertImage(deleted, "delete");
 		}
 		if (updated.size() > 0) {
-			rowsAffected += it.insertImage((ArrayList<UserImages>) updated, "insert");
+			rowsAffected += it.insertImage(updated, "insert");
 		}
 		if (rowsAffected > 0) {
 			if (LOGGER.isDebugEnabled()) {

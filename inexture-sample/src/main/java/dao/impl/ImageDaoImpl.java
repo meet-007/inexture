@@ -63,20 +63,21 @@ public class ImageDaoImpl implements ImageDao {
 			LOGGER.debug("selectImages(int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT,iduser.toString());
-		final ArrayList<UserImages> uiarr = new ArrayList<>();
-		final UserImages userImage = new UserImages();
-		while (resultSet.next()) {
-			userImage.setIduserImages(resultSet.getInt(1));
-			userImage.setIduser(resultSet.getInt(2));
-			userImage.setImage(resultSet.getBinaryStream(3));
-			uiarr.add(userImage);
-		}
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT,iduser.toString())){
+			final ArrayList<UserImages> uiarr = new ArrayList<>();
+			final UserImages userImage = new UserImages();
+			while (resultSet.next()) {
+				userImage.setIduserImages(resultSet.getInt(1));
+				userImage.setIduser(resultSet.getInt(2));
+				userImage.setImage(resultSet.getBinaryStream(3));
+				uiarr.add(userImage);
+			}
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectImages(int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectImages(int) - end"); //$NON-NLS-1$
+			}
+			return uiarr;
 		}
-		return uiarr;
 	}
 
 }

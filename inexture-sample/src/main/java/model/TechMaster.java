@@ -28,7 +28,7 @@ public class TechMaster {
 	 *
 	 * @param idtech the new idtech
 	 */
-	public void setIdtech(int idtech) {
+	public void setIdtech(final int idtech) {
 		this.idtech = idtech;
 	}
 
@@ -46,7 +46,7 @@ public class TechMaster {
 	 *
 	 * @param tech the new tech
 	 */
-	public void setTech(String tech) {
+	public void setTech(final String tech) {
 		this.tech = tech;
 	}
 

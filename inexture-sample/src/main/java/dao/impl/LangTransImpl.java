@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,7 +29,7 @@ public class LangTransImpl implements LangTrans {
 	 * @see dao.LangTransaction.LangTrans#InsertLangTrans(java.util.ArrayList, java.lang.String)
 	 */
 	@Override
-	public int insertLangTrans(final ArrayList<LangTransact> languageTransaction,final  String operation)
+	public int insertLangTrans(final List<LangTransact> languageTransaction,final  String operation)
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("InsertLangTrans(ArrayList<LangTransact>, String) - start"); //$NON-NLS-1$
@@ -68,20 +69,21 @@ public class LangTransImpl implements LangTrans {
 			LOGGER.debug("selectUserLanguages(int) - start"); //$NON-NLS-1$
 		}
 
-		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser);
-		final ArrayList<LangTransact> ltarr = new ArrayList<>();
-		final LangTransact languageTransaction = new LangTransact();
-		while (resultSet.next()) {
-			languageTransaction.setIdlangTransaction(resultSet.getInt(1));
-			languageTransaction.setIduser(resultSet.getInt(2));
-			languageTransaction.setIdlangmaster(resultSet.getInt(3));
-			ltarr.add(languageTransaction);
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser)){
+			final ArrayList<LangTransact> ltarr = new ArrayList<>();
+			final LangTransact languageTransaction = new LangTransact();
+			while (resultSet.next()) {
+				languageTransaction.setIdlangTransaction(resultSet.getInt(1));
+				languageTransaction.setIduser(resultSet.getInt(2));
+				languageTransaction.setIdlangmaster(resultSet.getInt(3));
+				ltarr.add(languageTransaction);
+			}
+
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectUserLanguages(int) - end"); //$NON-NLS-1$
+			}
+			return ltarr;
 		}
-		resultSet.close();
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectUserLanguages(int) - end"); //$NON-NLS-1$
-		}
-		return ltarr;
 	}
 
 }

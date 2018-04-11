@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.LangMaster;
 
@@ -23,5 +23,5 @@ public interface LangDao {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException;
+	List<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException;
 }

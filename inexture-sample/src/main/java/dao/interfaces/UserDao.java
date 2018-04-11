@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.User;
 
@@ -42,14 +42,14 @@ public interface UserDao {
 	/**
 	 * Insert.
 	 *
-	 * @param u the u
+	 * @param user the u
 	 * @param operation the operation
 	 * @return true, if successful
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	boolean insert(User u, String operation) throws ClassNotFoundException, SQLException, IOException;
+	boolean insert(User user, String operation) throws ClassNotFoundException, SQLException, IOException;
 
 	/**
 	 * Select user.
@@ -72,7 +72,7 @@ public interface UserDao {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<User> selectAllUser(int role) throws ClassNotFoundException, SQLException, IOException;
+	List<User> selectAllUser(int role) throws ClassNotFoundException, SQLException, IOException;
 
 	/**
 	 * Select user.
@@ -99,12 +99,12 @@ public interface UserDao {
 	/**
 	 * Update password.
 	 *
-	 * @param u the u
+	 * @param user the u
 	 * @return true, if successful
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	boolean updatePassword(User u) throws ClassNotFoundException, SQLException, IOException;
+	boolean updatePassword(User user) throws ClassNotFoundException, SQLException, IOException;
 
 }

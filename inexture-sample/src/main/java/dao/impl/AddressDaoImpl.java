@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,7 +29,7 @@ public class AddressDaoImpl implements AddressDao {
 	 * @see dao.Address.AddressDao#insertAddress(java.util.ArrayList, java.lang.String)
 	 */
 	@Override
-	public int insertAddress(final ArrayList<Address> addressList,final String operation)
+	public int insertAddress(final List<Address> addressList,final String operation)
 			throws SQLException, ClassNotFoundException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("insertAddress(ArrayList<Address>, String) - start"); //$NON-NLS-1$
@@ -77,26 +78,27 @@ public class AddressDaoImpl implements AddressDao {
 		}
 
 		// TODO Auto-generated method stub
-		final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser);
-		final ArrayList<Address> addresslist = new ArrayList<>();
-		final Address address = new Address();
-		while (resultSet.next()) {
-			address.setIdadress(resultSet.getInt(1));
-			address.setIduser(resultSet.getInt(2));
-			address.setAddressline1(resultSet.getString(3));
-			address.setAddressline2(resultSet.getString(4));
-			address.setPin(resultSet.getInt(5));
-			address.setCity(resultSet.getString(6));
-			address.setState(resultSet.getString(7));
-			address.setCountry(resultSet.getString(8));
-			addresslist.add(address);
-		}
-		resultSet.close();
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser)){
+			final ArrayList<Address> addresslist = new ArrayList<>();
+			final Address address = new Address();
+			while (resultSet.next()) {
+				address.setIdadress(resultSet.getInt(1));
+				address.setIduser(resultSet.getInt(2));
+				address.setAddressline1(resultSet.getString(3));
+				address.setAddressline2(resultSet.getString(4));
+				address.setPin(resultSet.getInt(5));
+				address.setCity(resultSet.getString(6));
+				address.setState(resultSet.getString(7));
+				address.setCountry(resultSet.getString(8));
+				addresslist.add(address);
+			}
+			resultSet.close();
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectAddress(int) - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectAddress(int) - end"); //$NON-NLS-1$
+			}
+			return addresslist;
 		}
-		return addresslist;
 	}
 
 }

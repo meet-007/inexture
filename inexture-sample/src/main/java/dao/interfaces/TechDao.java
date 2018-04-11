@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.TechMaster;
 
@@ -23,5 +23,5 @@ public interface TechDao {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<TechMaster> selectTech() throws ClassNotFoundException, SQLException, IOException;
+	List<TechMaster> selectTech() throws ClassNotFoundException, SQLException, IOException;
 }

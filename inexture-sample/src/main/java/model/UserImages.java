@@ -33,7 +33,7 @@ public class UserImages {
 	 *
 	 * @param iduser_images the new iduser images
 	 */
-	public void setIduserImages(int iduser_images) {
+	public void setIduserImages(final int iduser_images) {
 		this.iduserImages = iduser_images;
 	}
 
@@ -51,7 +51,7 @@ public class UserImages {
 	 *
 	 * @param iduser the new iduser
 	 */
-	public void setIduser(int iduser) {
+	public void setIduser(final int iduser) {
 		this.iduser = iduser;
 	}
 
@@ -69,7 +69,7 @@ public class UserImages {
 	 *
 	 * @param image the new image
 	 */
-	public void setImage(InputStream image) {
+	public void setImage(final InputStream image) {
 		this.image = image;
 	}
 

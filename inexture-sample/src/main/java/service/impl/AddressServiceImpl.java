@@ -31,26 +31,26 @@ public class AddressServiceImpl implements AddressService {
 	 * @param iduser the iduser
 	 * @return the array list
 	 */
-	public static ArrayList<Address> setParams(HttpServletRequest request, int iduser) {
+	public static ArrayList<Address> setParams(final HttpServletRequest request, final int iduser) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
-		String addressline1[] = request.getParameterValues("addressline1");
-		String addressline2[] = request.getParameterValues("addressline2");
-		String pin[] = request.getParameterValues("pin");
-		String city[] = request.getParameterValues("city");
-		String state[] = request.getParameterValues("state");
-		String country[] = request.getParameterValues("country");
-		String idaddress[] = request.getParameterValues("idaddress");
-		ArrayList<Address> adrs = new ArrayList<>();
+		final String addressline1[] = request.getParameterValues("addressline1");
+		final String addressline2[] = request.getParameterValues("addressline2");
+		final String pin[] = request.getParameterValues("pin");
+		final String city[] = request.getParameterValues("city");
+		final String state[] = request.getParameterValues("state");
+		final String country[] = request.getParameterValues("country");
+		final String idaddress[] = request.getParameterValues("idaddress");
+		final ArrayList<Address> adrs = new ArrayList<>();
 		for (int i = 0; i <  country.length; i++) {
-			Address address = new Address();
+			final Address address = new Address();
 			address.setAddressline1(addressline1[i]);
 			address.setAddressline2(addressline2[i]);
 			try {
 				address.setPin(Integer.parseInt(pin[i])); // converting into integer type
-			}catch(NumberFormatException e) {
+			}catch(final NumberFormatException e) {
 				LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
 			}
 			address.setCity(city[i]);
@@ -75,7 +75,7 @@ public class AddressServiceImpl implements AddressService {
 	 * @see service.Address.AddressService#addAddress(javax.servlet.http.HttpServletRequest, int)
 	 */
 	@Override
-	public boolean addAddress(HttpServletRequest request, int userid)
+	public boolean addAddress(final HttpServletRequest request, final int userid)
 
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
@@ -84,7 +84,7 @@ public class AddressServiceImpl implements AddressService {
 
 		// TODO Auto-generated method stub
 		if (request.getParameter("addressline1") != null) {
-			AddressDao ado = new AddressDaoImpl();
+			final AddressDao ado = new AddressDaoImpl();
 
 
 			if (ado.insertAddress(AddressServiceImpl.setParams(request, userid), "insert")> 0) {
@@ -115,7 +115,7 @@ public class AddressServiceImpl implements AddressService {
 	 * @see service.Address.AddressService#getUserAddress(int)
 	 */
 	@Override
-	public ArrayList<Address> getUserAddress(int iduser) throws ClassNotFoundException, SQLException, IOException {
+	public ArrayList<Address> getUserAddress(final int iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getUserAddress(int) - start"); //$NON-NLS-1$
 		}
@@ -130,7 +130,7 @@ public class AddressServiceImpl implements AddressService {
 	 * @see service.Address.AddressService#updateAddress(javax.servlet.http.HttpServletRequest, int)
 	 */
 	@Override
-	public boolean updateAddress(HttpServletRequest request, int userid)
+	public boolean updateAddress(final HttpServletRequest request, final int userid)
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("updateAddress(HttpServletRequest, int) - start"); //$NON-NLS-1$
@@ -139,14 +139,14 @@ public class AddressServiceImpl implements AddressService {
 		// TODO Auto-generated method stub
 		if (request.getParameter("addressline1") != null) {
 			int rowsAffected = 0;
-			ArrayList<Address> insertaddrs = new ArrayList<>();
-			ArrayList<Address> updateaddrs = new ArrayList<>();
-			ArrayList<Address> newaddresslist = AddressServiceImpl.setParams(request, userid);
-			AddressDao ado = new AddressDaoImpl();
-			ArrayList<Address> oldaddresslist = ado.selectAddress(userid);
+			final ArrayList<Address> insertaddrs = new ArrayList<>();
+			final ArrayList<Address> updateaddrs = new ArrayList<>();
+			final ArrayList<Address> newaddresslist = AddressServiceImpl.setParams(request, userid);
+			final AddressDao ado = new AddressDaoImpl();
+			final ArrayList<Address> oldaddresslist = (ArrayList<Address>)ado.selectAddress(userid);
 			int flag = 0;
-			for (Address newaddress : newaddresslist) {
-				for (Address oldaddress : oldaddresslist) {
+			for (final Address newaddress : newaddresslist) {
+				for (final Address oldaddress : oldaddresslist) {
 					if (oldaddress.getIdadress() == newaddress.getIdadress()) {
 						if (LOGGER.isDebugEnabled()) {
 							LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+ "update id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$

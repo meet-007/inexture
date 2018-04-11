@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.LangTransact;
 
@@ -27,14 +27,14 @@ public interface LangTrans {
 	/**
 	 * Insert lang trans.
 	 *
-	 * @param it the it
+	 * @param langTransList the it
 	 * @param operation the operation
 	 * @return the int
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	int insertLangTrans(ArrayList<LangTransact> it, String operation)
+	int insertLangTrans(List<LangTransact> langTransList, String operation)
 			throws ClassNotFoundException, SQLException, IOException;
 
 	/**
@@ -46,5 +46,5 @@ public interface LangTrans {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<LangTransact> selectUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException;
+	List<LangTransact> selectUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException;
 }

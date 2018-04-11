@@ -29,19 +29,20 @@ public class TechDaoImpl implements TechDao {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectTech() - start"); //$NON-NLS-1$
 		}
-		final ResultSet rs = DbUtil.dbOperationSelect(SELECT);
-		final ArrayList<TechMaster> technologies = new ArrayList<>();
-		while (rs.next()) {
-			final TechMaster tm = new TechMaster();
-			tm.setIdtech(rs.getInt(1));
-			tm.setTech(rs.getString(2));
-			technologies.add(tm);
-		}
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT)){
+			final ArrayList<TechMaster> technologies = new ArrayList<>();
+			final TechMaster techMaster = new TechMaster();
+			while (resultSet.next()) {
+				techMaster.setIdtech(resultSet.getInt(1));
+				techMaster.setTech(resultSet.getString(2));
+				technologies.add(techMaster);
+			}
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectTech() - end"); //$NON-NLS-1$
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectTech() - end"); //$NON-NLS-1$
+			}
+			return technologies;
 		}
-		return technologies;
 	}
 
 }

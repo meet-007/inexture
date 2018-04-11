@@ -31,7 +31,7 @@ public class LangTransact {
 	 *
 	 * @param idlang_transaction the new idlang transaction
 	 */
-	public void setIdlangTransaction(int idlang_transaction) {
+	public void setIdlangTransaction(final int idlang_transaction) {
 		this.idlang_transaction = idlang_transaction;
 	}
 
@@ -49,7 +49,7 @@ public class LangTransact {
 	 *
 	 * @param iduser the new iduser
 	 */
-	public void setIduser(int iduser) {
+	public void setIduser(final int iduser) {
 		this.iduser = iduser;
 	}
 
@@ -67,7 +67,7 @@ public class LangTransact {
 	 *
 	 * @param idlangmaster the new idlangmaster
 	 */
-	public void setIdlangmaster(int idlangmaster) {
+	public void setIdlangmaster(final int idlangmaster) {
 		this.idlangmaster = idlangmaster;
 	}
 

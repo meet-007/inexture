@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.Address;
 
@@ -27,14 +27,14 @@ public interface AddressDao {
 	/**
 	 * Insert address.
 	 *
-	 * @param it the it
+	 * @param addressList the it
 	 * @param operation the operation
 	 * @return the int
 	 * @throws SQLException the SQL exception
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	int insertAddress(ArrayList<Address> it, String operation) throws SQLException, ClassNotFoundException, IOException;
+	int insertAddress(List<Address> addressList, String operation) throws SQLException, ClassNotFoundException, IOException;
 
 	/**
 	 * Select address.
@@ -45,6 +45,6 @@ public interface AddressDao {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<Address> selectAddress(int iduser) throws ClassNotFoundException, SQLException, IOException;
+	List<Address> selectAddress(int iduser) throws ClassNotFoundException, SQLException, IOException;
 
 }

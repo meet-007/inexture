@@ -45,12 +45,12 @@ public class UserDaoImpl implements UserDao {
 		arr.add(u.getDob());
 		arr.add(u.getRole());
 		arr.add(u.getTech());
-		if (operation.equals("insert")) {
+		if ("insert".equals(operation)) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
 			return DbUtil.dbOperationInsert(INSERT, arr);
-		} else if (operation.equals("delete")) {
+		} else if ("delete".equals(operation)) {
 			arr.clear();
 			arr.add(u.getIduser());
 			if (LOGGER.isDebugEnabled()) {
@@ -76,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#selectUser(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public User selectUser(String email, String pass) throws ClassNotFoundException, SQLException, IOException {
+	public User selectUser(final String email,final  String pass) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectUser(String, String) - start"); //$NON-NLS-1$
 		}
@@ -91,35 +91,36 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#selectAllUser(int)
 	 */
 	@Override
-	public ArrayList<User> selectAllUser(int role) throws ClassNotFoundException, SQLException, IOException {
+	public ArrayList<User> selectAllUser(final int role) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectAllUser(int) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
-		final ResultSet rs = DbUtil.dbOperationSelect(SELECTALLUSER, role);
-		final ArrayList<User> users = new ArrayList<>();
-		User u = null;
-		while (rs.next()) {
-			u = new User();
-			u.setIduser(rs.getInt(1));
-			u.setFirstname(rs.getString(2));
-			u.setLastname(rs.getString(3));
-			u.setEmail(rs.getString(4));
-			u.setPassword(rs.getString(5));
-			u.setMobile(rs.getLong(6));
-			u.setGender(rs.getInt(7));
-			final Date d = new Date(rs.getDate(8).getTime());
-			u.setDob(d);
-			u.setRole(rs.getInt(9));
-			u.setTech(rs.getInt(10));
-			users.add(u);
-		}
+		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECTALLUSER, role)){
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("selectAllUser(int) - end"); //$NON-NLS-1$
+			final ArrayList<User> users = new ArrayList<>();
+			final User user = new User();
+			while (resultSet.next()) {
+				user.setIduser(resultSet.getInt(1));
+				user.setFirstname(resultSet.getString(2));
+				user.setLastname(resultSet.getString(3));
+				user.setEmail(resultSet.getString(4));
+				user.setPassword(resultSet.getString(5));
+				user.setMobile(resultSet.getLong(6));
+				user.setGender(resultSet.getInt(7));
+				final Date date = new Date(resultSet.getDate(8).getTime());
+				user.setDob(date);
+				user.setRole(resultSet.getInt(9));
+				user.setTech(resultSet.getInt(10));
+				users.add(user);
+			}
+
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("selectAllUser(int) - end"); //$NON-NLS-1$
+			}
+			return users;
 		}
-		return users;
 	}
 
 	/* (non-Javadoc)
