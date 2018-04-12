@@ -13,16 +13,16 @@ import model.LangTransact;
 public interface LangTrans {
 
 	/** The Constant INSERT. */
-	final static String INSERT = "insert into lang_transaction (idlangmaster,iduser) values (?,?);";
+	String INSERT = "insert into lang_transaction (idlangmaster,iduser) values (?,?);";
 
 	/** The Constant SELECT. */
-	final static String SELECT = "select * from lang_transaction where iduser = ?;";
+	String SELECT = "select * from lang_transaction where iduser = ?;";
 
 	/** The Constant UPDATE. */
-	final static String UPDATE = "insert into lang_transaction (idlangmaster,iduser) values (?,?);";
+	String UPDATE = "insert into lang_transaction (idlangmaster,iduser) values (?,?);";
 
 	/** The Constant DELETE. */
-	final static String DELETE = "delete from lang_transaction where idlangmaster =? and  iduser = ?;";
+	String DELETE = "delete from lang_transaction where idlangmaster =? and  iduser = ?;";
 
 	/**
 	 * Insert lang trans.

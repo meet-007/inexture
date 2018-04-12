@@ -5,7 +5,7 @@ package service.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -26,7 +26,8 @@ public class TechServImpl implements TechServ {
 	/* (non-Javadoc)
 	 * @see service.Tech.TechServ#getTech()
 	 */
-	public ArrayList<TechMaster> getTech() throws ClassNotFoundException, SQLException, IOException {
+	@Override
+	public List<TechMaster> getTech() throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getTech() - start"); //$NON-NLS-1$
 		}

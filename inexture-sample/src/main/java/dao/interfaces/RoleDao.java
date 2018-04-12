@@ -12,7 +12,7 @@ import model.Role;
 public interface RoleDao {
 
 	/** The Constant SELECTROLE. */
-	final static String SELECTROLE = "select * from role_master where idrole_master = ?";
+	String SELECTROLE = "select * from role_master where idrole_master = ?";
 
 	/**
 	 * Gets the role.

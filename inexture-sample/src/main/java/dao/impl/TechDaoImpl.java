@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,14 +26,14 @@ public class TechDaoImpl implements TechDao {
 	 * @see dao.Tech.TechDao#selectTech()
 	 */
 	@Override
-	public ArrayList<TechMaster> selectTech() throws ClassNotFoundException, SQLException, IOException {
+	public List<TechMaster> selectTech() throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectTech() - start"); //$NON-NLS-1$
 		}
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT)){
 			final ArrayList<TechMaster> technologies = new ArrayList<>();
-			final TechMaster techMaster = new TechMaster();
 			while (resultSet.next()) {
+				final TechMaster techMaster = new TechMaster();
 				techMaster.setIdtech(resultSet.getInt(1));
 				techMaster.setTech(resultSet.getString(2));
 				technologies.add(techMaster);
@@ -40,6 +41,8 @@ public class TechDaoImpl implements TechDao {
 
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("selectTech() - end"); //$NON-NLS-1$
+
+
 			}
 			return technologies;
 		}

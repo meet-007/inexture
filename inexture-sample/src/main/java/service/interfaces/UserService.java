@@ -1,10 +1,15 @@
 package service.interfaces;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,10 +31,15 @@ public interface UserService {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 * @throws ServletException the servlet exception
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws InvalidKeyException
 	 * @throws Exception the exception
 	 */
 	String regesterUser(HttpServletRequest req)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, Exception;
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException;
 
 	/**
 	 * Gets the user.
@@ -57,7 +67,7 @@ public interface UserService {
 	 * @throws Exception the exception
 	 */
 	String updateUser(HttpServletRequest req, int idUser)
-			throws ClassNotFoundException, ParseException, SQLException, IOException, ServletException, Exception;
+			throws ClassNotFoundException, ParseException, SQLException, IOException, ServletException ;
 
 	/**
 	 * Gets the all user.
@@ -68,7 +78,7 @@ public interface UserService {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException;
+	List<User> getAllUser(int role) throws ClassNotFoundException, SQLException, IOException;
 
 	/**
 	 * Gets the user.
@@ -105,10 +115,15 @@ public interface UserService {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 * @throws ServletException the servlet exception
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws InvalidKeyException
 	 * @throws Exception the exception
 	 */
 	String updatePass(HttpServletRequest req)
-			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, Exception;
+			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException;
 
 	/**
 	 * Check user exist.

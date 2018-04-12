@@ -13,31 +13,31 @@ import model.User;
 public interface UserDao {
 
 	/** The Constant UPDATE. */
-	final static String UPDATE = "update user set firstname=?,lastname=?,mobile=?,gender=?,dob=?,tech  = ? where iduser = ?;";
+	String UPDATE = "update user set firstname=?,lastname=?,mobile=?,gender=?,dob=?,tech  = ? where iduser = ?;";
 
 	/** The Constant INSERT. */
-	final static String INSERT = "insert into user  (firstname,lastname,email,password,mobile,gender,dob,role,tech) values (?,?,?,?,?,?,?,?,?);";
+	String INSERT = "insert into user  (firstname,lastname,email,password,mobile,gender,dob,role,tech) values (?,?,?,?,?,?,?,?,?);";
 
 	/** The Constant SELECTUID. */
-	final static String SELECTUID = "select iduser from user where mobile = ? ;";
+	String SELECTUID = "select iduser from user where mobile = ? ;";
 
 	/** The Constant SELECTUSERFORLOGIN. */
-	final static String SELECTUSERFORLOGIN = "select * from user where email = ? and password = ?;";
+	String SELECTUSERFORLOGIN = "select * from user where email = ? and password = ?;";
 
 	/** The Constant SELECTALLUSER. */
-	final static String SELECTALLUSER = "select * from user where role = ?";
+	String SELECTALLUSER = "select * from user where role = ?";
 
 	/** The Constant SELECTUSER. */
-	final static String SELECTUSER = "select * from user where iduser = ?";
+	String SELECTUSER = "select * from user where iduser = ?";
 
 	/** The Constant SELECTUSERFRMEMAIL. */
-	final static String SELECTUSERFRMEMAIL = "select * from user where email = ?";
+	String SELECTUSERFRMEMAIL = "select * from user where email = ?";
 
 	/** The Constant DELETEUSER. */
-	final static String DELETEUSER = "DELETE  from user WHERE iduser = ?";
+	String DELETEUSER = "DELETE  from user WHERE iduser = ?";
 
 	/** The Constant UPDATEPASS. */
-	final static String UPDATEPASS = "update user set password = ? WHERE iduser = ?";
+	String UPDATEPASS = "update user set password = ? WHERE iduser = ?";
 
 	/**
 	 * Insert.

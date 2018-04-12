@@ -1,7 +1,7 @@
 package validations;
 
 public class JavaScriptEnableExcepion extends Exception {
-	public JavaScriptEnableExcepion(String message) {
+	public JavaScriptEnableExcepion(final String message) {
 		// TODO need modifications
 		super(message);
 	}

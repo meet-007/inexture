@@ -2,7 +2,7 @@ package service.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.TechMaster;
 
@@ -20,5 +20,5 @@ public interface TechServ {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<TechMaster> getTech() throws ClassNotFoundException, SQLException, IOException;
+	List<TechMaster> getTech() throws ClassNotFoundException, SQLException, IOException;
 }

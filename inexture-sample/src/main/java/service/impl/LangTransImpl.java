@@ -33,39 +33,39 @@ public class LangTransImpl implements LangTransServ {
 	 * @param userid the userid
 	 * @return the array list
 	 */
-	public static ArrayList<LangTransact> setParams(HttpServletRequest request, int userid) {
+	public static List<LangTransact> setParams(final HttpServletRequest request, final int userid) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 
 		final String[] lang = request.getParameterValues("lang");
-		final ArrayList<LangTransact> it = new ArrayList<>();
+		final ArrayList<LangTransact> langtransactList = new ArrayList<>();
 		for (final String element : lang) {
-			final LangTransact lt = new LangTransact();
-			lt.setIdlangmaster(Integer.parseInt(element));
-			lt.setIduser(userid);
-			it.add(lt);
+			final LangTransact langtransact = new LangTransact();
+			langtransact.setIdlangmaster(Integer.parseInt(element));
+			langtransact.setIduser(userid);
+			langtransactList.add(langtransact);
 		}
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
 		}
-		return it;
+		return langtransactList;
 	}
 
 	/* (non-Javadoc)
 	 * @see service.impl.LangTransServ#addLangTransaction(javax.servlet.http.HttpServletRequest, int)
 	 */
 	@Override
-	public boolean addLangTransaction(HttpServletRequest request, int userid)
+	public boolean addLangTransaction(final HttpServletRequest request, final int userid)
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("addLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		final ArrayList<LangTransact> it = LangTransImpl.setParams(request, userid);
+		final ArrayList<LangTransact> langTransactList =(ArrayList<LangTransact>) LangTransImpl.setParams(request, userid);
 		final LangTrans langtrans = new dao.impl.LangTransImpl();
-		final int rowsAffected = langtrans.insertLangTrans(it, "insert");
+		final int rowsAffected = langtrans.insertLangTrans(langTransactList, "insert");
 		if (rowsAffected > 0) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("addLangTransaction(HttpServletRequest, int) - end"); //$NON-NLS-1$
@@ -83,15 +83,15 @@ public class LangTransImpl implements LangTransServ {
 	 * @see service.impl.LangTransServ#getUserLanguages(int)
 	 */
 	@Override
-	public ArrayList<LangTransact> getUserLanguages(int iduser)
+	public ArrayList<LangTransact> getUserLanguages(final int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getUserLanguages(int) - start"); //$NON-NLS-1$
 		}
 
-		final LangTrans lt = new dao.impl.LangTransImpl();
+		final LangTrans langtrans = new dao.impl.LangTransImpl();
 
-		final ArrayList<LangTransact> returnArrayList =(ArrayList<LangTransact>) lt.selectUserLanguages(iduser);
+		final ArrayList<LangTransact> returnArrayList =(ArrayList<LangTransact>) langtrans.selectUserLanguages(iduser);
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getUserLanguages(int) - end"); //$NON-NLS-1$
 		}
@@ -102,7 +102,7 @@ public class LangTransImpl implements LangTransServ {
 	 * @see service.impl.LangTransServ#updateLangTransaction(javax.servlet.http.HttpServletRequest, int)
 	 */
 	@Override
-	public boolean updateLangTransaction(HttpServletRequest request, int iduser)
+	public boolean updateLangTransaction(final HttpServletRequest request, final int iduser)
 			throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
@@ -110,7 +110,7 @@ public class LangTransImpl implements LangTransServ {
 		// TODO Auto-generated method stub
 		final LangTrans it = new dao.impl.LangTransImpl();
 		final ArrayList<LangTransact> dblanguages =(ArrayList<LangTransact>) it.selectUserLanguages(iduser);
-		final ArrayList<LangTransact> newlangarr = LangTransImpl.setParams(request, iduser);
+		final ArrayList<LangTransact> newlangarr = (ArrayList<LangTransact>)LangTransImpl.setParams(request, iduser);
 		final List<LangTransact> updated = new ArrayList<>();
 		int rowsAffected = 0;
 		final LangTrans langtrans = new dao.impl.LangTransImpl();
@@ -131,10 +131,10 @@ public class LangTransImpl implements LangTransServ {
 			}
 			flag = 0;
 		}
-		if (dblanguages.size() > 0) {
+		if (!dblanguages.isEmpty()) {
 			rowsAffected = langtrans.insertLangTrans(dblanguages, "delete");
 		}
-		if (updated.size() > 0) {
+		if (!updated.isEmpty()) {
 			rowsAffected += langtrans.insertLangTrans(newlangarr, "insert");
 		}
 		if (rowsAffected > 0) {

@@ -15,98 +15,102 @@ public class RegistrationValidation {
 	/**
 	 * Validate.
 	 *
-	 * @param req the req
+	 * @param req
+	 *            the req
 	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ServletException the servlet exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ServletException
+	 *             the servlet exception
 	 */
-	public String validate(HttpServletRequest req) throws IOException, ServletException {
+	public String validate(final HttpServletRequest req) throws IOException, ServletException {
 		/* getting parameters from request object */
-		String fname = req.getParameter("fname");
-		String lname = req.getParameter("lname");
+		final String fname = req.getParameter("fname");
+		final String lname = req.getParameter("lname");
 		String email = null;
 		String pass = null;
-		if((req.getParameter("email")!=null)&&(req.getParameter("pass")!=null)) {
+		if ((req.getParameter("email") != null) && (req.getParameter("pass") != null)) {
 			email = req.getParameter("email");
 			pass = req.getParameter("pass");
 		}
-		String mobile = req.getParameter("mobile");
-		String dob = req.getParameter("dob");
-		String gender = req.getParameter("gender");
-		String tech = req.getParameter("tech");
-		String lang[] = req.getParameterValues("lang");
-		//String role = req.getParameter("role");
-		String error = "";
-		if(fname.equals("")) {
-			error += "fname should not be null \n";
-		}else if (fname.length() > 100) {
-			error += "fname should not be more than 100 characters <br/>";
+		final String mobile = req.getParameter("mobile");
+		final String dob = req.getParameter("dob");
+		final String gender = req.getParameter("gender");
+		final String tech = req.getParameter("tech");
+		final String lang[] = req.getParameterValues("lang");
+		// String role = req.getParameter("role");
+		StringBuilder error = new StringBuilder();
+		if ("".equals(fname)) {
+			error.append( "fname should not be null \n");
+		} else if (fname.length() > 100) {
+			error.append( "fname should not be more than 100 characters <br/>");
 		}
-		if(lname.equals("")) {
-			error += "lname should not be null";
-		}else if (lname.length() > 100) {
-			error += "lname should not be more than 100 characters <br/>";
+		if ("".equals(lname)) {
+			error.append( "lname should not be null");
+		} else if (lname.length() > 100) {
+			error.append( "lname should not be more than 100 characters <br/>");
 		}
-		if((req.getParameter("email")!=null)&&(req.getParameter("pass")!=null)) {
-			if(email.equals("")) {
-				error += "email should not be null";
+		if ((req.getParameter("email") != null) && (req.getParameter("pass") != null)) {
+			if ("".equals(email)) {
+				error.append( "email should not be null");
 
-			}else if (email.length() > 80) {
-				error +="email should not be more than 80 characters <br/>";
-			}else if(!email.matches("\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")){
-				error +="email should  be in valid format <br/>";
+			} else if (email.length() > 80) {
+				error.append( "email should not be more than 80 characters <br/>");
+			} else if (!email.matches("\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")) {
+				error.append( "email should  be in valid format <br/>");
 			}
-			if(pass.equals("")) {
-				error += "password should not be null \n";
-			}else if ((pass.length()<6)||(pass.length() > 15) ) {
-				error +="password should not be more than 15 characters and less than 6 characters <br/>";
+			if ("".equals(pass)) {
+				error.append( "password should not be null \n");
+			} else if ((pass.length() < 6) || (pass.length() > 15)) {
+				error.append( "password should not be more than 15 characters and less than 6 characters <br/>");
 			}
 		}
-		if(mobile.equals("")) {
-			error +="moble should not be null \n";
-		}else if (mobile.length() > 10) {
-			error +="mobile should not be more than 10 characters<br/>";
+		if ("".equals(mobile)) {
+			error.append( "moble should not be null \n");
+		} else if (mobile.length() > 10) {
+			error.append( "mobile should not be more than 10 characters<br/>");
 		}
-		if(dob.equals("")) {
-			error +="dob should not be null <br/>";
-		}else if (! dob.matches("\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])")) {
-			error +="dob should be in proper format <br/>";
+		if ("".equals(dob)) {
+			error.append( "dob should not be null <br/>");
+		} else if (!dob.matches("\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])")) {
+			error.append( "dob should be in proper format <br/>");
 		}
-		if(gender.equals("")) {
-			error +="gender should not be null <br/>";
+		if ("".equals(gender)) {
+			error.append( "gender should not be null <br/>");
 		}
-		if(tech.equals("")) {
-			error +="tech should not be null <br/>";
+		if ("".equals(tech)) {
+			error.append( "tech should not be null <br/>");
 		}
-		//language validation
+		// language validation
 
-		if(RegistrationValidation.validateLang(lang) == true) {
-			error += "language should not be null";
+		if (RegistrationValidation.validateLang(lang) == true) {
+			error.append( "language should not be null");
 		}
 
-		//address section validation
+		// address section validation
 
-		error = RegistrationValidation.validateAddress(req,error);
+		error = RegistrationValidation.validateAddress(req, error);
 
-		//image validation
+		// image validation
 
-		if(RegistrationValidation.validateImage(req) == true) {
-			error += "image must have jpg extension";
+		if (RegistrationValidation.validateImage(req) == true) {
+			error.append( "image must have jpg extension");
 		}
-		return error;
+		return error.toString();
 	}
 
 	/**
 	 * Validate lang.
 	 *
-	 * @param lang the lang
+	 * @param lang
+	 *            the lang
 	 * @return true, if successful
 	 */
-	static boolean validateLang(String lang[]) {
+	public static boolean validateLang(final String lang[]) {
 		boolean iserror = true;
-		if(lang != null) {
-			for(String language : lang) {
-				if(!language.equals("")) {
+		if (lang != null) {
+			for (final String language : lang) {
+				if (!"".equals(language)) {
 					iserror = false;
 				}
 			}
@@ -117,47 +121,52 @@ public class RegistrationValidation {
 	/**
 	 * Validate address.
 	 *
-	 * @param req the req
-	 * @param error the error
+	 * @param req
+	 *            the req
+	 * @param error
+	 *            the error
 	 * @return the string
 	 */
-	static String validateAddress(HttpServletRequest req,String error) {
-		String addressline1[] = req.getParameterValues("addressline1");
-		String addressline2[] = req.getParameterValues("addressline2");
-		String pin[] = req.getParameterValues("pin");
-		String city[] = req.getParameterValues("city");
-		String state[] = req.getParameterValues("state");
-		String country[] = req.getParameterValues("country");
-		if(addressline1 != null) {
-			for (int i=0;i<addressline1.length;i++) {
-				if(addressline1[i].equals("")) {
-					error += "Addressline1 of address "+i+1+" should not be null <br/>";
-				}else if(addressline1[i].length() > 100){
-					error += "Addressline1 of address "+i+1+" should not be more than 100 characters <br/>";
+	public static StringBuilder validateAddress(final HttpServletRequest req, final StringBuilder error) {
+		final String addressline1[] = req.getParameterValues("addressline1");
+		final String addressline2[] = req.getParameterValues("addressline2");
+		final String pin[] = req.getParameterValues("pin");
+		final String city[] = req.getParameterValues("city");
+		final String state[] = req.getParameterValues("state");
+		final String country[] = req.getParameterValues("country");
+		if (addressline1 != null) {
+			for (int i = 0; i < addressline1.length; i++) {
+				if (addressline1[i].equals("")) {
+					error.append( "Addressline1 of address " + i + 1 + " should not be null <br/>");
+				} else if (addressline1[i].length() > 100) {
+					error.append( "Addressline1 of address " + i + 1 + " should not be more than 100 characters <br/>");
 				}
-				if(addressline2[i].length() > 100){
-					error += "Addressline2 of address "+i+1+" should not be more than 100 characters <br/>";
+				if (addressline2[i].length() > 100) {
+					error.append( "Addressline2 of address " + i + 1 + " should not be more than 100 characters <br/>");
 				}
-				if(pin[i].equals("")) {
-					error += "pin of address "+i+1+" should not be null <br/>";
-				}else if((pin[i].length() > 6) && (pin[i].length() < 6)){
-					error += "pin of address "+i+1+" should not be more than 6 characters and less than 6 characters <br/>";
-				}else if(!pin[i].matches("[0-9]+")) {
-					error += "pin of address "+i+1+" should be in proper format <br/>";
+				if (pin[i].equals("")) {
+					error.append( "pin of address " + i + 1 + " should not be null <br/>");
+				} else if ((pin[i].length() > 6) && (pin[i].length() < 6)) {
+					error.append( "pin of address " + i + 1
+							+ " should not be more than 6 characters and less than 6 characters <br/>");
+				} else if (!pin[i].matches("[0-9]+")) {
+					error.append( "pin of address " + i + 1 + " should be in proper format <br/>");
 
 				}
-				if(city[i].equals("")) {
-					error += "city of address "+i+1+" should not be null <br/>";
-				}else if(city[i].length() >45 ){
-					error += "city of address "+i+1+" should not be more than 45 characters <br/>";
-				}if(state[i].equals("")) {
-					error += "state of address "+i+1+" should not be null <br/>";
-				}else if(state[i].length() >45 ){
-					error += "state of address "+i+1+" should not be more than 45 characters <br/>";
-				}if(country[i].equals("")) {
-					error += "country of address "+i+1+" should not be null <br/>";
-				}else if(city[i].length() >45 ){
-					error += "country of address "+i+1+" should not be more than 45 characters <br/>";
+				if (city[i].equals("")) {
+					error.append( "city of address " + i + 1 + " should not be null <br/>");
+				} else if (city[i].length() > 45) {
+					error.append( "city of address " + i + 1 + " should not be more than 45 characters <br/>");
+				}
+				if (state[i].equals("")) {
+					error.append( "state of address " + i + 1 + " should not be null <br/>");
+				} else if (state[i].length() > 45) {
+					error.append( "state of address " + i + 1 + " should not be more than 45 characters <br/>");
+				}
+				if (country[i].equals("")) {
+					error.append( "country of address " + i + 1 + " should not be null <br/>");
+				} else if (city[i].length() > 45) {
+					error.append( "country of address " + i + 1 + " should not be more than 45 characters <br/>");
 				}
 			}
 		}
@@ -168,16 +177,19 @@ public class RegistrationValidation {
 	/**
 	 * Validate image.
 	 *
-	 * @param request the request
+	 * @param request
+	 *            the request
 	 * @return true, if successful
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ServletException the servlet exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ServletException
+	 *             the servlet exception
 	 */
-	static boolean validateImage(HttpServletRequest request) throws IOException, ServletException {
+	public static boolean validateImage(final HttpServletRequest request) throws IOException, ServletException {
 		boolean iserror = true;
-		for(Part part : request.getParts()) {
-			if(part.getContentType() != null) {
-				if(part.getContentType().equals("image/jpeg")||part.getContentType().equals("application/octet-stream")) {
+		for (final Part part : request.getParts()) {
+			if ((part.getContentType() != null))   {
+				if(part.getContentType().equals("image/jpeg")|| part.getContentType().equals("application/octet-stream")) {
 					iserror = false;
 				}
 			}
@@ -185,4 +197,3 @@ public class RegistrationValidation {
 		return iserror;
 	}
 }
-

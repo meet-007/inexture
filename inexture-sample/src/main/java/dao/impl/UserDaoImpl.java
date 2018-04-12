@@ -29,22 +29,22 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#insert(model.User, java.lang.String)
 	 */
 	@Override
-	public boolean insert(User u, String operation) throws ClassNotFoundException, SQLException, IOException {
+	public boolean insert(final User user, final String operation) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("insert(User, String) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 		final ArrayList<Object> arr = new ArrayList<>();
-		arr.add(u.getFirstname());
-		arr.add(u.getLastname());
-		arr.add(u.getEmail());
-		arr.add(u.getPassword());
-		arr.add(u.getMobile());
-		arr.add(u.getGender());
-		arr.add(u.getDob());
-		arr.add(u.getRole());
-		arr.add(u.getTech());
+		arr.add(user.getFirstname());
+		arr.add(user.getLastname());
+		arr.add(user.getEmail());
+		arr.add(user.getPassword());
+		arr.add(user.getMobile());
+		arr.add(user.getGender());
+		arr.add(user.getDob());
+		arr.add(user.getRole());
+		arr.add(user.getTech());
 		if ("insert".equals(operation)) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 			return DbUtil.dbOperationInsert(INSERT, arr);
 		} else if ("delete".equals(operation)) {
 			arr.clear();
-			arr.add(u.getIduser());
+			arr.add(user.getIduser());
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
@@ -61,7 +61,7 @@ public class UserDaoImpl implements UserDao {
 			arr.remove(arr.size() - 2);
 			arr.remove(2);
 			arr.remove(2);
-			arr.add(u.getIduser());
+			arr.add(user.getIduser());
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("insert(User, String) - end"); //$NON-NLS-1$
 			}
@@ -100,8 +100,9 @@ public class UserDaoImpl implements UserDao {
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECTALLUSER, role)){
 
 			final ArrayList<User> users = new ArrayList<>();
-			final User user = new User();
+
 			while (resultSet.next()) {
+				final User user = new User();
 				user.setIduser(resultSet.getInt(1));
 				user.setFirstname(resultSet.getString(2));
 				user.setLastname(resultSet.getString(3));
@@ -127,7 +128,7 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#selectUser(int)
 	 */
 	@Override
-	public User selectUser(int iduser) throws ClassNotFoundException, SQLException, IOException {
+	public User selectUser(final int iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectUser(int) - start"); //$NON-NLS-1$
 		}
@@ -144,7 +145,7 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#selectUser(java.lang.String)
 	 */
 	@Override
-	public User selectUser(String email) throws ClassNotFoundException, SQLException, IOException {
+	public User selectUser(final String email) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectUser(String) - start"); //$NON-NLS-1$
 		}
@@ -161,15 +162,15 @@ public class UserDaoImpl implements UserDao {
 	 * @see dao.user.UserDao#updatePassword(model.User)
 	 */
 	@Override
-	public boolean updatePassword(User u) throws ClassNotFoundException, SQLException, IOException {
+	public boolean updatePassword(final User user) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("updatePassword(User) - start"); //$NON-NLS-1$
 		}
 
 		// TODO Auto-generated method stub
 		final ArrayList<Object> arr = new ArrayList<>();
-		arr.add(u.getPassword());
-		arr.add(u.getIduser());
+		arr.add(user.getPassword());
+		arr.add(user.getIduser());
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("updatePassword(User) - end"); //$NON-NLS-1$
@@ -180,27 +181,27 @@ public class UserDaoImpl implements UserDao {
 	/**
 	 * Sets the user.
 	 *
-	 * @param rs the rs
+	 * @param resultSet the rs
 	 * @return the user
 	 * @throws SQLException the SQL exception
 	 */
-	public static User setUser(ResultSet rs) throws SQLException {
-		User u = null;
-		while (rs.next()) {
-			u = new User();
-			u.setIduser(rs.getInt(1));
-			u.setFirstname(rs.getString(2));
-			u.setLastname(rs.getString(3));
-			u.setEmail(rs.getString(4));
-			u.setPassword(rs.getString(5));
-			u.setMobile(rs.getLong(6));
-			u.setGender(rs.getInt(7));
-			final Date d = new Date(rs.getDate(8).getTime());
-			u.setDob(d);
-			u.setRole(rs.getInt(9));
-			u.setTech(rs.getInt(10));
+	public static User setUser(final ResultSet resultSet) throws SQLException {
+		User user = null;
+		while (resultSet.next()) {
+			user = new User();
+			user.setIduser(resultSet.getInt(1));
+			user.setFirstname(resultSet.getString(2));
+			user.setLastname(resultSet.getString(3));
+			user.setEmail(resultSet.getString(4));
+			user.setPassword(resultSet.getString(5));
+			user.setMobile(resultSet.getLong(6));
+			user.setGender(resultSet.getInt(7));
+			final Date date = new Date(resultSet.getDate(8).getTime());
+			user.setDob(date);
+			user.setRole(resultSet.getInt(9));
+			user.setTech(resultSet.getInt(10));
 
 		}
-		return u;
+		return user;
 	}
 }

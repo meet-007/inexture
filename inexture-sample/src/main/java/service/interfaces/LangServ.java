@@ -2,7 +2,7 @@ package service.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.LangMaster;
 
@@ -20,5 +20,5 @@ public interface LangServ {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<LangMaster> getLang() throws ClassNotFoundException, SQLException, IOException;
+	List<LangMaster> getLang() throws ClassNotFoundException, SQLException, IOException;
 }

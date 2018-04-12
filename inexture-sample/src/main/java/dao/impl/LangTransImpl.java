@@ -71,8 +71,8 @@ public class LangTransImpl implements LangTrans {
 
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser)){
 			final ArrayList<LangTransact> ltarr = new ArrayList<>();
-			final LangTransact languageTransaction = new LangTransact();
 			while (resultSet.next()) {
+				final LangTransact languageTransaction = new LangTransact();
 				languageTransaction.setIdlangTransaction(resultSet.getInt(1));
 				languageTransaction.setIduser(resultSet.getInt(2));
 				languageTransaction.setIdlangmaster(resultSet.getInt(3));

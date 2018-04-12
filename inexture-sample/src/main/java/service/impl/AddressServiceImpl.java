@@ -4,6 +4,7 @@ package service.impl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,42 +32,42 @@ public class AddressServiceImpl implements AddressService {
 	 * @param iduser the iduser
 	 * @return the array list
 	 */
-	public static ArrayList<Address> setParams(final HttpServletRequest request, final int iduser) {
+	public static List<Address> setParams(final HttpServletRequest request, final int iduser) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("setParams(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
-
-		final String addressline1[] = request.getParameterValues("addressline1");
-		final String addressline2[] = request.getParameterValues("addressline2");
-		final String pin[] = request.getParameterValues("pin");
-		final String city[] = request.getParameterValues("city");
-		final String state[] = request.getParameterValues("state");
-		final String country[] = request.getParameterValues("country");
-		final String idaddress[] = request.getParameterValues("idaddress");
 		final ArrayList<Address> adrs = new ArrayList<>();
-		for (int i = 0; i <  country.length; i++) {
-			final Address address = new Address();
-			address.setAddressline1(addressline1[i]);
-			address.setAddressline2(addressline2[i]);
-			try {
-				address.setPin(Integer.parseInt(pin[i])); // converting into integer type
-			}catch(final NumberFormatException e) {
-				LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
-			}
-			address.setCity(city[i]);
-			address.setState(state[i]);
-			address.setCountry(country[i]);
-			address.setIduser(iduser);
-			if (request.getParameter("idaddress") != null) {
-				if (!idaddress[i].equals("x")) {
+		if(request.getParameter("addressline1")!=null) {
+			final String addressline1[] = request.getParameterValues("addressline1");
+			final String addressline2[] = request.getParameterValues("addressline2");
+			final String pin[] = request.getParameterValues("pin");
+			final String city[] = request.getParameterValues("city");
+			final String state[] = request.getParameterValues("state");
+			final String country[] = request.getParameterValues("country");
+			final String idaddress[] = request.getParameterValues("idaddress");
+
+			for (int i = 0; i <  country.length; i++) {
+				final Address address = new Address();
+				address.setAddressline1(addressline1[i]);
+				address.setAddressline2(addressline2[i]);
+				try {
+					address.setPin(Integer.parseInt(pin[i])); // converting into integer type
+				}catch(final NumberFormatException e) {
+					LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
+				}
+				address.setCity(city[i]);
+				address.setState(state[i]);
+				address.setCountry(country[i]);
+				address.setIduser(iduser);
+				if ((request.getParameter("idaddress") != null)&&!idaddress[i].equals("x")) {
 					address.setIdadress(Integer.parseInt(idaddress[i]));
 				}
-			}
-			adrs.add(address);
+				adrs.add(address);
 
-		}
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
 		}
 		return adrs;
 	}
@@ -83,11 +84,18 @@ public class AddressServiceImpl implements AddressService {
 		}
 
 		// TODO Auto-generated method stub
-		if (request.getParameter("addressline1") != null) {
-			final AddressDao ado = new AddressDaoImpl();
+		if (request.getParameter("addressline1") == null) {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addAddress(HttpServletRequest, int) - {}"+"no need to insert because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
+			return true;
 
+		} else {
 
-			if (ado.insertAddress(AddressServiceImpl.setParams(request, userid), "insert")> 0) {
+			if (new AddressDaoImpl().insertAddress(AddressServiceImpl.setParams(request, userid), "insert")> 0) {
 
 				if (LOGGER.isDebugEnabled()) {
 					LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
@@ -99,15 +107,7 @@ public class AddressServiceImpl implements AddressService {
 				LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return false;
-		} else {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("addAddress(HttpServletRequest, int) - {}"+"no need to insert because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
 
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("addAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
-			}
-			return true;
 		}
 	}
 
@@ -137,65 +137,54 @@ public class AddressServiceImpl implements AddressService {
 		}
 
 		// TODO Auto-generated method stub
+
+		int rowsAffected = 0;
+		final ArrayList<Address> insertaddrs = new ArrayList<>();
+		final ArrayList<Address> updateaddrs = new ArrayList<>();
+		ArrayList<Address> newaddresslist = new ArrayList<>();
 		if (request.getParameter("addressline1") != null) {
-			int rowsAffected = 0;
-			final ArrayList<Address> insertaddrs = new ArrayList<>();
-			final ArrayList<Address> updateaddrs = new ArrayList<>();
-			final ArrayList<Address> newaddresslist = AddressServiceImpl.setParams(request, userid);
-			final AddressDao ado = new AddressDaoImpl();
-			final ArrayList<Address> oldaddresslist = (ArrayList<Address>)ado.selectAddress(userid);
-			int flag = 0;
-			for (final Address newaddress : newaddresslist) {
-				for (final Address oldaddress : oldaddresslist) {
-					if (oldaddress.getIdadress() == newaddress.getIdadress()) {
-						if (LOGGER.isDebugEnabled()) {
-							LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+ "update id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
-						}
-						updateaddrs.add(newaddress);
-						oldaddresslist.remove(oldaddress);
-						flag = 1;
-						break;
-					}
+			newaddresslist = (ArrayList<Address>) AddressServiceImpl.setParams(request, userid);
+		}
+		final AddressDao ado = new AddressDaoImpl();
+		final ArrayList<Address> oldaddresslist = (ArrayList<Address>)ado.selectAddress(userid);
+		int flag = 0;
+		for (final Address newaddress : newaddresslist) {
+			for (final Address oldaddress : oldaddresslist) {
+				if (oldaddress.getIdadress() == newaddress.getIdadress()) {
+					updateaddrs.add(newaddress);
+					oldaddresslist.remove(oldaddress);
+					flag = 1;
+					break;
 				}
-				if (flag == 0) {
-					if (LOGGER.isDebugEnabled()) {
-						LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+"insert id" + newaddress.getIdadress()); //$NON-NLS-1$ //$NON-NLS-2$
-					}
-					insertaddrs.add(newaddress);
-				}
-				flag = 0;
 			}
-			if (oldaddresslist.size() > 0) {
-				rowsAffected = ado.insertAddress(oldaddresslist, "delete");
-			}
+			if (flag == 0) {
 
-			if (updateaddrs.size() > 0) {
-				rowsAffected += ado.insertAddress(updateaddrs, "update");
+				insertaddrs.add(newaddress);
 			}
-			if (insertaddrs.size() > 0) {
-				rowsAffected += ado.insertAddress(insertaddrs, "insert");
-			}
-			if (rowsAffected > 0) {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
-				}
-				return true;
-			} else {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
-				}
-				return false;
-			}
-		} else {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("updateAddress(HttpServletRequest, int) - {}"+"no need to update because no address found from user side--------returning true"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
+			flag = 0;
+		}
+		if (!oldaddresslist.isEmpty()) {
+			rowsAffected = ado.insertAddress(oldaddresslist, "delete");
+		}
 
+		if (!updateaddrs.isEmpty()) {
+			rowsAffected += ado.insertAddress(updateaddrs, "update");
+		}
+		if (!insertaddrs.isEmpty()) {
+			rowsAffected += ado.insertAddress(insertaddrs, "insert");
+		}
+		if (rowsAffected > 0) {
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
 			}
 			return true;
+		} else {
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("updateAddress(HttpServletRequest, int) - end"); //$NON-NLS-1$
+			}
+			return false;
 		}
+
 	}
 
 }

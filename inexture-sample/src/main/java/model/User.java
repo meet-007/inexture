@@ -172,6 +172,9 @@ public class User {
 	 * @return the dob
 	 */
 	public Date getDob() {
+		if(dob==null) {
+			return null;
+		}
 		return  (Date)dob.clone();
 	}
 

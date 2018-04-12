@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,14 +26,14 @@ public class LangDaoImpl implements LangDao {
 	 * @see dao.Lang.LangDao#selectLang()
 	 */
 	@Override
-	public ArrayList<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException {
+	public List<LangMaster> selectLang() throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("selectLang() - start"); //$NON-NLS-1$
 		}
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT)){
 			final ArrayList<LangMaster> languages = new ArrayList<>();
-			final LangMaster languageMaster = new LangMaster();
 			while (resultSet.next()) {
+				final LangMaster languageMaster = new LangMaster();
 				languageMaster.setIdlang(resultSet.getInt(1));
 				languageMaster.setLang(resultSet.getString(2));
 				languages.add(languageMaster);

@@ -3,7 +3,7 @@ package service.interfaces;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +41,7 @@ public interface ImageService {
 	 * @throws ClassNotFoundException the class not found exception
 	 * @throws SQLException the SQL exception
 	 */
-	ArrayList<UserImages> getUserImages(int iduser)
+	List<UserImages> getUserImages(int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException;
 
 	/**

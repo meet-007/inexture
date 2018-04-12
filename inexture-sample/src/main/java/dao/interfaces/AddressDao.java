@@ -13,16 +13,16 @@ import model.Address;
 public interface AddressDao {
 
 	/** The Constant INSERT. */
-	final static String INSERT = "insert into address (iduser,addressline1,addressline2,pin,city,state,country) values (?,?,?,?,?,?,?)";
+	String INSERT = "insert into address (iduser,addressline1,addressline2,pin,city,state,country) values (?,?,?,?,?,?,?)";
 
 	/** The Constant SELECT. */
-	final static String SELECT = "select * from address where iduser = ?";
+	String SELECT = "select * from address where iduser = ?";
 
 	/** The Constant UPDATE. */
-	final static String UPDATE = "update address set iduser=?, addressline1 = ? ,addressline2 = ?,pin = ?,city = ?,state = ?,country = ? where idaddress = ?";
+	String UPDATE = "update address set iduser=?, addressline1 = ? ,addressline2 = ?,pin = ?,city = ?,state = ?,country = ? where idaddress = ?";
 
 	/** The Constant DELETE. */
-	final static String DELETE = "delete from address where idaddress=?";
+	String DELETE = "delete from address where idaddress=?";
 
 	/**
 	 * Insert address.

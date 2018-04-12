@@ -12,7 +12,7 @@ public class Role {
 	private int idrole;
 
 	/** The role. */
-	private String role;
+	private String rolename;
 
 	/**
 	 * Gets the idrole.
@@ -38,7 +38,7 @@ public class Role {
 	 * @return the role
 	 */
 	public String getRole() {
-		return role;
+		return rolename;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class Role {
 	 * @param role the new role
 	 */
 	public void setRole(final String role) {
-		this.role = role;
+		this.rolename = role;
 	}
 
 }

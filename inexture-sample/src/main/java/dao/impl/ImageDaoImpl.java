@@ -65,8 +65,8 @@ public class ImageDaoImpl implements ImageDao {
 		// TODO Auto-generated method stub
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT,iduser.toString())){
 			final ArrayList<UserImages> uiarr = new ArrayList<>();
-			final UserImages userImage = new UserImages();
 			while (resultSet.next()) {
+				final UserImages userImage = new UserImages();
 				userImage.setIduserImages(resultSet.getInt(1));
 				userImage.setIduser(resultSet.getInt(2));
 				userImage.setImage(resultSet.getBinaryStream(3));

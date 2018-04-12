@@ -13,13 +13,13 @@ import model.UserImages;
 public interface ImageDao {
 
 	/** The Constant INSERT. */
-	final static String INSERT = "insert into user_images (iduser,image) values (?,?);";
+	String INSERT = "insert into user_images (iduser,image) values (?,?);";
 
 	/** The Constant SELECT. */
-	final static String SELECT = "select * from user_images where iduser = ?; ";
+	String SELECT = "select * from user_images where iduser = ?; ";
 
 	/** The Constant DELETE. */
-	final static String DELETE = "delete from user_images where iduser_images = ?; ";
+	String DELETE = "delete from user_images where iduser_images = ?; ";
 
 	/**
 	 * Insert image.

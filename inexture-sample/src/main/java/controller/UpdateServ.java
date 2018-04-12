@@ -4,6 +4,8 @@ package controller;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +19,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import model.User;
-import service.impl.AddressServiceImpl;
-import service.impl.ImageServiceImpl;
-import service.impl.LangTransImpl;
 import service.impl.UserServiceImp;
+import util.ResetRegForm;
+import validations.JavaScriptEnableExcepion;
 // TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class UpdateServ.
@@ -46,7 +47,7 @@ public class UpdateServ extends HttpServlet {
 	 *      response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - start"); //$NON-NLS-1$
@@ -54,8 +55,10 @@ public class UpdateServ extends HttpServlet {
 
 		// TODO Auto-generated method stub
 
-		try {
 
+
+
+		try {
 			User user = null;
 
 			final HttpSession session  = request.getSession();
@@ -68,42 +71,24 @@ public class UpdateServ extends HttpServlet {
 
 
 			final String error = new validations.RegistrationValidation().validate(request);
-			if(error.equals("")) {
+			if(error.isEmpty())  {
 				request.setAttribute("rspmsg", new UserServiceImp().updateUser(request, user.getIduser()));
 				session.removeAttribute("user");
 				session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
 			}else {
 				request.setAttribute("errormsg", error);
-				throw new Exception("enable javaScript if it is disabled");
+				throw new JavaScriptEnableExcepion("enable javaScript if it is disabled");
 
 			}
-		} catch (final Exception e1) {
-			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
-			try {
-				request.setAttribute("user", UserServiceImp.setParams(request));
-			} catch (final Exception e) {
-				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-				// TODO Auto-generated catch block
-			}try {
-				request.setAttribute("languages", LangTransImpl.setParams(request, -1));
-			} catch (final Exception e) {
-				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-				// TODO Auto-generated catch block
-			}try {
-				request.setAttribute("addrslist", AddressServiceImpl.setParams(request, -1));
-			} catch (final Exception e) {
-				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-				// TODO Auto-generated catch block
-			}try {
-				request.setAttribute("imglist", ImageServiceImpl.setParams(request, -1));
-			} catch (final Exception e) {
-				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-				// TODO Auto-generated catch block
-			}
-			request.setAttribute("rspmsg", e1.getMessage());
+		} catch (NumberFormatException | ClassNotFoundException | SQLException | ParseException
+				| JavaScriptEnableExcepion e) {
+			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
+			ResetRegForm.resetForm(request);
+			request.setAttribute("rspmsg", e.getMessage());
 		}
-		final RequestDispatcher rd = request.getRequestDispatcher("UpdateProfile");
-		rd.forward(request, response);
+
+		final RequestDispatcher reqestDispatcher = request.getRequestDispatcher("UpdateProfile");
+		reqestDispatcher.forward(request, response);
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("doPost(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$

@@ -2,7 +2,7 @@ package service.interfaces;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +35,7 @@ public interface LangTransServ {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	ArrayList<LangTransact> getUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException;
+	List<LangTransact> getUserLanguages(int iduser) throws ClassNotFoundException, SQLException, IOException;
 
 	/**
 	 * Update lang transaction.

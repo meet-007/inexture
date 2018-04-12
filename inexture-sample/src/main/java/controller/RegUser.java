@@ -18,10 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import service.impl.AddressServiceImpl;
-import service.impl.ImageServiceImpl;
-import service.impl.LangTransImpl;
 import service.impl.UserServiceImp;
+import util.ResetRegForm;
 import validations.JavaScriptEnableExcepion;
 import validations.RegistrationValidation;
 
@@ -64,7 +62,7 @@ public class RegUser extends HttpServlet {
 				| NoSuchPaddingException | ClassNotFoundException | ParseException | SQLException
 				| JavaScriptEnableExcepion e1) {
 			LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e1); //$NON-NLS-1$
-			RegUser.resetForm(request);
+			ResetRegForm.resetForm(request);
 			request.setAttribute("rspmsg", e1.getMessage());
 			page = "ShowRegServ";
 		}
@@ -81,36 +79,6 @@ public class RegUser extends HttpServlet {
 	 *
 	 * @param request the request
 	 */
-	private	static void resetForm(final HttpServletRequest request) {
-		try {
-			request.setAttribute("user", UserServiceImp.setParams(request));
-		} catch (final ParseException e2) {
-			LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e2); //$NON-NLS-1$
-		}finally {
-			try {
-				request.setAttribute("languages", LangTransImpl.setParams(request, -1));
-			}catch (final NumberFormatException e) {
-				LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e);
-			}finally {
-				try {
-					request.setAttribute("languages", LangTransImpl.setParams(request, -1));
-				}catch (final NumberFormatException e) {
-					LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e);
-				}finally {
-					try {
-						request.setAttribute("addrslist", AddressServiceImpl.setParams(request, -1));
-					}catch (final NumberFormatException e) {
-						LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e);
-					}finally {
-						try {
-							request.setAttribute("imglist", ImageServiceImpl.setParams(request, -1));
-						} catch (IOException | ParseException | ServletException|NumberFormatException  e) {
-							LOGGER.error("doPost(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
-						}
-					}
-				}
-			}
-		}
-	}
+
 
 }

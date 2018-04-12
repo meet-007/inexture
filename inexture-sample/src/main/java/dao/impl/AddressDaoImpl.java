@@ -80,8 +80,9 @@ public class AddressDaoImpl implements AddressDao {
 		// TODO Auto-generated method stub
 		try(final ResultSet resultSet = DbUtil.dbOperationSelect(SELECT, iduser)){
 			final ArrayList<Address> addresslist = new ArrayList<>();
-			final Address address = new Address();
+
 			while (resultSet.next()) {
+				final Address address = new Address();
 				address.setIdadress(resultSet.getInt(1));
 				address.setIduser(resultSet.getInt(2));
 				address.setAddressline1(resultSet.getString(3));

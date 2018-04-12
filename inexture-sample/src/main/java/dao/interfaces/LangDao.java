@@ -13,7 +13,7 @@ import model.LangMaster;
 public interface LangDao {
 
 	/** The Constant select. */
-	final static String SELECT = "select * from language_master;";
+	String SELECT = "select * from language_master;";
 
 	/**
 	 * Select lang.
