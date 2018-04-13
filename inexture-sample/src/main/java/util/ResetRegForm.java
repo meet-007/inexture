@@ -15,13 +15,27 @@ import service.impl.ImageServiceImpl;
 import service.impl.LangTransImpl;
 import service.impl.UserServiceImp;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResetRegForm.
+ */
 public final class ResetRegForm {
+	
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LogManager.getLogger(UpdateServ.class.getName());
 
+	/**
+	 * Instantiates a new reset reg form.
+	 */
 	private ResetRegForm(){
 
 	}
 
+	/**
+	 * Reset form.
+	 *
+	 * @param request the request
+	 */
 	public	static void resetForm(final HttpServletRequest request) {
 		try {
 			request.setAttribute("user", UserServiceImp.setParams(request));

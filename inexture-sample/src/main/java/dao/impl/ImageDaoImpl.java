@@ -16,11 +16,18 @@ import dao.interfaces.ImageDao;
 import model.UserImages;
 import util.DbUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImageDaoImpl.
+ */
 public class ImageDaoImpl implements ImageDao {
 
 	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(ImageDaoImpl.class.getName());
 
+	/* (non-Javadoc)
+	 * @see dao.interfaces.ImageDao#insertImage(java.util.List, java.lang.String)
+	 */
 	@Override
 	public int insertImage(final List<UserImages> uimg, final String operation)
 			throws ClassNotFoundException, SQLException, IOException {

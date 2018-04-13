@@ -9,7 +9,7 @@ public class Address {
 	/** Logger for this class. */
 
 	/** The idadress. */
-	private int idadress;;
+	private int idadress;
 
 	/** The iduser. */
 	private int iduser;

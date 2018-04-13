@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import service.impl.UserServiceImp;
 
+// TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class DeleteUserServ.
  */

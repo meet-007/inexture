@@ -15,17 +15,33 @@ import java.util.Properties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DbUtil.
+ */
 public final class DbUtil {
-	/**
-	 * Logger for this class
-	 */
+
+	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(DbUtil.class.getName());
+
+	/**
+	 * Instantiates a new db util.
+	 */
 	private DbUtil() {}
+
+	/**
+	 * Gets the connection.
+	 *
+	 * @return the connection
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SQLException the SQL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Connection getConnection() throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getConnection() - start"); //$NON-NLS-1$
 		}
-		final Properties prop = DbUtil.getProperties();
+		final Properties prop = DbUtil.getProperties("db.properties");
 		final String driver = prop.getProperty("driver");
 		final String url = prop.getProperty("url");
 		final String uname = prop.getProperty("uname");
@@ -38,13 +54,20 @@ public final class DbUtil {
 		return con;
 	}
 
-	public static Properties getProperties() throws FileNotFoundException, IOException {
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static Properties getProperties(final String pname) throws FileNotFoundException, IOException {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("getProperties() - start"); //$NON-NLS-1$
 		}
 		final Properties prop = new Properties();
 		final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		final InputStream fis = classLoader.getResourceAsStream("db.properties");
+		final InputStream fis = classLoader.getResourceAsStream(pname);
 		prop.load(fis);
 
 		if (LOGGER.isDebugEnabled()) {
@@ -53,6 +76,16 @@ public final class DbUtil {
 		return prop;
 	}
 
+	/**
+	 * Db operation insert.
+	 *
+	 * @param query the query
+	 * @param param the param
+	 * @return true, if successful
+	 * @throws SQLException the SQL exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static boolean dbOperationInsert(final String query, final List<Object> param)
 			throws SQLException, ClassNotFoundException, IOException {
 		if (LOGGER.isDebugEnabled()) {
@@ -84,6 +117,16 @@ public final class DbUtil {
 		return result;
 	}
 
+	/**
+	 * Db operation select.
+	 *
+	 * @param query the query
+	 * @param params the params
+	 * @return the result set
+	 * @throws SQLException the SQL exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static ResultSet dbOperationSelect(final String query, final Object... params)
 			throws SQLException, ClassNotFoundException, IOException {
 		if (LOGGER.isDebugEnabled()) {

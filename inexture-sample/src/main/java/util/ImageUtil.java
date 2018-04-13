@@ -10,10 +10,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImageUtil.
+ */
 public final class ImageUtil {
+
+	/**
+	 * Instantiates a new image util.
+	 */
 	private ImageUtil() {
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * Gets the images.
+	 *
+	 * @param request the request
+	 * @param delnewimglist the delnewimglist
+	 * @return the images
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
+	 */
 	public static  List<InputStream> getImages(final HttpServletRequest request,final String [] delnewimglist) throws IOException, ServletException{
 		final ArrayList<Part> 	arr = (ArrayList<Part>) request.getParts();
 		final Iterator<Part> iterator = arr.iterator();
@@ -29,7 +47,7 @@ public final class ImageUtil {
 						}
 					}
 				}
-				if (insert == true) {
+				if (insert) {
 					inputStreamList.add(part.getInputStream());
 				}
 

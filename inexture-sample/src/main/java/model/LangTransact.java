@@ -9,7 +9,7 @@ public class LangTransact {
 	/** Logger for this class. */
 
 	/** The idlang transaction. */
-	private int idlang_transaction;
+	private transient int idlang_transaction;
 
 	/** The iduser. */
 	private int iduser;

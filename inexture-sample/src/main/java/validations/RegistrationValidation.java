@@ -40,18 +40,18 @@ public class RegistrationValidation {
 		final String lang[] = req.getParameterValues("lang");
 		// String role = req.getParameter("role");
 		StringBuilder error = new StringBuilder();
-		if ("".equals(fname)) {
+		if ((fname == null) || "".equals(fname)) {
 			error.append( "fname should not be null \n");
-		} else if (fname.length() > 100) {
+		} else if ((fname.length() > 100)) {
 			error.append( "fname should not be more than 100 characters <br/>");
 		}
-		if ("".equals(lname)) {
+		if ((lname == null) ||"".equals(lname)) {
 			error.append( "lname should not be null");
-		} else if (lname.length() > 100) {
+		} else if ((lname.length() > 100)) {
 			error.append( "lname should not be more than 100 characters <br/>");
 		}
-		if ((req.getParameter("email") != null) && (req.getParameter("pass") != null)) {
-			if ("".equals(email)) {
+		if(req.getServletPath() == "/Registration.jsp") {
+			if ((email == null) ||"".equals(email)) {
 				error.append( "email should not be null");
 
 			} else if (email.length() > 80) {
@@ -59,26 +59,28 @@ public class RegistrationValidation {
 			} else if (!email.matches("\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")) {
 				error.append( "email should  be in valid format <br/>");
 			}
-			if ("".equals(pass)) {
+
+
+			if ((pass == null) ||"".equals(pass)) {
 				error.append( "password should not be null \n");
 			} else if ((pass.length() < 6) || (pass.length() > 15)) {
 				error.append( "password should not be more than 15 characters and less than 6 characters <br/>");
 			}
 		}
-		if ("".equals(mobile)) {
+		if ((mobile == null) || "".equals(mobile)) {
 			error.append( "moble should not be null \n");
-		} else if (mobile.length() > 10) {
+		} else if ((mobile.length() > 10)) {
 			error.append( "mobile should not be more than 10 characters<br/>");
 		}
-		if ("".equals(dob)) {
+		if ((dob == null) ||"".equals(dob)) {
 			error.append( "dob should not be null <br/>");
 		} else if (!dob.matches("\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])")) {
 			error.append( "dob should be in proper format <br/>");
 		}
-		if ("".equals(gender)) {
+		if ((gender == null) ||"".equals(gender)) {
 			error.append( "gender should not be null <br/>");
 		}
-		if ("".equals(tech)) {
+		if ((tech == null) ||"".equals(tech)) {
 			error.append( "tech should not be null <br/>");
 		}
 		// language validation
@@ -134,43 +136,49 @@ public class RegistrationValidation {
 		final String city[] = req.getParameterValues("city");
 		final String state[] = req.getParameterValues("state");
 		final String country[] = req.getParameterValues("country");
-		if (addressline1 != null) {
-			for (int i = 0; i < addressline1.length; i++) {
-				if (addressline1[i].equals("")) {
-					error.append( "Addressline1 of address " + i + 1 + " should not be null <br/>");
-				} else if (addressline1[i].length() > 100) {
-					error.append( "Addressline1 of address " + i + 1 + " should not be more than 100 characters <br/>");
-				}
-				if (addressline2[i].length() > 100) {
-					error.append( "Addressline2 of address " + i + 1 + " should not be more than 100 characters <br/>");
-				}
-				if (pin[i].equals("")) {
-					error.append( "pin of address " + i + 1 + " should not be null <br/>");
-				} else if ((pin[i].length() > 6) && (pin[i].length() < 6)) {
-					error.append( "pin of address " + i + 1
-							+ " should not be more than 6 characters and less than 6 characters <br/>");
-				} else if (!pin[i].matches("[0-9]+")) {
-					error.append( "pin of address " + i + 1 + " should be in proper format <br/>");
+		final int elementLength = Integer.parseInt(req.getParameter("czContainer_czMore_txtCount"));
+		if ((addressline1 != null) && (addressline2 != null)&&(pin != null) &&(city != null) &&(state != null) &&(country != null)) {
+			if ((elementLength == addressline1.length) && (elementLength == addressline2.length) && (elementLength == pin.length) && (elementLength == city.length) &&(elementLength == state.length) &&(elementLength == country.length)) {
+				for (int i = 0; i < addressline1.length; i++) {
+					if (addressline1[i].equals("")) {
+						error.append( "Addressline1 of address " + i + 1 + " should not be null <br/>");
+					} else if (addressline1[i].length() > 100) {
+						error.append( "Addressline1 of address " + i + 1 + " should not be more than 100 characters <br/>");
+					}
+					if (addressline2[i].length() > 100) {
+						error.append( "Addressline2 of address " + i + 1 + " should not be more than 100 characters <br/>");
+					}
+					if (pin[i].equals("")) {
+						error.append( "pin of address " + i + 1 + " should not be null <br/>");
+					} else if ((pin[i].length() > 6) && (pin[i].length() < 6)) {
+						error.append( "pin of address " + i + 1
+								+ " should not be more than 6 characters and less than 6 characters <br/>");
+					} else if (!pin[i].matches("[0-9]+")) {
+						error.append( "pin of address " + i + 1 + " should be in proper format <br/>");
 
+					}
+					if (city[i].equals("")) {
+						error.append( "city of address " + i + 1 + " should not be null <br/>");
+					} else if (city[i].length() > 45) {
+						error.append( "city of address " + i + 1 + " should not be more than 45 characters <br/>");
+					}
+					if (state[i].equals("")) {
+						error.append( "state of address " +( i + 1) + " should not be null <br/>");
+					} else if (state[i].length() > 45) {
+						error.append( "state of address " + i + 1 + " should not be more than 45 characters <br/>");
+					}
+					if (country[i].equals("")) {
+						error.append( "country of address " + i + 1 + " should not be null <br/>");
+					} else if (city[i].length() > 45) {
+						error.append( "country of address " + i + 1 + " should not be more than 45 characters <br/>");
+					}
 				}
-				if (city[i].equals("")) {
-					error.append( "city of address " + i + 1 + " should not be null <br/>");
-				} else if (city[i].length() > 45) {
-					error.append( "city of address " + i + 1 + " should not be more than 45 characters <br/>");
-				}
-				if (state[i].equals("")) {
-					error.append( "state of address " + i + 1 + " should not be null <br/>");
-				} else if (state[i].length() > 45) {
-					error.append( "state of address " + i + 1 + " should not be more than 45 characters <br/>");
-				}
-				if (country[i].equals("")) {
-					error.append( "country of address " + i + 1 + " should not be null <br/>");
-				} else if (city[i].length() > 45) {
-					error.append( "country of address " + i + 1 + " should not be more than 45 characters <br/>");
-				}
+			}else {
+				error.append( "inconsistent address details<br/>");
 			}
+		}else {
+			error.append( "inconsistent address details<br/>");
 		}
-
 		return error;
 	}
 

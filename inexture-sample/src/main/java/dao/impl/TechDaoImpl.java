@@ -16,10 +16,13 @@ import dao.interfaces.TechDao;
 import model.TechMaster;
 import util.DbUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TechDaoImpl.
+ */
 public class TechDaoImpl implements TechDao {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(TechDaoImpl.class.getName());
 
 	/* (non-Javadoc)

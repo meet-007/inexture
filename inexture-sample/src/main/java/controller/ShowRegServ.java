@@ -68,6 +68,10 @@ public class ShowRegServ extends HttpServlet {
 			LOGGER.debug("doGet(HttpServletRequest, HttpServletResponse) - end"); //$NON-NLS-1$
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	protected void doPost(final HttpServletRequest request,final HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

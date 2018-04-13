@@ -21,10 +21,13 @@ import dao.interfaces.ImageDao;
 import model.UserImages;
 import service.interfaces.ImageService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImageServiceImpl.
+ */
 public class ImageServiceImpl implements ImageService {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(ImageServiceImpl.class.getName());
 
 	/**
@@ -66,6 +69,14 @@ public class ImageServiceImpl implements ImageService {
 		}
 		return uimg;
 	}
+	
+	/**
+	 * Sets the delete image list.
+	 *
+	 * @param request the request
+	 * @param uimg the uimg
+	 * @return the list
+	 */
 	public static List<UserImages> setDeleteImageList(final HttpServletRequest request,final List<UserImages> uimg){
 		if (request.getParameter("delimg") != null) {
 			final String delimg[] = request.getParameterValues("delimg");
@@ -78,6 +89,9 @@ public class ImageServiceImpl implements ImageService {
 		return uimg;
 	}
 
+	/* (non-Javadoc)
+	 * @see service.interfaces.ImageService#saveImage(javax.servlet.http.HttpServletRequest, int)
+	 */
 	@Override
 	public boolean saveImage(final HttpServletRequest request, final int iduser)
 			throws IOException, ServletException, ClassNotFoundException, SQLException, ParseException {
@@ -113,6 +127,9 @@ public class ImageServiceImpl implements ImageService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see service.interfaces.ImageService#getUserImages(int)
+	 */
 	@Override
 	public ArrayList<UserImages> getUserImages(final int iduser) throws ClassNotFoundException, SQLException, IOException {
 		if (LOGGER.isDebugEnabled()) {

@@ -244,12 +244,14 @@
 																			<div class="help-block with-errors"></div>
 																	</div>
 																</div>
-																<div class="form-group">
+																<div class="form-group has-feedback">
 																	<label for="inputEmail3" class="col-sm-2 control-label">Address
 																		line 2</label>
 																	<div class="col-sm-10">
-																		<textarea rows="3" class="form-control"
+																		<textarea rows="3" class="form-control" maxlength="100" 
 																			name="addressline2" id="id_address2_1_"></textarea>
+																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																			<div class="help-block with-errors"></div>
 																	</div>
 																</div>
 
@@ -336,7 +338,7 @@
 								<div>
 								<c:choose>
 								<c:when test="${pageContext.request.servletPath eq '/Registration.jsp'}">
-									<button type="submit" id="mybutton" class="btn btn-primary">Sign Up</button>
+									<button type="submit" id="mybutton"     class="btn btn-primary">Sign Up</button>
 								</c:when>
 								<c:otherwise>
 									<button type="submit" id="mybutton" class="btn btn-primary" onclick='$("form").attr("action","UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>")'>Update</button>
@@ -364,31 +366,32 @@
 		
 	</script>
 	
+	
 	<script src="js/validate-email.js"></script>
 	<script src="js/myvalidation.js"></script>
 	<script src="js/fileupload.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 	var plusbtn = document.getElementById("btnPlus");
-	<%
-	if(request.getAttribute("addrslist")!=null){
-		ArrayList<Address> adrs = (ArrayList<Address>) request.getAttribute("addrslist"); 
- 			for (int i = 0; i<adrs.size(); i++) {%> 
+
+	<c:if test="${requestScope.addrslist ne null}">
+	<c:set var="i" value="0"></c:set>
+	  <c:forEach  var="adrs" items="${requestScope.addrslist}">
  	    plusbtn.click();
- 	    var idaddress = "<%=adrs.get(i).getIdadress()%>";
-		var address1 = "<%=adrs.get(i).getAddressline1()%>";
-		var address2 = "<%=adrs.get(i).getAddressline2()%>";
-		var pin = "<%=adrs.get(i).getPin()%>";
-		var city = "<%=adrs.get(i).getCity()%>";
-		var state = "<%=adrs.get(i).getState()%>";
-		var country = "<%=adrs.get(i).getCountry()%>";
-		var idaddrselement = document.getElementById("id_idaddress_"+ <%=i+1%> +"_");
-		var addrselement1 = document.getElementById("id_address1_" + <%=i+1%> + "_");
-		var addrselement2 = document.getElementById("id_address2_" +  <%=i+1%> + "_");
-		var pinelement = document.getElementById("id_pin_" +  <%=i+1%> + "_");
-		var cityelement = document.getElementById("id_city_" +  <%=i+1%> + "_");
-		var stateselement = document.getElementById("id_state_" + <%=i+1%> + "_");
-		var countryelement = document.getElementById("id_country_" +  <%=i+1%> + "_");
+ 	    var idaddress = "<c:out value='${adrs.idadress}'></c:out>";
+		var address1 = "<c:out value='${adrs.addressline1}'></c:out>";
+		var address2 = "<c:out value='${adrs.addressline2}'></c:out>";
+		var pin = "<c:out value='${adrs.pin}'></c:out>";
+		var city = "<c:out value='${adrs.city}'></c:out>";
+		var state = "<c:out value='${adrs.state}'></c:out>";
+		var country = "<c:out value='${adrs.country}'></c:out>";
+		var idaddrselement = document.getElementById("id_idaddress_"+ <c:out value='${i+1}'></c:out>+"_");
+		var addrselement1 = document.getElementById("id_address1_" + <c:out value='${i+1}'></c:out>+ "_");
+		var addrselement2 = document.getElementById("id_address2_" +  <c:out value='${i+1}'></c:out> + "_");
+		var pinelement = document.getElementById("id_pin_" +  <c:out value='${i+1}'></c:out>+ "_");
+		var cityelement = document.getElementById("id_city_" +  <c:out value='${i+1}'></c:out> + "_");
+		var stateselement = document.getElementById("id_state_" + <c:out value='${i+1}'></c:out>+ "_");
+		var countryelement = document.getElementById("id_country_" +  <c:out value='${i+1}'></c:out> + "_");
 		idaddrselement.value = idaddress;
 		addrselement1.innerHTML = address1;
 		addrselement2.innerHTML = address2;
@@ -396,22 +399,27 @@
 		cityelement.value = city;
 		stateselement.value = state;
 		countryelement.value = country;
-	<%}if(request.getAttribute("imglist")!=null){
- 			ArrayList<UserImages> ui = (ArrayList<UserImages>) request.getAttribute("imglist");
- 			for(UserImages userImage : ui){
- 				%>
- 				var idimg = "<%=userImage.getIduserImages()%>";
- 				var iduser = "<%=userImage.getIduser()%>";
+		<c:set var="i" value="${i+1}"></c:set>
+		</c:forEach>
+		</c:if>
+		<c:if test="${requestScope.imglist ne null}">
+		  <c:forEach  var="userImage" items="${requestScope.imglist}">
+	
+ 				var idimg = "<c:out value='${userImage.iduserImages}'></c:out>";
+ 				var iduser = "<c:out value='${userImage.iduser}'></c:out>";
  				var  img = [];
  				var i=0;
- 				<%
- 					InputStream is = userImage.getImage();
- 				    byte[] bytes = IOUtils.toByteArray(is);
- 				   	String encoded = Base64.getEncoder().encodeToString(bytes);
  			
- 				%>
+ 			
+ 				<c:set var="is" value="${userImage.image}"></c:set>
+ 				<c:set var="bytes" value="${bytes = IOUtils.toByteArray(is)}"></c:set>
+ 				<c:set var="encoded" value="${encoded = Base64.getEncoder().encodeToString(bytes)}"></c:set>
+ 				
+ 				
+ 			
+ 	
  				 var div = document.createElement("li");
-                 div.innerHTML = "<img src='"+"data:image/jpg;base64,"+"<%=encoded%>"+"' />"
+                 div.innerHTML = "<img src='"+"data:image/jpg;base64,"+"<c:out value='${encoded}'></c:out>"+"' />"
 				+"<div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' id='"+idimg+"'  class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
                  $("#media-list").prepend(div);
 
@@ -419,11 +427,8 @@
  				
 <%--  			//	document.getElementById("id").src = "data:image/jpg;base64,"+"<%=encoded%>"; --%>
 
- 				<%
- 			}
- 			}
-	}%>
-	
+	</c:forEach>
+	</c:if>
 	});
 	<c:if test="${pageContext.request.servletPath eq '/UpdateProfile.jsp'}">
 	var bool= false;

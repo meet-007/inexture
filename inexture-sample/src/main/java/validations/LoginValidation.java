@@ -1,7 +1,18 @@
 package validations;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoginValidation.
+ */
 public class LoginValidation {
 
+	/**
+	 * Validate.
+	 *
+	 * @param email the email
+	 * @param pass the pass
+	 * @return the string
+	 */
 	public String validate(final String email,final String pass) {
 		final StringBuilder  error = new StringBuilder(117);
 		if ("".equals(email)) {

@@ -12,7 +12,7 @@ public class Role {
 	private int idrole;
 
 	/** The role. */
-	private String rolename;
+	private transient String rolename;
 
 	/**
 	 * Gets the idrole.

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.LangTransact;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface LangTransServ.
  */

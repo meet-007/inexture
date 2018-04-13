@@ -31,12 +31,11 @@ public interface UserService {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 * @throws ServletException the servlet exception
-	 * @throws NoSuchPaddingException
-	 * @throws NoSuchAlgorithmException
-	 * @throws BadPaddingException
-	 * @throws IllegalBlockSizeException
-	 * @throws InvalidKeyException
-	 * @throws Exception the exception
+	 * @throws InvalidKeyException the invalid key exception
+	 * @throws IllegalBlockSizeException the illegal block size exception
+	 * @throws BadPaddingException the bad padding exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws NoSuchPaddingException the no such padding exception
 	 */
 	String regesterUser(HttpServletRequest req)
 			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException;
@@ -64,7 +63,6 @@ public interface UserService {
 	 * @throws SQLException the SQL exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ServletException the servlet exception
-	 * @throws Exception the exception
 	 */
 	String updateUser(HttpServletRequest req, int idUser)
 			throws ClassNotFoundException, ParseException, SQLException, IOException, ServletException ;
@@ -115,12 +113,11 @@ public interface UserService {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 * @throws ServletException the servlet exception
-	 * @throws NoSuchPaddingException
-	 * @throws NoSuchAlgorithmException
-	 * @throws BadPaddingException
-	 * @throws IllegalBlockSizeException
-	 * @throws InvalidKeyException
-	 * @throws Exception the exception
+	 * @throws InvalidKeyException the invalid key exception
+	 * @throws IllegalBlockSizeException the illegal block size exception
+	 * @throws BadPaddingException the bad padding exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws NoSuchPaddingException the no such padding exception
 	 */
 	String updatePass(HttpServletRequest req)
 			throws ClassNotFoundException, SQLException, IOException, ParseException, ServletException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException;

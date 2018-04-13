@@ -16,10 +16,13 @@ import dao.interfaces.LangDao;
 import model.LangMaster;
 import util.DbUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LangDaoImpl.
+ */
 public class LangDaoImpl implements LangDao {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(LangDaoImpl.class.getName());
 
 	/* (non-Javadoc)

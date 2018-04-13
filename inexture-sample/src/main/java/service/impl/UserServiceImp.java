@@ -41,15 +41,14 @@ public class UserServiceImp implements UserService {
 	private static final Logger LOGGER = LogManager.getLogger(UserServiceImp.class.getName());
 
 	/** The response. */
-	private String response = ""; // response message
+	private transient String response = ""; // response message
 
 	/**
 	 * Sets the params.
 	 *
 	 * @param req the req
 	 * @return the user
-	 * @throws ParseException
-	 * @throws Exception the exception
+	 * @throws ParseException the parse exception
 	 */
 	public static User setParams(final HttpServletRequest req) throws ParseException   {
 		if (LOGGER.isDebugEnabled()) {

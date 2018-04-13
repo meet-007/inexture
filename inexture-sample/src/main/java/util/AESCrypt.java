@@ -19,16 +19,39 @@ import org.apache.log4j.Logger;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AESCrypt.
+ */
 public final class AESCrypt {
-	/**
-	 * Logger for this class
-	 */
+	
+	/** Logger for this class. */
 
 	private static final Logger LOGGER = LogManager.getLogger(AESCrypt.class.getName());
 
+	/** The Constant ALGORITHM. */
 	private static final String ALGORITHM = "AES";
+	
+	/** The Constant KEY. */
 	private static final String KEY = "1Hbfh667adfDEJ78";
+	
+	/**
+	 * Instantiates a new AES crypt.
+	 */
 	private AESCrypt() {}
+	
+	/**
+	 * Encrypt.
+	 *
+	 * @param value the value
+	 * @return the string
+	 * @throws IllegalBlockSizeException the illegal block size exception
+	 * @throws BadPaddingException the bad padding exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws InvalidKeyException the invalid key exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws NoSuchPaddingException the no such padding exception
+	 */
 	public static String encrypt(final String value) throws IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException  {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("encrypt(String) - start"); //$NON-NLS-1$
@@ -47,6 +70,18 @@ public final class AESCrypt {
 
 	}
 
+	/**
+	 * Decrypt.
+	 *
+	 * @param value the value
+	 * @return the string
+	 * @throws InvalidKeyException the invalid key exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws NoSuchPaddingException the no such padding exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IllegalBlockSizeException the illegal block size exception
+	 * @throws BadPaddingException the bad padding exception
+	 */
 	public static String decrypt(final String value) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IOException, IllegalBlockSizeException, BadPaddingException  {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("decrypt(String) - start"); //$NON-NLS-1$
@@ -66,6 +101,11 @@ public final class AESCrypt {
 
 	}
 
+	/**
+	 * Generate key.
+	 *
+	 * @return the key
+	 */
 	private static Key generateKey() {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("generateKey() - start"); //$NON-NLS-1$

@@ -18,6 +18,7 @@ import dao.interfaces.LangTrans;
 import model.LangTransact;
 import service.interfaces.LangTransServ;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class LangTransImpl.
  */
