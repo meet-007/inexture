@@ -4,6 +4,7 @@ package service.impl;
 
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -30,6 +31,7 @@ import service.interfaces.ImageService;
 import service.interfaces.LangTransServ;
 import service.interfaces.UserService;
 import util.AESCrypt;
+import util.DbUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -42,7 +44,11 @@ public class UserServiceImp implements UserService {
 
 	/** The response. */
 	private transient String response = ""; // response message
-
+	private java.util.Properties prop = null;
+	public UserServiceImp() throws FileNotFoundException, IOException {
+		// TODO Auto-generated constructor stub
+		this.prop = DbUtil.getProperties("webpage-response.properties");
+	}
 	/**
 	 * Sets the params.
 	 *
@@ -123,7 +129,7 @@ public class UserServiceImp implements UserService {
 				if (its.addLangTransaction(req, user.getIduser())) {
 					final ImageService imageService = new ImageServiceImpl();
 					if (imageService.saveImage(req, user.getIduser())) {
-						response = "Registration successfull";
+						response = prop.getProperty("reg.success");
 					}
 				}
 			} else {

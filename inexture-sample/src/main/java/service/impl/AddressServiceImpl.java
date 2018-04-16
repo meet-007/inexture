@@ -46,30 +46,32 @@ public class AddressServiceImpl implements AddressService {
 		final String country[] = request.getParameterValues("country");
 		final String idaddress[] = request.getParameterValues("idaddress");
 		final int elementLength = Integer.parseInt(request.getParameter("czContainer_czMore_txtCount"));
-		if((addressline1 != null) && (addressline2 != null) && (pin != null)  && (city != null) &&(state != null) &&(country != null)){
-			if ((elementLength == addressline1.length) && (elementLength == addressline2.length) && (elementLength == pin.length) && (elementLength == city.length) &&(elementLength == state.length) &&(elementLength == country.length)) {
+		if (elementLength>0) {
+			if((addressline1 != null) && (addressline2 != null) && (pin != null)  && (city != null) &&(state != null) &&(country != null)){
+				if ((elementLength == addressline1.length) && (elementLength == addressline2.length) && (elementLength == pin.length) && (elementLength == city.length) &&(elementLength == state.length) &&(elementLength == country.length)) {
 
-				for (int i = 0; i <  country.length; i++) {
-					final Address address = new Address();
-					address.setAddressline1(addressline1[i]);
-					address.setAddressline2(addressline2[i]);
-					try {
-						address.setPin(Integer.parseInt(pin[i])); // converting into integer type
-					}catch(final NumberFormatException e) {
-						LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
-					}
-					address.setCity(city[i]);
-					address.setState(state[i]);
-					address.setCountry(country[i]);
-					address.setIduser(iduser);
-					if ((request.getParameter("idaddress") != null)&&!idaddress[i].equals("x")) {
-						address.setIdadress(Integer.parseInt(idaddress[i]));
-					}
-					adrs.add(address);
+					for (int i = 0; i <  country.length; i++) {
+						final Address address = new Address();
+						address.setAddressline1(addressline1[i]);
+						address.setAddressline2(addressline2[i]);
+						try {
+							address.setPin(Integer.parseInt(pin[i])); // converting into integer type
+						}catch(final NumberFormatException e) {
+							LOGGER.error("setParams(HttpServletRequest, int)", e); //$NON-NLS-1$
+						}
+						address.setCity(city[i]);
+						address.setState(state[i]);
+						address.setCountry(country[i]);
+						address.setIduser(iduser);
+						if ((request.getParameter("idaddress") != null)&&!idaddress[i].equals("x")) {
+							address.setIdadress(Integer.parseInt(idaddress[i]));
+						}
+						adrs.add(address);
 
-				}
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+					}
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("setParams(HttpServletRequest, int) - end"); //$NON-NLS-1$
+					}
 				}
 			}
 		}
