@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import service.impl.UserServiceImp;
+import util.DbUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -50,10 +52,11 @@ public class CheckUser extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
+			final Properties prop = DbUtil.getProperties("validations.properties");
 			response.setContentType("application/json");
 			response.getWriter()
-			.println((new UserServiceImp().checkUserExist(request))
-					? "{\"result\":\"Email id already exist try another email \",\"bool\":\"0\"}"
+			.println(new UserServiceImp().checkUserExist(request)
+					? "{\"result\":\""+prop.getProperty("email.exist.errormsg")+"\",\"bool\":\"0\"}"
 							: "{\"result\":\"\",\"bool\":\"1\"}");
 		} catch (ClassNotFoundException | SQLException | IOException e) {
 			// TODO Auto-generated catch block

@@ -20,10 +20,12 @@ dao\interfaces\RoleDao.class
 controller\DeleteUserServ.class
 service\interfaces\TechServ.class
 service\impl\LangTransImpl.class
+util\ResetRegForm.class
 dao\interfaces\UserDao.class
 model\LangMaster.class
 controller\CheckUser.class
 dao\impl\AddressDaoImpl.class
+util\ImageUtil.class
 model\LangTransact.class
 dao\interfaces\ImageDao.class
 dao\impl\TechDaoImpl.class
@@ -47,3 +49,4 @@ service\interfaces\LangServ.class
 service\impl\LangServImpl.class
 service\impl\UserServiceImp.class
 controller\ShowRegServ.class
+validations\JavaScriptEnableExcepion.class

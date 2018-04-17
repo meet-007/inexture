@@ -32,7 +32,7 @@ public class RegistrationValidation {
 		final String lname = req.getParameter("lname");
 		String email = null;
 		String pass = null;
-		if ((req.getParameter("email") != null) && (req.getParameter("pass") != null)) {
+		if (req.getParameter("email") != null && req.getParameter("pass") != null) {
 			email = req.getParameter("email");
 			pass = req.getParameter("pass");
 		}
@@ -44,22 +44,22 @@ public class RegistrationValidation {
 		// String role = req.getParameter("role");
 		final Properties prop = DbUtil.getProperties("validations.properties");
 		StringBuilder error = new StringBuilder();
-		if ((fname == null) || "".equals(fname)) {
+		if (fname == null || "".equals(fname)) {
 			error.append(prop.getProperty("firstname.null.errormsg"));
 			error.append("<br/>");
-		} else if ((fname.length() > 100)) {
+		} else if (fname.length() > 100) {
 			error.append( prop.getProperty("firstname.length.errormsg"));
 			error.append("<br/>");
 		}
-		if ((lname == null) ||"".equals(lname)) {
+		if (lname == null ||"".equals(lname)) {
 			error.append( prop.getProperty("lastname.null.errormsg"));
 			error.append("<br/>");
-		} else if ((lname.length() > 100)) {
+		} else if (lname.length() > 100) {
 			error.append( prop.getProperty("lastname.length.errormsg"));
 			error.append("<br/>");
 		}
-		if(req.getServletPath() == "/Registration.jsp") {
-			if ((email == null) ||"".equals(email)) {
+		if(req.getServletPath().equals("/RegUser")) {
+			if (email == null ||"".equals(email)) {
 				error.append( prop.getProperty("email.null.errormsg"));
 				error.append("<br/>");
 
@@ -72,33 +72,33 @@ public class RegistrationValidation {
 			}
 
 
-			if ((pass == null) ||"".equals(pass)) {
+			if (pass == null ||"".equals(pass)) {
 				error.append( prop.getProperty("password.null.errormsg"));
 				error.append("<br/>");
-			} else if ((pass.length() < 6) || (pass.length() > 15)) {
+			} else if (pass.length() < 6 || pass.length() > 15) {
 				error.append( prop.getProperty("password.length.errormsg"));
 				error.append("<br/>");
 			}
 		}
-		if ((mobile == null) || "".equals(mobile)) {
+		if (mobile == null || "".equals(mobile)) {
 			error.append(prop.getProperty("mobile.null.errormsg"));
 			error.append("<br/>");
-		} else if ((mobile.length() > 10)) {
+		} else if (mobile.length() > 10) {
 			error.append( prop.getProperty("mobile.length.errormsg"));
 			error.append("<br/>");
 		}
-		if ((dob == null) ||"".equals(dob)) {
+		if (dob == null ||"".equals(dob)) {
 			error.append(prop.getProperty("dob.null.errormsg"));
 			error.append("<br/>");
 		} else if (!dob.matches("\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])")) {
 			error.append( prop.getProperty("dob.format.errormsg"));
 			error.append("<br/>");
 		}
-		if ((gender == null) ||"".equals(gender)) {
+		if (gender == null ||"".equals(gender)) {
 			error.append( prop.getProperty("gender.null.errormsg"));
 			error.append("<br/>");
 		}
-		if ((tech == null) ||"".equals(tech)) {
+		if (tech == null ||"".equals(tech)) {
 			error.append( prop.getProperty("tech.null.errormsg"));
 			error.append("<br/>");
 		}
@@ -159,8 +159,8 @@ public class RegistrationValidation {
 		final String country[] = req.getParameterValues("country");
 		final int elementLength = Integer.parseInt(req.getParameter("czContainer_czMore_txtCount"));
 		if (elementLength>0) {
-			if ((addressline1 != null) && (addressline2 != null)&&(pin != null) &&(city != null) &&(state != null) &&(country != null)) {
-				if ((elementLength == addressline1.length) && (elementLength == addressline2.length) && (elementLength == pin.length) && (elementLength == city.length) &&(elementLength == state.length) &&(elementLength == country.length)) {
+			if (addressline1 != null && addressline2 != null&&pin != null &&city != null &&state != null &&country != null) {
+				if (elementLength == addressline1.length && elementLength == addressline2.length && elementLength == pin.length && elementLength == city.length &&elementLength == state.length &&elementLength == country.length) {
 					for (int i = 0; i < addressline1.length; i++) {
 						if (addressline1[i].equals("")) {
 							error.append( prop.getProperty( "addressline1.null.errormsg"));
@@ -180,7 +180,7 @@ public class RegistrationValidation {
 							error.append( prop.getProperty( "pin.null.errormsg"));
 							error.append(i+1);
 							error.append("<br/>");
-						} else if ((pin[i].length() > 6) && (pin[i].length() < 6)) {
+						} else if (pin[i].length() > 6 && pin[i].length() < 6) {
 							error.append( prop.getProperty( "pin.length.errormsg"));
 							error.append(i+1);
 							error.append("<br/>");
@@ -245,7 +245,7 @@ public class RegistrationValidation {
 	public static boolean validateImage(final HttpServletRequest request) throws IOException, ServletException {
 		boolean iserror = true;
 		for (final Part part : request.getParts()) {
-			if ((part.getContentType() != null))   {
+			if (part.getContentType() != null)   {
 				if(part.getContentType().equals("image/jpeg")|| part.getContentType().equals("application/octet-stream")) {
 					iserror = false;
 				}

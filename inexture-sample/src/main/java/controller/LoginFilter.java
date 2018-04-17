@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -26,6 +27,7 @@ import model.Role;
 import model.User;
 import service.impl.UserServiceImp;
 import util.AESCrypt;
+import util.DbUtil;
 import validations.JavaScriptEnableExcepion;
 
 // TODO: Auto-generated Javadoc
@@ -80,6 +82,7 @@ public class LoginFilter implements Filter {
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse resp = (HttpServletResponse) response;
 		try {
+			final Properties prop = DbUtil.getProperties("webpage-response.properties");
 			final String email = request.getParameter("email");
 			final String password = request.getParameter("password");
 			final String error = new validations.LoginValidation().validate(email, password);
@@ -90,7 +93,7 @@ public class LoginFilter implements Filter {
 			User user = null;
 			user = new UserServiceImp().getUser(email, AESCrypt.encrypt(password));
 			if (user == null) {
-				request.setAttribute("rspmsg1", "Invalid Username or password please try again");
+				request.setAttribute("rspmsg1", prop.getProperty("login.failure"));
 				request.getRequestDispatcher("Login.jsp").forward(request, response);
 
 			} else {

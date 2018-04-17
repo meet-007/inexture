@@ -47,7 +47,7 @@ public class UserServiceImp implements UserService {
 	private java.util.Properties prop = null;
 	public UserServiceImp() throws FileNotFoundException, IOException {
 		// TODO Auto-generated constructor stub
-		this.prop = DbUtil.getProperties("webpage-response.properties");
+		prop = DbUtil.getProperties("webpage-response.properties");
 	}
 	/**
 	 * Sets the params.
@@ -130,10 +130,14 @@ public class UserServiceImp implements UserService {
 					final ImageService imageService = new ImageServiceImpl();
 					if (imageService.saveImage(req, user.getIduser())) {
 						response = prop.getProperty("reg.success");
+					}else {
+						response = prop.getProperty("reg.failure");
 					}
+				}else {
+					response = prop.getProperty("reg.failure");
 				}
 			} else {
-				response = "Registration unsuccessfull";
+				response = prop.getProperty("reg.failure");
 			}
 		}
 
@@ -179,10 +183,9 @@ public class UserServiceImp implements UserService {
 		lts.updateLangTransaction(req, iduser);
 		final AddressService addressService = new AddressServiceImpl();
 		addressService.updateAddress(req, iduser);
-		response = "update successfull";
 		final ImageService imageService = new ImageServiceImpl();
 		imageService.updateImage(req, iduser);
-
+		response =  prop.getProperty("updateuser.success");
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("updateUser(HttpServletRequest, int) - end"); //$NON-NLS-1$
 		}
@@ -257,17 +260,17 @@ public class UserServiceImp implements UserService {
 		String resp = "";
 		User user = null;
 		final UserDao udao = new UserDaoImpl();
-		if ((req.getParameter("email") == null) && (req.getParameter("password") == null)) {
+		if (req.getParameter("email") == null && req.getParameter("password") == null) {
 			final HttpSession session = req.getSession();
 			user = (User) session.getAttribute("user");
 			if (user.getPassword().equals(AESCrypt.encrypt(req.getParameter("oldpass")))) {
 				user.setPassword(AESCrypt.encrypt(req.getParameter("newpass")));
 
 				if (!udao.updatePassword(user)) {
-					resp = "password updated";
+					resp =  prop.getProperty("changepass.success");
 				}
 			} else {
-				resp = "user not found ! please try again";
+				resp =  prop.getProperty("changepass.failure");
 			}
 
 		} else {
@@ -275,12 +278,12 @@ public class UserServiceImp implements UserService {
 			String password = req.getParameter("password");
 			user = udao.selectUser(email);
 			if (user == null) {
-				resp = "user not found ! please try again";
+				resp =  prop.getProperty("forgotpass.failure");
 			} else {
 				password = AESCrypt.encrypt(password);
 				user.setPassword(password);
 				if (!udao.updatePassword(user)) {
-					resp = "password updated";
+					resp =	prop.getProperty("forgotpass.succes");
 				}
 			}
 		}

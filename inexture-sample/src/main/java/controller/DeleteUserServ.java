@@ -6,6 +6,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import service.impl.UserServiceImp;
+import util.DbUtil;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -55,11 +57,12 @@ public class DeleteUserServ extends HttpServlet {
 
 
 		try {
+			final Properties prop = DbUtil.getProperties("webpage-response.properties");
 			response.setContentType("application/json");
 			response.getWriter()
-			.println((new UserServiceImp().deleteUser(Integer.parseInt(request.getParameter("iduser"))))
-					? "{\"result\":\"fail to delete\",\"bool\":\"1\"}"
-							: "{\"result\":\"deleted success\",\"bool\":\"0\"}");
+			.println(new UserServiceImp().deleteUser(Integer.parseInt(request.getParameter("iduser")))
+					? "{\"result\":\""+prop.getProperty("delete.failure")+"\",\"bool\":\"1\"}"
+							: "{\"result\":\""+prop.getProperty("delete.success")+"\",\"bool\":\"0\"}");
 		} catch (NumberFormatException | ClassNotFoundException | SQLException | ParseException e) {
 			// TODO Auto-generated catch block
 			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
