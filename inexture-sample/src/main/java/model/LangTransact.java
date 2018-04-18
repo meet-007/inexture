@@ -9,7 +9,7 @@ public class LangTransact {
 	/** Logger for this class. */
 
 	/** The idlang transaction. */
-	private transient int idlang_transaction;
+	private transient int idlangTransaction;
 
 	/** The iduser. */
 	private int iduser;
@@ -23,7 +23,7 @@ public class LangTransact {
 	 * @return the idlang transaction
 	 */
 	public int getIdlangTransaction() {
-		return idlang_transaction;
+		return idlangTransaction;
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class LangTransact {
 	 * @param idlang_transaction the new idlang transaction
 	 */
 	public void setIdlangTransaction(final int idlang_transaction) {
-		this.idlang_transaction = idlang_transaction;
+		this.idlangTransaction = idlang_transaction;
 	}
 
 	/**

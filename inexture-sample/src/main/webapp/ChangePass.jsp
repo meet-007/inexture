@@ -33,9 +33,9 @@
 										Password :</label>
 									<div class="col-sm-8">
 										<input type="password" class="form-control" id="inputoldpass"
-											placeholder="Old Password" name="oldpass">
+											placeholder="Old Password" name="oldpass" maxlength="15"  data-minlength="6" required>
 											<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-											<div class="help-block with-errors" required></div>
+											<div class="help-block with-errors" ></div>
 									</div>
 								</div>
 								<div class="form-group has-feedback">
@@ -43,7 +43,7 @@
 										Password :</label>
 									<div class="col-sm-8">
 										<input type="password" class="form-control"
-											id="inputnewpass" placeholder="New Password" name="newpass" required>
+											id="inputnewpass" placeholder="New Password" name="newpass" maxlength="15"  data-minlength="6" required>
 											<span class="glyphicon form-control-feedback" aria-hidden="true" ></span>
 											<div class="help-block with-errors"></div>
 									</div>
@@ -54,7 +54,7 @@
 									<div class="col-sm-8">
 										<input type="password" class="form-control" data-match="#inputnewpass"
 											 data-match-error="Whoops, these don't match"
-											id="inputrptnewpass" placeholder="Repeat New Password" required>
+											id="inputrptnewpass" placeholder="Repeat New Password" maxlength="15"  data-minlength="6" required>
 											<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											<div class="help-block with-errors"></div>
 									</div>

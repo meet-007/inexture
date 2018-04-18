@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inexture</groupId>
@@ -53,7 +54,7 @@
 
 	</dependencies>
 	<reporting>
-	<plugins>
+		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
@@ -64,7 +65,7 @@
 					<xmlOutputDirectory>target/site</xmlOutputDirectory>
 				</configuration>
 			</plugin>
-			</plugins>
+		</plugins>
 	</reporting>
 	<build>
 		<finalName>inexture-sample</finalName>
@@ -74,8 +75,8 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>3.0.1</version>
 				<configuration>
-				<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-					</configuration>
+					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+				</configuration>
 				<executions>
 					<execution>
 						<id>analyze-compile</id>
@@ -104,6 +105,25 @@
 					<server>TomcatServer</server>
 					<path>/inexture-sample</path>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.9.0</version>
+				<configuration>
+					<rulesets>
+						<ruleset>newruleset.xml</ruleset>
+					</rulesets>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pmd-check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

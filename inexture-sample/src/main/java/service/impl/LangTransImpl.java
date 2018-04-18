@@ -109,12 +109,12 @@ public class LangTransImpl implements LangTransServ {
 			LOGGER.debug("updateLangTransaction(HttpServletRequest, int) - start"); //$NON-NLS-1$
 		}
 		// TODO Auto-generated method stub
-		final LangTrans it = new dao.impl.LangTransImpl();
-		final ArrayList<LangTransact> dblanguages =(ArrayList<LangTransact>) it.selectUserLanguages(iduser);
+		final LangTrans langtrans = new dao.impl.LangTransImpl();
+		final ArrayList<LangTransact> dblanguages =(ArrayList<LangTransact>) langtrans.selectUserLanguages(iduser);
 		final ArrayList<LangTransact> newlangarr = (ArrayList<LangTransact>)LangTransImpl.setParams(request, iduser);
 		final List<LangTransact> updated = new ArrayList<>();
 		int rowsAffected = 0;
-		final LangTrans langtrans = new dao.impl.LangTransImpl();
+
 		int flag = 0;
 		for (final LangTransact newlang : newlangarr) {
 			for (final LangTransact dblang : dblanguages) {

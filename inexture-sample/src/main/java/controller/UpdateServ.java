@@ -1,8 +1,5 @@
 package controller;
 
-
-
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -22,6 +19,7 @@ import model.User;
 import service.impl.UserServiceImp;
 import util.ResetRegForm;
 import validations.JavaScriptEnableExcepion;
+
 // TODO: Auto-generated Javadoc
 /**
  * Servlet implementation class UpdateServ.
@@ -35,14 +33,17 @@ public class UpdateServ extends HttpServlet {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * Do post.
 	 *
-	 * @param request the request
-	 * @param response the response
-	 * @throws ServletException the servlet exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
+	 * @throws ServletException
+	 *             the servlet exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -55,27 +56,26 @@ public class UpdateServ extends HttpServlet {
 
 		// TODO Auto-generated method stub
 
-
-
-
 		try {
 			User user = null;
 
-			final HttpSession session  = request.getSession();
+			final HttpSession session = request.getSession();
 			if (request.getParameter("iduser") == null) {
 				user = (User) session.getAttribute("user");
 			} else {
 				user = new UserServiceImp().getUser(Integer.parseInt(request.getParameter("iduser")));
-				request.setAttribute("user", user );
+				request.setAttribute("user", user);
 			}
 
-
 			final String error = new validations.RegistrationValidation().validate(request);
-			if(error.isEmpty())  {
+			if (error.isEmpty()) {
 				request.setAttribute("rspmsg", new UserServiceImp().updateUser(request, user.getIduser()));
-				session.removeAttribute("user");
-				session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
-			}else {
+				final User sessionUser = (User)session.getAttribute("user");
+				if (user.getIduser()==sessionUser.getIduser()) {
+					session.removeAttribute("user");
+					session.setAttribute("user", new UserServiceImp().getUser(user.getEmail(), user.getPassword()));
+				}
+			} else {
 				request.setAttribute("errormsg", error);
 				throw new JavaScriptEnableExcepion("enable javaScript if it is disabled");
 

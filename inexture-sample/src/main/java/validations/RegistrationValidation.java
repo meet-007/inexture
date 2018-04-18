@@ -115,7 +115,7 @@ public class RegistrationValidation {
 
 		// image validation
 
-		if (RegistrationValidation.validateImage(req) == true) {
+		if (RegistrationValidation.validateImage(req)) {
 			error.append(prop.getProperty( "image.format.errormsg"));
 			error.append("<br/>");
 		}

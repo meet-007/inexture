@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Properties;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -44,7 +46,7 @@ public class UserServiceImp implements UserService {
 
 	/** The response. */
 	private transient String response = ""; // response message
-	private java.util.Properties prop = null;
+	private transient Properties prop = null;
 	public UserServiceImp() throws FileNotFoundException, IOException {
 		// TODO Auto-generated constructor stub
 		prop = DbUtil.getProperties("webpage-response.properties");
@@ -85,7 +87,7 @@ public class UserServiceImp implements UserService {
 
 		}
 		try {
-			user.setDob( new SimpleDateFormat("yyyy-MM-dd").parse( req.getParameter("dob")));
+			user.setDob( new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).parse( req.getParameter("dob")));
 		}catch(final NumberFormatException e) {
 			LOGGER.warn("setParams(HttpServletRequest) - exception ignored", e); //$NON-NLS-1$
 

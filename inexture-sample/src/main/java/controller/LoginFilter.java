@@ -82,7 +82,6 @@ public class LoginFilter implements Filter {
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse resp = (HttpServletResponse) response;
 		try {
-			final Properties prop = DbUtil.getProperties("webpage-response.properties");
 			final String email = request.getParameter("email");
 			final String password = request.getParameter("password");
 			final String error = new validations.LoginValidation().validate(email, password);
@@ -93,6 +92,7 @@ public class LoginFilter implements Filter {
 			User user = null;
 			user = new UserServiceImp().getUser(email, AESCrypt.encrypt(password));
 			if (user == null) {
+				final Properties prop = DbUtil.getProperties("webpage-response.properties");
 				request.setAttribute("rspmsg1", prop.getProperty("login.failure"));
 				request.getRequestDispatcher("Login.jsp").forward(request, response);
 

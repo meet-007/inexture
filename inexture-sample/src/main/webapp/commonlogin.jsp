@@ -53,7 +53,7 @@
 						<div class="form-group has-feedback" id="pwddiv">
 							<input type="password" class="form-control input-lg"
 								id="password" placeholder="Password" required="" name="password"
-								maxlength="15" required /> <span
+								maxlength="15"  data-minlength="6" required /> <span
 								class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							<div class="help-block with-errors"></div>
 						</div>

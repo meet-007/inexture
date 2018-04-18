@@ -58,11 +58,13 @@ public class DeleteUserServ extends HttpServlet {
 
 		try {
 			final Properties prop = DbUtil.getProperties("webpage-response.properties");
+			final String failure = prop.getProperty("delete.failure");
+			final String success = prop.getProperty("delete.success");
 			response.setContentType("application/json");
 			response.getWriter()
 			.println(new UserServiceImp().deleteUser(Integer.parseInt(request.getParameter("iduser")))
-					? "{\"result\":\""+prop.getProperty("delete.failure")+"\",\"bool\":\"1\"}"
-							: "{\"result\":\""+prop.getProperty("delete.success")+"\",\"bool\":\"0\"}");
+					? "{\"result\":\""+failure+"\",\"bool\":\"1\"}"
+							: "{\"result\":\""+success+"\",\"bool\":\"0\"}");
 		} catch (NumberFormatException | ClassNotFoundException | SQLException | ParseException e) {
 			// TODO Auto-generated catch block
 			LOGGER.error("doGet(HttpServletRequest, HttpServletResponse)", e); //$NON-NLS-1$
