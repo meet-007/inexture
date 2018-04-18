@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 /**
  * Servlet Filter implementation class BackBtnDisable.
  */
+@SuppressWarnings("PMD")
 public class BackBtnDisable implements Filter {
 
 	/** Logger for this class. */

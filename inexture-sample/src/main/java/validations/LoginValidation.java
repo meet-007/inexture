@@ -11,6 +11,7 @@ import util.DbUtil;
 /**
  * The Class LoginValidation.
  */
+@SuppressWarnings("PMD")
 public class LoginValidation {
 
 	/**

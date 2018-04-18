@@ -20,6 +20,7 @@ import util.DbUtil;
 /**
  * The Class LangTransImpl.
  */
+@SuppressWarnings("PMD")
 public class LangTransImpl implements LangTrans {
 
 	/** Logger for this class. */

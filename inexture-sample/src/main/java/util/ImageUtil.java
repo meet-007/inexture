@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 /**
  * The Class ImageUtil.
  */
+@SuppressWarnings("PMD")
 public final class ImageUtil {
 
 	/**

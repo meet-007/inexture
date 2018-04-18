@@ -20,6 +20,7 @@ import service.interfaces.AddressService;
 /**
  * The Class AddressServiceImpl.
  */
+@SuppressWarnings("PMD")
 public class AddressServiceImpl implements AddressService {
 
 	/** Logger for this class. */

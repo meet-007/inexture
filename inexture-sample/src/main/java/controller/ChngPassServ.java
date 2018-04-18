@@ -23,6 +23,7 @@ import service.impl.UserServiceImp;
 /**
  * Servlet implementation class ChngPassServ.
  */
+@SuppressWarnings("PMD")
 public class ChngPassServ extends HttpServlet {
 
 	/** Logger for this class. */

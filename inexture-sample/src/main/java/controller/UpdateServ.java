@@ -24,6 +24,7 @@ import validations.JavaScriptEnableExcepion;
 /**
  * Servlet implementation class UpdateServ.
  */
+@SuppressWarnings("PMD")
 @MultipartConfig
 public class UpdateServ extends HttpServlet {
 

@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 /**
  * The Class DbUtil.
  */
+@SuppressWarnings("PMD")
 public final class DbUtil {
 
 	/** Logger for this class. */

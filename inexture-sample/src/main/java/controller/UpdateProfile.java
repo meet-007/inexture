@@ -25,6 +25,7 @@ import service.impl.UserServiceImp;
 /**
  * Servlet implementation class UpdatePr ofile.
  */
+@SuppressWarnings("PMD")
 public class UpdateProfile extends HttpServlet {
 
 	/** Logger for this class. */

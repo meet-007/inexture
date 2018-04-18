@@ -20,6 +20,7 @@ import util.DbUtil;
 /**
  * The Class UserDaoImpl.
  */
+@SuppressWarnings("PMD")
 public class UserDaoImpl implements UserDao {
 
 	/** Logger for this class. */

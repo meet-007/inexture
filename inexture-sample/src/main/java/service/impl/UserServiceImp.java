@@ -39,6 +39,7 @@ import util.DbUtil;
 /**
  * The Class UserServiceImp.
  */
+@SuppressWarnings("PMD")
 public class UserServiceImp implements UserService {
 
 	/** The Constant LOGGER. */
@@ -262,7 +263,7 @@ public class UserServiceImp implements UserService {
 		String resp = "";
 		User user = null;
 		final UserDao udao = new UserDaoImpl();
-		if (req.getParameter("email") == null && req.getParameter("password") == null) {
+		if ((req.getParameter("email") == null) && (req.getParameter("password") == null)) {
 			final HttpSession session = req.getSession();
 			user = (User) session.getAttribute("user");
 			if (user.getPassword().equals(AESCrypt.encrypt(req.getParameter("oldpass")))) {
@@ -285,7 +286,7 @@ public class UserServiceImp implements UserService {
 				password = AESCrypt.encrypt(password);
 				user.setPassword(password);
 				if (!udao.updatePassword(user)) {
-					resp =	prop.getProperty("forgotpass.succes");
+					resp =	prop.getProperty("forgotpass.success");
 				}
 			}
 		}

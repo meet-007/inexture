@@ -20,6 +20,7 @@ import util.DbUtil;
 /**
  * The Class AddressDaoImpl.
  */
+@SuppressWarnings("PMD")
 public class AddressDaoImpl implements AddressDao {
 
 	/** Logger for this class. */

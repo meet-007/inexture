@@ -20,6 +20,7 @@ import util.DbUtil;
 /**
  * The Class ImageDaoImpl.
  */
+@SuppressWarnings("PMD")
 public class ImageDaoImpl implements ImageDao {
 
 	/** Logger for this class. */

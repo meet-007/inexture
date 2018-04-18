@@ -25,8 +25,9 @@ import service.interfaces.ImageService;
 /**
  * The Class ImageServiceImpl.
  */
+@SuppressWarnings("PMD")
 public class ImageServiceImpl implements ImageService {
-	
+
 	/** Logger for this class. */
 	private static final Logger LOGGER = LogManager.getLogger(ImageServiceImpl.class.getName());
 
@@ -69,7 +70,7 @@ public class ImageServiceImpl implements ImageService {
 		}
 		return uimg;
 	}
-	
+
 	/**
 	 * Sets the delete image list.
 	 *

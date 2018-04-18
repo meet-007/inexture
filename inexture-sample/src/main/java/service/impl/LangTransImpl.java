@@ -22,6 +22,7 @@ import service.interfaces.LangTransServ;
 /**
  * The Class LangTransImpl.
  */
+@SuppressWarnings("PMD")
 public class LangTransImpl implements LangTransServ {
 
 	/** Logger for this class. */

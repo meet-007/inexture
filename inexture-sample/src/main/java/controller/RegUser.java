@@ -27,6 +27,7 @@ import validations.RegistrationValidation;
 /**
  * Servlet implementation class RegUser.
  */
+@SuppressWarnings("PMD")
 @MultipartConfig
 public class RegUser extends HttpServlet {
 

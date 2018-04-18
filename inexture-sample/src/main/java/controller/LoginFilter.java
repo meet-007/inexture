@@ -34,6 +34,7 @@ import validations.JavaScriptEnableExcepion;
 /**
  * Servlet Filter implementation class LoginFilter.
  */
+@SuppressWarnings("PMD")
 public class LoginFilter implements Filter {
 
 	/** Logger for this class. */
