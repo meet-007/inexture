@@ -58,24 +58,24 @@ public class BackBtnDisable implements Filter {
 
 		// TODO Auto-generated method stub
 		// place your code here
-
-		final HttpServletRequest req = (HttpServletRequest) request;
-
-		if (req.getRequestURI().matches(".*(js|css|png|jpg|woff|woff2|ttf)$")) {
-			chain.doFilter(request, response);
-		} else {
-			if ((req.getSession().getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
-				final RequestDispatcher requestdispatcher = req.getRequestDispatcher("Login.jsp");
-				requestdispatcher.forward(request, response);
-			} else {
-				chain.doFilter(request, response);
-			}
-			final HttpServletResponse resp = (HttpServletResponse) response;
-			resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
-			resp.setHeader("Pragma", "no-cache");
-			resp.setDateHeader("Expires", 0);
-		}
+//
+//		final HttpServletRequest req = (HttpServletRequest) request;
+//
+//		if (req.getRequestURI().matches(".*(js|css|png|jpg|woff|woff2|ttf)$")) {
+//			chain.doFilter(request, response);
+//		} else {
+//			if ((req.getSession().getAttribute("user") == null) && needsAuthentication(req.getRequestURI())) {
+//				final RequestDispatcher requestdispatcher = req.getRequestDispatcher("Login.jsp");
+//				requestdispatcher.forward(request, response);
+//			} else {
+//				chain.doFilter(request, response);
+//			}
+//			final HttpServletResponse resp = (HttpServletResponse) response;
+//			resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//			resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
+//			resp.setHeader("Pragma", "no-cache");
+//			resp.setDateHeader("Expires", 0);
+//		}
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$

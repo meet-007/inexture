@@ -14,20 +14,20 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 	<!-- datepicker -->
-	<link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<!-- Owl Carousel -->
-	<link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
-	<link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.css" />
 	<!-- Magnific Popup -->
-	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" />
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 	<!-- my css -->
-	<link type="text/css" rel="stylesheet" href="css/mycss.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/mycss.css" />
 </head>
 	<body>
 		<!-- Header -->
@@ -68,12 +68,12 @@
 		</nav>
 	<!-- /Header -->
 	<!-- jQuery Plugins -->
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<!-- datepicker -->
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
-	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
+	<script type="/text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 	</body>
 </html>

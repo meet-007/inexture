@@ -15,7 +15,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/fileupload.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/fileupload.css">
 </head>
 <body>
 	<div id="reg" class="section ">
@@ -42,7 +42,7 @@
 						</c:choose>
 <%-- 						<c:set var="user" value="${sessionScope.user}"></c:set> --%>
 						<form id="myform" class="form-horizontal" enctype="multipart/form-data"
-							action="RegUser" method="POST" data-toggle="validator" >
+							 method="POST" data-toggle="validator" >
 							<div class="form-group has-feedback">
 							
 								<label class="col-sm-2 control-label"><span class="text-danger">*</span> First
@@ -358,8 +358,8 @@
 		
 <!-- 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
-	<script src="js/jquery.czMore-latest.js"></script>
-	<script src="js/jquery.czMore-1.5.3.2.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.czMore-latest.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.czMore-1.5.3.2.js"></script>
 	<script type="text/javascript">
 		//One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
 		$("#czContainer").czMore();
@@ -367,9 +367,9 @@
 	</script>
 	
 	
-	<script src="js/validate-email.js"></script>
-	<script src="js/myvalidation.js"></script>
-	<script src="js/fileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/js/validate-email.js"></script>
+	<script src="${pageContext.request.contextPath}/js/myvalidation.js"></script>
+	<script src="${pageContext.request.contextPath}/js/fileupload.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 	var plusbtn = document.getElementById("btnPlus");
