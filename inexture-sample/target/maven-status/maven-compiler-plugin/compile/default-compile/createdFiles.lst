@@ -22,7 +22,6 @@ dao/interfaces/LangTrans.class
 model/UserImages.class
 service/impl/LangServImpl.class
 controller/Logout.class
-sample/dao/LangDaoImpl.class
 dao/impl/LangTransImpl.class
 util/DbUtil.class
 dao/impl/ImageDaoImpl.class
@@ -40,15 +39,12 @@ controller/UpdateProfile.class
 service/interfaces/TechServ.class
 sample/models/User.class
 util/ImageUtil.class
-sample/dao/TechDao.class
 dao/impl/UserDaoImpl.class
-sample/dao/TechDaoImpl.class
 sample/dao/GenericHibernateDao.class
 sample/config/RootConfig.class
 model/LangTransact.class
 sample/config/WebConfig.class
 validations/JavaScriptEnableExcepion.class
-sample/dao/LangDao.class
 sample/models/LangTransact.class
 service/impl/TechServImpl.class
 controller/BackBtnDisable.class

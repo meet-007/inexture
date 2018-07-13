@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
 	<div class="container">
@@ -39,7 +39,7 @@
 					</c:choose>
 				</c:if>
 				<section class="login-form">
-				<form method="post" name="myform" action="LoginFilter" role="login"
+				<form method="post" name="myform"  role="login"
 					data-toggle="validator">
 					<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
 						alt="" />
@@ -82,13 +82,13 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
 		type="text/javascript"></script>
-	<script type="text/javascript" src="js/validate-email.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/validate-email.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(".alert").hide();
 		});
 	</script>
-	<script type="text/javascript" src="js/myjs.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/myjs.js"></script>
 	<script>
 		// $(document).ready(function (){
 		//  	$("#pwddiv").hide();

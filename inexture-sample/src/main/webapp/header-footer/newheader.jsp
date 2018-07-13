@@ -1,3 +1,4 @@
+<%@page import="sample.models.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,15 +12,15 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Inexture Demo project</title>
 <!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/inexture-sample/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="/inexture-sample/css/font-awesome.min.css">
 <!-- sidebar -->
-<link href="css/sidebar.css" rel="stylesheet">
+<link href="/inexture-sample/css/sidebar.css" rel="stylesheet">
 <!-- Datepicker css -->
-<link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="/inexture-sample/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <!-- Datepicker css -->
-<link href="css/mycss.css" rel="stylesheet">
+<link href="/inexture-sample/css/mycss.css" rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -29,12 +30,12 @@
 			id="sidebar-wrapper" role="navigation">
 		<ul class="nav sidebar-nav">
 			<li class="sidebar-brand"><div class="fix-brand"><a href="#">welcome <c:out
-						value="${sessionScope.user.firstname}"></c:out>
+						value="${sessionScope.userObject.firstname}"></c:out>
 			</a></div></li>
-			<li><a href="UpdateProfile">Update profile</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/UpdateProfile">Update profile</a></li>
 			<li><a href="#">Home</a></li>
-			<c:if test="${sessionScope.user.role eq 1}">
-				<li><a href="ShowAllUser">Manage Users</a></li>
+			<c:if test="${sessionScope.userObject.role.idrole eq 1}">
+				<li><a href="${pageContext.request.contextPath}/user/admin/ShowAllUser">Manage Users</a></li>
 			</c:if>
 			<li><a href="#">About</a></li>
 			<li><a href="#">Events</a></li>
@@ -50,18 +51,18 @@
 					<li><a href="#">One more separated link</a></li>
 				</ul></li>
 			<li><a href="ChangePass.jsp">Change Password</a></li>
-			<li><a href="Logout">logout</a><br /></li>
+			<li><a href="${pageContext.request.contextPath}/user/logout">logout</a><br /></li>
 			<li><a href="https://twitter.com/maridlcrmn">Follow me</a></li>
 		</ul>
 		</nav>
 		<!-- /#sidebar-wrapper -->
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="js/jquery.min.js"></script>
+		<script src="/inexture-sample/js/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
+		<script src="/inexture-sample/js/bootstrap.min.js"></script>
 		<!-- datepicker -->
-		<script src="js/bootstrap-datepicker.min.js"></script>
+		<script src="/inexture-sample/js/bootstrap-datepicker.min.js"></script>
 		<!-- sidebar js -->
-		<script src="js/sidebar.js"></script>
+		<script src="/inexture-sample/js/sidebar.js"></script>
 </body>
 </html>

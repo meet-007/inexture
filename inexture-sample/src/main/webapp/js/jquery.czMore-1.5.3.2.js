@@ -45,7 +45,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             btnPlus.css({
                 'float': 'right',
                 'border': '0px',
-                'background-image': 'url("img/add.png")',
+                'background-image': 'url("../img/add.png")',
                 'background-position': 'center center',
                 'background-repeat': 'no-repeat',
                 'height': '25px',
@@ -55,7 +55,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             $(".dynmc-input").validator('update')
             if (recordset.length) {
                 obj.siblings("#btnPlus").click(function () {
-                    var i = obj.children(".recordset").size();
+                    var i = obj.children(".recordset").size()-1;
                     var item = recordset.clone().html();
                     i++;
                     item = item.replace(/\[([0-9]\d{0})\]/g, "[" + i + "]");
@@ -93,9 +93,9 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
 
             function resetNumbering() {
                 $(obj).children(".recordset").each(function (index, element) {
-                   $(element).find('input:text, input:password, input:file, select, textarea').each(function(){
+                   $(element).find('input:hidden,input:text, input:password, input:file, select, textarea').each(function(){
                         old_name = this.name;
-                        new_name = old_name.replace(/\_([0-9]\d{0})\_/g, "_" + (index + 1) + "_");
+                        new_name = old_name.replace(/\[([0-9]\d{0})\]/g, "[" + (index) + "]");
                         this.id = this.name = new_name;
                         //alert(this.name);
                     });
@@ -105,13 +105,13 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             }
 
             function loadMinus(recordset) {
-                var divMinus = '<div id="btnMinus" />';
+                var divMinus = '<div id="btnMinus" class="minusbtn" />';
                 $(recordset).children().first().before(divMinus);
                 var btnMinus = $(recordset).children("#btnMinus");
                 btnMinus.css({
                     'float': 'right',
                     'border': '0px',
-                    'background-image': 'url("img/remove.png")',
+                    'background-image': 'url("../img/remove.png")',
                     'background-position': 'center center',
                     'background-repeat': 'no-repeat',
                     'height': '25px',
@@ -132,6 +132,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
                         if (id != null)
                             obj.trigger("onDelete", id);
                     }
+                    
                 });
             }
         });

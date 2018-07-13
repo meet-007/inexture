@@ -7,19 +7,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Role.
  */
 @Entity
+@Table(name="role")
 public class Role {
 
 	/** Logger for this class. */
 
 	/** The idrole. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idrole;
 
 	/** The role. */

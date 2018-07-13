@@ -96,7 +96,8 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
 
             function resetNumbering() {
                 $(obj).children(".recordset").each(function (index, element) {
-                   $(element).find('input:text, input:password, input:file, select, textarea').each(function(){
+                	console.log($(element))
+                   $(element).find('.ad_id,input:text, input:password, input:file, select, textarea').each(function(){
                         old_name = this.name;
                         new_name = old_name.replace(/\_([0-9]\d{0})\_/g, "_" + (index + 1) + "_");
                         this.id = this.name = new_name;

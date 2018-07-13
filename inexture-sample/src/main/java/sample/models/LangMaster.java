@@ -21,7 +21,7 @@ public class LangMaster implements java.io.Serializable {
 
 	/** The idlang. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idlang;
 
 	/** The lang. */

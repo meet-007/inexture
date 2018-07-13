@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<#macro layout>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -61,13 +59,13 @@
 							<li><a href="blog-single.html">blog post</a></li>
 						</ul>
 					</li>
-					<li><a href="user/login">Login</a></li>
+					<li><a href="Login.jsp">Login</a></li>
 				</ul>
 				<!-- /Main navigation -->
 			</div>
 		</nav>
-	<!-- /Header -->
-	<!-- jQuery Plugins -->
+		<#nested>
+		<!-- jQuery Plugins -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<!-- datepicker -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
@@ -77,3 +75,4 @@
 	<script type="/text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 	</body>
 </html>
+</#macro>

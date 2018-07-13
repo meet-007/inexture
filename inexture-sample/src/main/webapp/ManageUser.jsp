@@ -90,7 +90,7 @@
 									<td><c:out value="${(user.gender eq 0)?'male':''}"></c:out>
 										<c:out value="${(user.gender eq 1)?'female':''}"></c:out></td>
 									<td><a
-										href="UpdateProfile?iduser=<c:out value="${user.iduser}"></c:out>">edit</a></td>
+										href="${pageContext.request.contextPath}/user/UpdateProfile?iduser=<c:out value="${user.iduser}"></c:out>">edit</a></td>
 									<td><button type="button" class="btn"
 											id="<c:out value ="${user.iduser}"></c:out>">delete</button></td>
 								</tr>

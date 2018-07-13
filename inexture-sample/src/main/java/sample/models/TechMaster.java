@@ -22,7 +22,7 @@ public class TechMaster implements Serializable {
 
 	/** The idtech. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idtech;
 
 	/** The tech. */

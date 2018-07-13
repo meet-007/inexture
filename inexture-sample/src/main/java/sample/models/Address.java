@@ -1,25 +1,29 @@
 package sample.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Address.
  */
 @Entity
-public class Address {
+@Table(name="address")
+public class Address implements Serializable {
 
 	/** Logger for this class. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** The idadress. */
 	private Long idadress;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	/** The iduser. */
 	private User user;
 

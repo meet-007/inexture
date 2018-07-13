@@ -1,26 +1,28 @@
 package sample.models;
 
-import java.io.InputStream;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.web.multipart.MultipartFile;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class UserImages.
  */
 @Entity
+@Table(name="userimages")
 public class UserImages {
 
 	/** Logger for this class. */
 
 	/** The iduser images. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long iduserImages;
 
 
@@ -30,7 +32,7 @@ public class UserImages {
 
 	@Lob
 	/** The image. */
-	private InputStream image;
+	private MultipartFile image;
 
 	public User getIduser() {
 		return iduser;
@@ -40,7 +42,9 @@ public class UserImages {
 		return iduserImages;
 	}
 
-	public InputStream getImage() {
+
+
+	public MultipartFile getImage() {
 		return image;
 	}
 
@@ -52,9 +56,10 @@ public class UserImages {
 		this.iduserImages = iduserImages;
 	}
 
-	public void setImage(InputStream image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
 
 
 }

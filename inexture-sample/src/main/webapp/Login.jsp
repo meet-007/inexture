@@ -19,6 +19,6 @@ window.history.forward();
 </c:if>
 </div>
 <jsp:include page="commonlogin.jsp"></jsp:include>
-	<script type="text/javascript" src="js/myjs.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/myjs.js"></script>
 </body>
 </html>

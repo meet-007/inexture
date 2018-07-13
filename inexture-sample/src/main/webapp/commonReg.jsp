@@ -1,15 +1,17 @@
+<%@page import="sample.models.User"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.UserImages"%>
-<%@page import="model.Address"%>
+<%@page import="sample.models.UserImages"%>
+<%@page import="sample.models.Address"%>
 <%@page import="org.apache.commons.io.IOUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,19 +39,19 @@
 						<c:set var="user" value="${requestScope.user}"></c:set>
 						</c:when>
 						<c:otherwise>
-						<c:set var="user" value="${sessionScope.user}"></c:set>
+						<c:set var="user" value="${sessionScope.userObject}"></c:set>
 						</c:otherwise>
 						</c:choose>
 <%-- 						<c:set var="user" value="${sessionScope.user}"></c:set> --%>
 						<form id="myform" class="form-horizontal" enctype="multipart/form-data"
-							 method="POST" data-toggle="validator" >
+							 method="POST" data-toggle="validator">
 							<div class="form-group has-feedback">
 							
 								<label class="col-sm-2 control-label"><span class="text-danger">*</span> First
 									Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputName"
-										name="fname"
+										name="firstname"
 										placeholder="Enter your first name example 'john'"
 										value="${user.firstname}" data-error="first name should not be blank"  required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -63,7 +65,7 @@
 									Name</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="inputlname"
-										name="lname" placeholder="Enter your last name example 'Doe'"
+										name="lastname" placeholder="Enter your last name example 'Doe'"
 										value="${user.lastname}" data-error="last name should not be blank" required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
@@ -86,7 +88,7 @@
 								<label  class="col-sm-2 control-label"><span class="text-danger">*</span> Password</label>
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="inputPassword"
-										value="${user.password}" placeholder="1@Mypass" name="pass"
+										value="${user.password}" placeholder="1@Mypass" name="password"
 										${(requestScope.addrslist ne null) ? 'readonly' : ''} data-minlength="6" maxlength="15"  required>
 										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 										<div class="help-block with-errors"></div>
@@ -113,7 +115,7 @@
 										<div class="help-block with-errors"></div>
 								</div>
 							</div>
-							<fmt:formatDate value="${user.dob}" pattern="yyyy-MM-dd"
+							<fmt:formatDate value="${user.dob}" pattern="MM/dd/yyyy"
 								var="date" />
 
 							<div class="form-group has-feedback">
@@ -139,7 +141,7 @@
 									<ul id="media-list" class="clearfix">
 										<li class="myupload"><span><i class="fa fa-plus"
 												aria-hidden="true"></i><input type="file" click-type="type2"
-												id="picupload" class="picupload" name="img" onchange="checkImage()" multiple></span></li>
+												id="picupload" class="picupload" name="userImagessdf" onchange="checkImage()" multiple></span></li>
 									</ul>		
 									<div id="fluploadmsg" class="help-block with-errors"></div>						
 								</div>
@@ -157,7 +159,7 @@
 										<c:forEach items="${requestScope.tech}" var="technologies">
 
 											<option value="${technologies.idtech}"
-												${(user.tech eq technologies.idtech)?'selected':'' }>
+												${(user.tech.idtech eq technologies.idtech)?'selected':'' }>
 												<c:out value="${technologies.tech}" />
 											</option>
 
@@ -200,12 +202,12 @@
 												<c:forEach items="${requestScope.lang}" var="languages">
 		
 													<label class="checkbox-inline"> <input
-														type="checkbox" name="lang" data-error="please check on languages you know"
+														type="checkbox" name="languages" data-error="please check on languages you know"
 														value="<c:out value="${languages.idlang}"  ></c:out>"
-										                 <c:forEach  var="lang" items="${requestScope.languages}">
+										                 <c:forEach  var="lang" items="${user.languages}">
 		<%-- 								                 <c:out value="'${(languages.idlang eq lang.idlangmaster)? 'checked':''}'"></c:out> --%>
 															
-															<c:if test="${languages.idlang == lang.idlangmaster}">  
+															<c:if test="${languages.idlang == lang.idlang}">  
 		   													<c:out value="checked"></c:out> 
 															 </c:if> 
 										                 </c:forEach> data-validate="false" onchange="validateCheck()" >
@@ -230,8 +232,9 @@
 													<div class="recordset">
 														<div class="fieldRow clearfix">
 															<div class="panel-body" id="pbody">
-															<c:if test="${requestScope.addrslist ne null}">
-															<input type="hidden" name="idaddress" id="id_idaddress_1_" value="x">
+															${user.getAddressList().size()}
+															<c:if test="${user.getAddressList() ne null}">
+															<input type="hidden" class="ad_id" name="AddressList[1].idadress" id="id_idaddress_1_" value="">
 															</c:if>
 																
 																<div class="form-group  has-feedback">
@@ -239,7 +242,7 @@
 																		line 1</label>
 																	<div class="col-sm-10">
 																		<textarea rows="3" class="dynmc-input form-control"
-																			name="addressline1" id="id_address1_1_" maxlength="100"  required></textarea>
+																			name="AddressList[1].addressline1"  id="id_address1_1_" maxlength="100"  required="true"></textarea>
 																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																			<div class="help-block with-errors"></div>
 																	</div>
@@ -249,7 +252,7 @@
 																		line 2</label>
 																	<div class="col-sm-10">
 																		<textarea rows="3" class="form-control" maxlength="100" 
-																			name="addressline2" id="id_address2_1_"></textarea>
+																			name="AddressList[1].addressline2"  id="id_address2_1_"></textarea>
 																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																			<div class="help-block with-errors"></div>
 																	</div>
@@ -260,7 +263,7 @@
 																		class="col-sm-2 control-label">pin</label>
 																	<div class="col-sm-10">
 																		<input type="text" class="dynmc-input only-number form-control"
-																			placeholder="382481" name="pin" id="id_pin_1_" data-minlength="6"  maxlength="6" data-error="first name should not be blank"  required>
+																			placeholder="382481" name="AddressList[1].pin" id="id_pin_1_"  data-minlength="6"  maxlength="6" data-error="first name should not be blank"  required="true"/>
 																			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																			<div class="help-block with-errors"></div>
 																	</div>
@@ -271,8 +274,8 @@
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">city</label>
 																	<div class="col-sm-10">
-																		<select class="dynmc-input form-control" name="city"
-																			id="id_city_1_" required>
+																		<select class="dynmc-input form-control" name="AddressList[1].city"
+																			id="id_city_1_" required="true">
 																			<option value="">none</option>
 																			<option>Ahmedabad</option>
 																			<option>jaipur</option>
@@ -286,8 +289,8 @@
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">state</label>
 																	<div class="col-sm-10">
-																		<select class="dynmc-input form-control" name="state"
-																			id="id_state_1_" required>
+																		<select class="dynmc-input form-control"   name="AddressList[1].state"
+																			id="id_state_1_" required="true">
 																			<option value="">none</option>
 																			<option>gujarat</option>
 																			<option>rajasthan</option>
@@ -300,8 +303,8 @@
 																	<label for="inputPassword3"
 																		class="col-sm-2 control-label">country</label>
 																	<div class="col-sm-10" >
-																		<select class="dynmc-input form-control" name="country"
-																			id="id_country_1_" required>
+																		<select class="dynmc-input form-control" name="AddressList[1].country"
+																			id="id_country_1_" required="true">
 																			<option value="">none</option>
 																			<option>india</option>
 																		</select>
@@ -341,7 +344,7 @@
 									<button type="submit" id="mybutton"     class="btn btn-primary">Sign Up</button>
 								</c:when>
 								<c:otherwise>
-									<button type="submit" id="mybutton" class="btn btn-primary" onclick='$("form").attr("action","UpdateServ?iduser=<c:out value="${user.iduser}"></c:out>")'>Update</button>
+									<button type="submit" id="mybutton" class="btn btn-primary" onclick='$("form").attr("action","?iduser=<c:out value="${user.iduser}"></c:out>")'>Update</button>
 								</c:otherwise>
 								</c:choose>
 								</div>
@@ -355,6 +358,8 @@
 			</div>
 		</div>
 	</div>
+	
+	
 		
 <!-- 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
@@ -370,13 +375,14 @@
 	<script src="${pageContext.request.contextPath}/js/validate-email.js"></script>
 	<script src="${pageContext.request.contextPath}/js/myvalidation.js"></script>
 	<script src="${pageContext.request.contextPath}/js/fileupload.js"></script>
-	<script type="text/javascript">
+		<script type="text/javascript">
 	$(document).ready(function(){
 	var plusbtn = document.getElementById("btnPlus");
 
-	<c:if test="${requestScope.addrslist ne null}">
+   <c:if test="${user.getAddressList() ne null}">
+   <c:if test="${user.getAddressList().size() ne 0}">
 	<c:set var="i" value="0"></c:set>
-	  <c:forEach  var="adrs" items="${requestScope.addrslist}">
+	  <c:forEach  var="adrs" items="${user.getAddressList()}">
  	    plusbtn.click();
  	    var idaddress = "<c:out value='${adrs.idadress}'></c:out>";
 		var address1 = "<c:out value='${adrs.addressline1}'></c:out>";
@@ -385,13 +391,13 @@
 		var city = "<c:out value='${adrs.city}'></c:out>";
 		var state = "<c:out value='${adrs.state}'></c:out>";
 		var country = "<c:out value='${adrs.country}'></c:out>";
-		var idaddrselement = document.getElementById("id_idaddress_"+ <c:out value='${i+1}'></c:out>+"_");
-		var addrselement1 = document.getElementById("id_address1_" + <c:out value='${i+1}'></c:out>+ "_");
-		var addrselement2 = document.getElementById("id_address2_" +  <c:out value='${i+1}'></c:out> + "_");
-		var pinelement = document.getElementById("id_pin_" +  <c:out value='${i+1}'></c:out>+ "_");
-		var cityelement = document.getElementById("id_city_" +  <c:out value='${i+1}'></c:out> + "_");
-		var stateselement = document.getElementById("id_state_" + <c:out value='${i+1}'></c:out>+ "_");
-		var countryelement = document.getElementById("id_country_" +  <c:out value='${i+1}'></c:out> + "_");
+		var idaddrselement = document.getElementById("id_idaddress_"+ <c:out value='${i}'></c:out>+"_");
+		var addrselement1 = document.getElementById("id_address1_" + <c:out value='${i}'></c:out>+ "_");
+		var addrselement2 = document.getElementById("id_address2_" +  <c:out value='${i}'></c:out> + "_");
+		var pinelement = document.getElementById("id_pin_" +  <c:out value='${i}'></c:out>+ "_");
+		var cityelement = document.getElementById("id_city_" +  <c:out value='${i}'></c:out> + "_");
+		var stateselement = document.getElementById("id_state_" + <c:out value='${i}'></c:out>+ "_");
+		var countryelement = document.getElementById("id_country_" +  <c:out value='${i}'></c:out> + "_");
 		idaddrselement.value = idaddress;
 		addrselement1.innerHTML = address1;
 		addrselement2.innerHTML = address2;
@@ -401,6 +407,7 @@
 		countryelement.value = country;
 		<c:set var="i" value="${i+1}"></c:set>
 		</c:forEach>
+		</c:if>
 		</c:if>
 		<c:if test="${requestScope.imglist ne null}">
 		  <c:forEach  var="userImage" items="${requestScope.imglist}">
@@ -429,6 +436,14 @@
 
 	</c:forEach>
 	</c:if>
+
+	$(document).on('click','.minusbtn',function(){
+		//var hidden = $(this).next().find("input:hidden")[0];
+		//$("#czContainer").append($(hidden).val("-1"))
+		//console.log($(hidden));
+	
+		
+	});
 	});
 	<c:if test="${pageContext.request.servletPath eq '/UpdateProfile.jsp'}">
 	var bool= false;

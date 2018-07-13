@@ -44,7 +44,7 @@ var docheck = true;
 	}
 	
 	function determineCheck(){
-		var checkboxes = document.getElementsByName("lang");
+		var checkboxes = document.getElementsByName("languages");
 		var flag = false;
 		for(var i=0;i<checkboxes.length;i++){
 			if(checkboxes[i].checked == true){
@@ -88,7 +88,7 @@ var docheck = true;
      });
 
      	$('.datepicker').datepicker({
-     		format: 'yyyy-mm-dd',
+     		format: 'mm/dd/yyyy',
      		endDate: '+0d'
      	});
 	$("#myform").on("input",".only-number",function(){

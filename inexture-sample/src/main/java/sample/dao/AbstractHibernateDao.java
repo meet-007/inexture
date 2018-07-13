@@ -14,6 +14,12 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 	@Autowired
 	SessionFactory sessionFactory;
 
+
+	public void clear() {
+		getCurrentSession().clear();
+
+	}
+
 	public void create(T entity) {
 		getCurrentSession().persist(entity);
 	}
@@ -29,7 +35,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
 	public List<T> findAll() {
 		final List<T> mylist = getCurrentSession().createQuery("from " + clazz.getSimpleName()).list();
-		//System.out.println("###################################################"+clazz.getSimpleName());
+		// System.out.println("###################################################"+clazz.getSimpleName());
 		return mylist;
 	}
 
@@ -37,10 +43,18 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 		return getCurrentSession().get(clazz, id);
 	}
 
+	public void flush() {
+		getCurrentSession().flush();
+
+	}
+
 	protected final Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
+	public Serializable save(T entity) {
+		return getCurrentSession().save(entity);
+	}
 
 	public void saveOrUpdate(T entity) {
 		getCurrentSession().saveOrUpdate(entity);
@@ -49,4 +63,5 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 	public final void setClazz(Class<T> clazzToSet) {
 		this.clazz = clazzToSet;
 	}
+
 }
