@@ -50,7 +50,7 @@
 					<li><a href="#">Separated link</a></li>
 					<li><a href="#">One more separated link</a></li>
 				</ul></li>
-			<li><a href="ChangePass.jsp">Change Password</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/ChangePass">Change Password</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/logout">logout</a><br /></li>
 			<li><a href="https://twitter.com/maridlcrmn">Follow me</a></li>
 		</ul>

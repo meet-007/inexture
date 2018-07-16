@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import sample.dao.GenericHibernateDao;
 import sample.dao.UserDao;
 import sample.models.Address;
 import sample.models.User;
+import sample.models.UserImages;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -28,7 +30,10 @@ public class UserServiceImp implements UserService {
 	UserDao userDao;
 	@Autowired
 	GenericHibernateDao<Address> addressDao;
-
+	@Autowired
+	GenericHibernateDao<UserImages> imageDao;
+	@Autowired
+	HttpSession session;
 
 	@Override
 	@Transactional
@@ -59,7 +64,21 @@ public class UserServiceImp implements UserService {
 				addressDao.save(address);
 			}
 		}
+		if (user.getUserImages() != null) {
+			for (final UserImages image : user.getUserImages()) {
+				image.setIduser(user);
+				imageDao.save(image);
+			}
+		}
 
+	}
+
+	@Override
+	@Transactional
+	public boolean delete(long id) {
+		// TODO Auto-generated method stub
+		userDao.setClazz(User.class);
+		return userDao.deleteById(id);
 	}
 
 	@Override
@@ -70,10 +89,6 @@ public class UserServiceImp implements UserService {
 		return userDao.findAll();
 	}
 
-
-
-
-
 	@Override
 	@Transactional
 	public User get(long id) {
@@ -83,7 +98,8 @@ public class UserServiceImp implements UserService {
 		final Set<Address> addressSet = new HashSet<Address>(user.getAddressList());
 		final List<Address> addresslist = new ArrayList<Address>(addressSet);
 		user.setAddressList(addresslist);
-		System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddd" + addressSet.size());
+		// System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+		// + addressSet.size());
 
 		return user;
 
@@ -131,6 +147,33 @@ public class UserServiceImp implements UserService {
 					adrs.setUser(user);
 					addressDao.saveOrUpdate(adrs);
 				}
+			}
+		}
+		if (user.getUserImages().size() > 0) {
+			for (final UserImages image : user.getUserImages()) {
+				if (image.getIduserImages() != null) {
+					imageDao.delete(image);
+				}
+			}
+		}
+	}
+
+	@Override
+	@Transactional
+	public void updatePass(String email, String password, String newPass) {
+		// TODO Auto-generated method stub
+		User user = null;
+		if (email == null) {
+			user = (User) session.getAttribute("userObject");
+			if (user.getPassword().equals(password)) {
+				user.setPassword(newPass);
+				userDao.saveOrUpdate(user);
+			}
+		} else {
+			if (email.equals(user.getEmail())) {
+				user = userDao.getUser(email);
+				user.setPassword(password);
+				userDao.saveOrUpdate(user);
 			}
 		}
 

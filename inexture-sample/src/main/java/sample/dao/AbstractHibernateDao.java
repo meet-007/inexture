@@ -3,6 +3,8 @@ package sample.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,20 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 		getCurrentSession().persist(entity);
 	}
 
-	public void delete(T entity) {
-		getCurrentSession().delete(entity);
+	public boolean delete(T entity) {
+		try {
+			getCurrentSession().delete(entity);
+			return true;
+		}catch (final EntityNotFoundException e) {
+			// TODO: handle exception
+			return false;
+		}
+
 	}
 
-	public void deleteById(long entityId) {
+	public boolean deleteById(long entityId) {
 		final T entity = findOne(entityId);
-		delete(entity);
+		return delete(entity);
 	}
 
 	public List<T> findAll() {

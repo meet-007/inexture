@@ -64,13 +64,13 @@
 									class="btn btn-lg btn-primary btn-block">Sign in</button>
 								<div>
 									<a href="ShowRegServ">Create account</a> or <a
-										href="ForgotPassword.jsp">forgot password</a>
+										href="ForgotPassword">forgot password</a>
 								</div>
 							</c:when>
 							<c:otherwise>
 								<button type="submit" name="go"
 									class="btn btn-lg btn-primary btn-block"
-									onclick='document.myform.action="ForgotPassServ"'>Update</button>
+									onclick='document.myform.action="${pageContext.request.contextPath}/user/forgotpass"'>Update</button>
 							</c:otherwise>
 						</c:choose>
 				</form>

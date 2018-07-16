@@ -61,7 +61,7 @@
 							<li><a href="blog-single.html">blog post</a></li>
 						</ul>
 					</li>
-					<li><a href="user/login">Login</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/login">Login</a></li>
 				</ul>
 				<!-- /Main navigation -->
 			</div>

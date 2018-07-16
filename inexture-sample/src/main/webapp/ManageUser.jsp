@@ -7,21 +7,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script src="js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
 	function getData(httpreq) {
 		document.getElementById("demo").innerHTML = httpreq.responseText;
 	}
-	$(document)
-			.ready(
-					function() {
-						$(".btn")
-								.click(
-										function() {
+	$(document).ready(function() 
+			{
+		$(".btn").click(function()
+				{
 											var id = $(this).attr("id");
 											var row = $(this);
 											var xhttp = new XMLHttpRequest();
-											xhttp.open("GET","DeleteUserServ?iduser="+ id, true);
+											xhttp.open("DELETE","${pageContext.request.contextPath}/user/Delete/"+ id, true);
 											xhttp.send();
 											xhttp.onreadystatechange = function() {
 												if (this.readyState == 4
@@ -29,6 +27,7 @@
 													// getData(xhttp);
 													var obj = xhttp.responseText;
 													var jobj = JSON.parse(obj);
+													console.log(jobj);
 													if (jobj.bool === '0') {
 														document.getElementById("demo").innerHTML = JSON.stringify(jobj.result);
 														$(row).parents("tr")	.hide();
@@ -103,7 +102,7 @@
 		</div>
 	</div>
 	</div>
-	<script type="text/javascript" src="js/paginathing.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/paginathing.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$('.table tbody').paginathing({

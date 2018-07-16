@@ -22,7 +22,6 @@
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/service/interfaces/AddressService.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/services/UserService.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/dao/AbstractHibernateDao.java
-/home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/controller/HomeController.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/service/impl/TechServImpl.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/util/ResetRegForm.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/services/UserServiceImp.java
@@ -58,6 +57,7 @@
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/controller/UserPropertyEditor.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/dao/interfaces/RoleDao.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/service/impl/UserServiceImp.java
+/home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/controller/ExceptionHandleing.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/models/User.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/controller/UserController.java
 /home/inexture/Projects/inexture/inexture-sample/src/main/java/sample/controller/AdminController.java

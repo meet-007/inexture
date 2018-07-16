@@ -13,7 +13,9 @@ import sample.models.User;
 public interface UserService {
 	ModelAndView authenticate(String email,String password);
 	void create(User user);
+	boolean delete(long id);
 	List<User> findAll();
 	User get(long id);
 	void update(User user,long iduser);
+	void updatePass(String email,String password,String newPass);
 }

@@ -15,17 +15,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class User.
  */
-//@NamedQuery(query="update User set firstname=:firstname,lastname=:lastname,mobile:mobile,gender:gender,dob:dob,role:role,tech:tech,")
-@NamedQuery(query = "from User where email=:email and password=:password", name = "get_user_frm_email")
+@NamedQuery(query = "from User where email=:email", name = "get_user_frm_email")
+@NamedQuery(query = "from User where email=:email and password=:password", name = "get_user_frm_email_pass")
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -37,45 +42,62 @@ public class User implements Serializable {
 	/** The iduser. */
 	private Long iduser;
 
+	@NotNull(message="{firstname.null.errormsg}")
+	@Size(min=2,max=100 ,message="{firstname.length.errormsg}")
 	/** The firstname. */
 	private String firstname;
 
+	@NotNull(message="{lastname.null.errormsg}")
+	@Size(min=2,max=100 ,message="{lastname.length.errormsg}")
 	/** The lastname. */
 	private String lastname;
 
+	@NotNull(message="{email.null.errormsg}")
+	@Size(max=80,message="{email.length.errormsg}")
+	@Email(message="{email.format.errormsg}")
 	/** The email. */
 	private String email;
 
+	@NotNull(message="{password.null.errormsg}")
+	@Size(min=6,max=15,message="{password.length.errormsg}")
 	/** The password. */
 	private String password;
 
+	@NotNull(message="{mobile.null.errormsg}")
 	/** The mobile. */
 	private Long mobile;
 
+	@NotNull
 	/** The gender. */
 	private Integer gender;
 
+	@NotNull(message="{dob.null.errormsg}")
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	/** The dob. */
 	private Date dob;
 
 	@ManyToOne
+	@NonNull
 	/** The role. */
 	private Role role;
 
 	@ManyToOne
+	@NotNull(message="{tech.null.errormsg}")
 	/** The tech. */
 	private TechMaster tech;
 
 	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER,targetEntity=Address.class)
-	//	@Cascade(CascadeType.ALL)
+	@Cascade(CascadeType.DELETE)
+	@Valid
 	private List<Address> addressList;
 
 	@ManyToMany(fetch=FetchType.EAGER)
+	@NotNull(message="{language.null.errormsg}")
 	private Set<LangMaster> languages;
-	@Transient
-	@OneToMany(mappedBy = "iduser")
-	@Cascade(CascadeType.ALL)
-	private List<UserImages> userImages;
+	//@Transient
+	@OneToMany(mappedBy = "iduser",fetch=FetchType.EAGER)
+	@Cascade(CascadeType.DELETE)
+	private Set<UserImages> userImages;
 
 	// @ElementCollection
 	// private List<MultipartFile> userImages;
@@ -132,7 +154,7 @@ public class User implements Serializable {
 
 
 
-	public List<UserImages> getUserImages() {
+	public Set<UserImages> getUserImages() {
 		return userImages;
 	}
 
@@ -184,7 +206,7 @@ public class User implements Serializable {
 		this.tech = tech;
 	}
 
-	public void setUserImages(List<UserImages> userImages) {
+	public void setUserImages(Set<UserImages> userImages) {
 		this.userImages = userImages;
 	}
 

@@ -25,7 +25,7 @@
 							<h1 class="white-text">We Are Creative Agency</h1>
 							<p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
 							</p>
-							<button class="white-btn"  onclick="window.location='ShowRegServ'">Get Started!</button>
+							<button class="white-btn"  onclick="window.location='user/register'">Get Started!</button>
 							<button class="main-btn">Learn more</button>
 						</div>
 					</div>

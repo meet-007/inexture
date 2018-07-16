@@ -11,15 +11,18 @@
 </head>
 <body>
 <div class="container">
-<h1>asdfasdf</h1>
+
 
 <c:choose>
 <c:when test="${pageContext.response.getStatus() == 500}">
 <h1 class="text-danger">Error: <%=exception.getMessage() %></h1>
+Hi There, error code is  <c:out value="${pageContext.response.getStatus()}" ></c:out><br>
+Please go to ${(empty sessionScope)? '<a href="/inexture-sample">home page</a>' : '<a href="/inexture-sample/user/user/home">home page</a>'}
+
 </c:when>
 <c:otherwise>
 Hi There, error code is  <c:out value="${pageContext.response.getStatus()}" ></c:out><br>
-Please go to ${(empty sessionScope)? '<a href="/inexture-sample">home page</a>' : '<a href="/inexture-sample/UserHome.jsp">home page</a>'}
+Please go to ${(empty sessionScope)? '<a href="/inexture-sample">home page</a>' : '<a href="/inexture-sample/user/user/home">home page</a>'}
 </c:otherwise>
 </c:choose>
 </div>

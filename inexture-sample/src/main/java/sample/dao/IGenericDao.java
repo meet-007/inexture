@@ -9,9 +9,9 @@ public interface IGenericDao<T extends Serializable> {
 
 	void create(final T entity);
 
-	void delete(final T entity);
+	boolean delete(final T entity);
 
-	void deleteById(final long entityId);
+	boolean deleteById(final long entityId);
 
 	List<T> findAll();
 

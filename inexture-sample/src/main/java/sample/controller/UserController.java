@@ -4,11 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -39,11 +43,39 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@RequestMapping(value = "/changepass", method = RequestMethod.POST)
+	String changePass(@RequestParam("oldpass") String oldPassword, @RequestParam("newpass") String newPassword,
+			Model model) {
+		userService.updatePass(null, oldPassword, newPassword);
+		model.addAttribute("rspmsg2", "password updated");
+		return "redirect:ChangePass";
+	}
+
+	@RequestMapping(value = "/Delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String deleteUser(@PathVariable int id) {
+
+		return userService.delete(id) ? "{\"result\":\"" + "success" + "\",\"bool\":\"0\"}"
+				: "{\"result\":\"" + "not deleted" + "\",\"bool\":\"1\"}";
+	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	String doRegister(@ModelAttribute("user") User user) {
-		// System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"+user.getUserImages().size());
+	String doRegister(@Valid @ModelAttribute("user") User user, BindingResult error, Model model) {
+		if (error.hasErrors()) {
+			model.addAttribute("tech", techService.findAll());
+			model.addAttribute("lang", langService.findAll());
+			model.addAttribute("user", user);
+			return "Registration";
+		}
 		userService.create(user);
 		return "redirect:/user/login";
+	}
+
+	@RequestMapping(value = "/forgotpass", method = RequestMethod.POST)
+	String forgotPass(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+		userService.updatePass(email, password, null);
+		model.addAttribute("rspmsg", "password updated");
+		return "ForgotPassword";
 	}
 
 	@InitBinder
@@ -56,10 +88,8 @@ public class UserController {
 		dateFormat1.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat1, true));
-
-		// webDataBinder.registerCustomEditor(User.class,new UserPropertyEditor());
-		// webDataBinder.registerCustomEditor(UserImages.class,"userImages",new
-		// UserImageProeryEditor());
+		//webDataBinder.registerCustomEditor(UserImages.class, new UserImageProeryEditor());
+		//webDataBinder.setConversionService(conversionService);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -67,7 +97,7 @@ public class UserController {
 		return "Login";
 	}
 
-	@RequestMapping(value="/logout" , method = RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	String logout(SessionStatus status) {
 		status.setComplete();
 		return "redirect:login";
@@ -77,26 +107,19 @@ public class UserController {
 	String showRegistrationForm(Model model) {
 		model.addAttribute("tech", techService.findAll());
 		model.addAttribute("lang", langService.findAll());
-		final User user = new User();
-		// user.setAddressList(new arraylist);
-		model.addAttribute("user", new User());
-		// model.addAttribute("addresses", new
-		// AutoPopulatingList<Address>(Address.class));
+		if (!model.containsAttribute("user")) {
+			final User user = new User();
+			model.addAttribute("user", new User());
+		}
 		return "Registration";
 	}
 
-	@RequestMapping(value = "/registerftl", method = RequestMethod.GET)
-	String showRegistrationFormFtl(Model model) {
-
-		return "registration";
-	}
-
 	@RequestMapping(value = "/UpdateProfile", method = RequestMethod.GET)
-	String showUpdateProfilePage(Model model,@RequestParam(value="iduser",required=false) Long idUser) {
+	String showUpdateProfilePage(Model model, @RequestParam(value = "iduser", required = false) Long idUser) {
 		model.addAttribute("tech", techService.findAll());
 		model.addAttribute("lang", langService.findAll());
-		if(idUser!=null) {
-			model.addAttribute("user",userService.get(idUser));
+		if (idUser != null) {
+			model.addAttribute("user", userService.get(idUser));
 		}
 		return "UpdateProfile";
 	}
@@ -108,20 +131,16 @@ public class UserController {
 		final User sessionUser = (User) session.getAttribute("userObject");
 		final ModelAndView mv = new ModelAndView();
 		if (user.getIduser() == sessionUser.getIduser()) {
-			//session.removeAttribute("userObject");
-			// session.setAttribute("userObject", userService.get(iduser));
-			//status.setComplete();
 			mv.addObject("userObject", userService.get(iduser));
 			mv.setViewName("redirect:UpdateProfile");
-		}else {
-			mv.setViewName("redirect:UpdateProfile?iduser="+iduser);
+		} else {
+			mv.setViewName("redirect:UpdateProfile?iduser=" + iduser);
 		}
 		return mv;
 	}
 
 	@RequestMapping(value = "/{role}/home", method = RequestMethod.GET)
 	String userHome(@PathVariable String role, @SessionAttribute("userObject") User user) {
-		// System.out.println("sdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+user.getAddressList().size());
 		if (role.equals("user")) {
 			return "UserHome";
 		}

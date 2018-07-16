@@ -1,5 +1,7 @@
 package sample.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,15 +10,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.web.multipart.MultipartFile;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class UserImages.
  */
 @Entity
 @Table(name="userimages")
-public class UserImages {
+public class UserImages  implements Serializable{
 
 	/** Logger for this class. */
 
@@ -32,7 +32,7 @@ public class UserImages {
 
 	@Lob
 	/** The image. */
-	private MultipartFile image;
+	private byte[] image;
 
 	public User getIduser() {
 		return iduser;
@@ -44,7 +44,8 @@ public class UserImages {
 
 
 
-	public MultipartFile getImage() {
+
+	public byte[] getImage() {
 		return image;
 	}
 
@@ -56,9 +57,10 @@ public class UserImages {
 		this.iduserImages = iduserImages;
 	}
 
-	public void setImage(MultipartFile image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
+
 
 
 

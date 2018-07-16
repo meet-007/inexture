@@ -6,11 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <jsp:include page="header-footer/header.jsp"></jsp:include>
 <jsp:include page="commonlogin.jsp"></jsp:include>
-<script src="js/login.js"></script>
-<script src="js/myjs.js"></script>
+<script src="${pageContext.request.contextPath}/js/login.js"></script>
+<script src="${pageContext.request.contextPath}/js/myjs.js"></script>
 </body>
 </html>

@@ -3,10 +3,12 @@
  */
 $(function() {
     var names = [];
+    var imgid=0;
     $('body').on('change', '.picupload', function(event) {
         var getAttr = $(this).attr('click-type');
         var files = event.target.files;
         var output = document.getElementById("media-list");
+ 
         var z = 0
         if (getAttr == 'type1') {
 
@@ -116,7 +118,8 @@ $(function() {
     		 }else{
     			 var id = $(this).attr('id');
         		 
-        		 var div = "<input type='hidden' name='delimg' value='"+id+"'>";
+        		 var div = "<input type='hidden' name='userImages["+imgid+"].iduserImages' value='"+id+"'>";
+        		 imgid=imgid+1;
         		 $("#media-list").prepend(div);
         		 $(this).parent().parent().parent().remove();
      	        var removeItem = $(this).attr('data-id');

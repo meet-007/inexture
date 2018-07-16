@@ -1,5 +1,5 @@
 service/impl/UserServiceImp.class
-sample/controller/HomeController.class
+sample/controller/AdminController.class
 dao/interfaces/RoleDao.class
 sample/dao/IGenericDao.class
 controller/ShowAllUser.class
@@ -16,10 +16,12 @@ dao/impl/LangDaoImpl.class
 service/impl/AddressServiceImpl.class
 model/TechMaster.class
 dao/impl/RoleDaoImpl.class
+sample/services/UserService.class
 dao/interfaces/AddressDao.class
 dao/interfaces/TechDao.class
 dao/interfaces/LangTrans.class
 model/UserImages.class
+sample/controller/UserImageProeryEditor.class
 service/impl/LangServImpl.class
 controller/Logout.class
 dao/impl/LangTransImpl.class
@@ -30,15 +32,18 @@ service/interfaces/UserService.class
 controller/ForgotPassServ.class
 service/interfaces/LangServ.class
 sample/controller/UserController.class
+sample/services/UserServiceImp.class
 controller/LoginFilter.class
 model/LangMaster.class
 controller/DeleteUserServ.class
 controller/RegUser.class
 sample/models/TechMaster.class
 controller/UpdateProfile.class
+sample/controller/LangPropertyEditor.class
 service/interfaces/TechServ.class
 sample/models/User.class
 util/ImageUtil.class
+sample/controller/TechPropertyEditor.class
 dao/impl/UserDaoImpl.class
 sample/dao/GenericHibernateDao.class
 sample/config/RootConfig.class
@@ -46,8 +51,11 @@ model/LangTransact.class
 sample/config/WebConfig.class
 validations/JavaScriptEnableExcepion.class
 sample/models/LangTransact.class
+sample/controller/ExceptionHandleing.class
 service/impl/TechServImpl.class
+sample/controller/UserPropertyEditor.class
 controller/BackBtnDisable.class
+sample/dao/UserDao.class
 sample/services/LangServ.class
 sample/config/WebAppInitializer.class
 controller/ShowRegServ.class
@@ -70,3 +78,4 @@ sample/services/TechServImpl.class
 dao/impl/AddressDaoImpl.class
 model/User.class
 dao/impl/TechDaoImpl.class
+sample/dao/UserDaoImpl.class
