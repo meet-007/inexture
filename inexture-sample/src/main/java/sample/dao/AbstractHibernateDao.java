@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +25,17 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
 	public void create(T entity) {
 		getCurrentSession().persist(entity);
+	}
+
+	public List<T> createQuery(String name,Object ...parameters) {
+		final Query query = getCurrentSession().createNamedQuery(name);
+		int i=0;
+		for(final Object pObject:parameters) {
+			query.setParameter(i, pObject);
+			i++;
+		}
+		return query.getResultList();
+
 	}
 
 	public boolean delete(T entity) {

@@ -8,12 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class UserImages.
  */
+@NamedQuery(query="from UserImages where iduser=?0" ,name="select_image_frm_user")
 @Entity
 @Table(name="userimages")
 public class UserImages  implements Serializable{

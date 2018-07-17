@@ -95,9 +95,9 @@ public class User implements Serializable {
 	@NotNull(message="{language.null.errormsg}")
 	private Set<LangMaster> languages;
 	//@Transient
-	@OneToMany(mappedBy = "iduser",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "iduser",fetch=FetchType.LAZY)
 	@Cascade(CascadeType.DELETE)
-	private Set<UserImages> userImages;
+	private List<UserImages> userImages;
 
 	// @ElementCollection
 	// private List<MultipartFile> userImages;
@@ -154,7 +154,11 @@ public class User implements Serializable {
 
 
 
-	public Set<UserImages> getUserImages() {
+
+
+
+
+	public List<UserImages> getUserImages() {
 		return userImages;
 	}
 
@@ -206,8 +210,12 @@ public class User implements Serializable {
 		this.tech = tech;
 	}
 
-	public void setUserImages(Set<UserImages> userImages) {
+	public void setUserImages(List<UserImages> userImages) {
 		this.userImages = userImages;
 	}
+
+
+
+
 
 }

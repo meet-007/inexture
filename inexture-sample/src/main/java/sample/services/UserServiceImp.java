@@ -40,6 +40,8 @@ public class UserServiceImp implements UserService {
 	public ModelAndView authenticate(String email, String password) {
 		// TODO Auto-generated method stub
 		final User user = userDao.getUser(email, password);
+		final List<UserImages> imageList = imageDao.createQuery("select_image_frm_user", user);
+		user.setUserImages(imageList);
 		final ModelAndView modelAndView = new ModelAndView();
 		if (user == null) {
 			modelAndView.setViewName("redirect:/user/login");
@@ -66,8 +68,10 @@ public class UserServiceImp implements UserService {
 		}
 		if (user.getUserImages() != null) {
 			for (final UserImages image : user.getUserImages()) {
-				image.setIduser(user);
-				imageDao.save(image);
+				if (image.getImage().length != 0) {
+					image.setIduser(user);
+					imageDao.save(image);
+				}
 			}
 		}
 
@@ -98,6 +102,8 @@ public class UserServiceImp implements UserService {
 		final Set<Address> addressSet = new HashSet<Address>(user.getAddressList());
 		final List<Address> addresslist = new ArrayList<Address>(addressSet);
 		user.setAddressList(addresslist);
+		final List<UserImages> imageList = imageDao.createQuery("select_image_frm_user", user);
+		user.setUserImages(imageList);
 		// System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
 		// + addressSet.size());
 
@@ -107,7 +113,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	@Transactional
-	public void update(User user, long iduser) {
+	public void update(User user, long iduser, List<Long> deletedImages) {
 		// TODO Auto-generated method stub
 		userDao.setClazz(User.class);
 		final User dbuser = userDao.findOne(iduser);
@@ -149,11 +155,19 @@ public class UserServiceImp implements UserService {
 				}
 			}
 		}
-		if (user.getUserImages().size() > 0) {
+		if (deletedImages != null) {
+			for (final Long imageId : deletedImages) {
+				imageDao.setClazz(UserImages.class);
+				imageDao.deleteById(imageId);
+			}
+		}
+		if (user.getUserImages() != null) {
 			for (final UserImages image : user.getUserImages()) {
-				if (image.getIduserImages() != null) {
-					imageDao.delete(image);
+				if (image.getImage().length != 0) {
+					image.setIduser(user);
+					imageDao.save(image);
 				}
+
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package sample.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -126,8 +127,8 @@ public class UserController {
 
 	@RequestMapping(value = "/UpdateProfile", method = RequestMethod.POST)
 	ModelAndView showUpdateProfilePage(@ModelAttribute User user, @RequestParam("iduser") Long iduser,
-			HttpSession session, SessionStatus status) {
-		userService.update(user, iduser);
+			HttpSession session, SessionStatus status,@RequestParam(name="deletedImages",required=false) List<Long> deletedImages) {
+		userService.update(user, iduser,deletedImages);
 		final User sessionUser = (User) session.getAttribute("userObject");
 		final ModelAndView mv = new ModelAndView();
 		if (user.getIduser() == sessionUser.getIduser()) {

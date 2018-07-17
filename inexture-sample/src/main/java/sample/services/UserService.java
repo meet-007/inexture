@@ -16,6 +16,6 @@ public interface UserService {
 	boolean delete(long id);
 	List<User> findAll();
 	User get(long id);
-	void update(User user,long iduser);
+	void update(User user,long iduser,List<Long> deletedImages);
 	void updatePass(String email,String password,String newPass);
 }

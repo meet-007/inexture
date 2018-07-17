@@ -118,7 +118,7 @@ $(function() {
     		 }else{
     			 var id = $(this).attr('id');
         		 
-        		 var div = "<input type='hidden' name='userImages["+imgid+"].iduserImages' value='"+id+"'>";
+        		 var div = "<input type='hidden' name='deletedImages' value='"+id+"'>";
         		 imgid=imgid+1;
         		 $("#media-list").prepend(div);
         		 $(this).parent().parent().parent().remove();

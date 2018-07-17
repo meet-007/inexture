@@ -4,7 +4,6 @@
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="sample.models.UserImages"%>
 <%@page import="sample.models.Address"%>
 <%@page import="org.apache.commons.io.IOUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -462,7 +461,7 @@
 		
 		//${Hibernate.initialize(user.getUserImages())}
 		<c:if test="${user.userImages ne null}">
-		  <c:forEach  var="userImage" items="user.userImages">
+		  <c:forEach  var="userImage" items="${user.userImages}">
 	
  				var idimg = "<c:out value='${userImage.iduserImages}'></c:out>";
  				var iduser = "<c:out value='${userImage.iduser}'></c:out>";
