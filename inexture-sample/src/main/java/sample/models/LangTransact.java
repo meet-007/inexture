@@ -61,7 +61,7 @@ public class LangTransact {
 	public int getIdlangmaster() {
 		return idlangmaster;
 	}
-
+  
 	/**
 	 * Sets the idlangmaster.
 	 *

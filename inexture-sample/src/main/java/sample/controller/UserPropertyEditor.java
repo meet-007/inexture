@@ -4,7 +4,15 @@ import java.beans.PropertyEditorSupport;
 
 import sample.models.User;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserPropertyEditor.
+ */
 public class UserPropertyEditor extends PropertyEditorSupport{
+
+	/* (non-Javadoc)
+	 * @see java.beans.PropertyEditorSupport#getAsText()
+	 */
 	@Override
 	public String getAsText() {
 
@@ -12,8 +20,11 @@ public class UserPropertyEditor extends PropertyEditorSupport{
 		return Long.toString(user.getIduser());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
+	 */
 	@Override
-	public void setAsText(String text) {
+	public void setAsText(final String text) {
 		final User user = new User();
 		user.setIduser(Long.parseLong(text));
 		setValue(user);

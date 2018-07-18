@@ -26,36 +26,48 @@ import sample.models.UserImages;
 @Service
 public class UserServiceImp implements UserService {
 
+	/** The user dao. */
 	@Autowired
 	UserDao userDao;
+
+	/** The address dao. */
 	@Autowired
 	GenericHibernateDao<Address> addressDao;
+
+	/** The image dao. */
 	@Autowired
 	GenericHibernateDao<UserImages> imageDao;
+
+	/** The session. */
 	@Autowired
 	HttpSession session;
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#authenticate(java.lang.String, java.lang.String)
+	 */
 	@Override
 	@Transactional
-	public ModelAndView authenticate(String email, String password) {
+	public ModelAndView authenticate(final String email, final String password) {
 		// TODO Auto-generated method stub
 		final User user = userDao.getUser(email, password);
 		final List<UserImages> imageList = imageDao.createQuery("select_image_frm_user", user);
-		user.setUserImages(imageList);
 		final ModelAndView modelAndView = new ModelAndView();
 		if (user == null) {
 			modelAndView.setViewName("redirect:/user/login");
 		} else {
-
+			user.setUserImages(imageList);
 			modelAndView.addObject("userObject", user);
 			modelAndView.setViewName("redirect:/user/" + user.getRole().getRolename() + "/home");
 		}
 		return modelAndView;
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#create(sample.models.User)
+	 */
 	@Override
 	@Transactional
-	public void create(User user) {
+	public void create(final User user) {
 		// TODO Auto-generated method
 		userDao.setClazz(User.class);
 		final Long id = (Long) userDao.save(user);
@@ -77,14 +89,20 @@ public class UserServiceImp implements UserService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#delete(long)
+	 */
 	@Override
 	@Transactional
-	public boolean delete(long id) {
+	public boolean delete(final long id) {
 		// TODO Auto-generated method stub
 		userDao.setClazz(User.class);
 		return userDao.deleteById(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#findAll()
+	 */
 	@Override
 	@Transactional
 	public List<User> findAll() {
@@ -93,9 +111,12 @@ public class UserServiceImp implements UserService {
 		return userDao.findAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#get(long)
+	 */
 	@Override
 	@Transactional
-	public User get(long id) {
+	public User get(final long id) {
 		// TODO Auto-generated method stub
 		userDao.setClazz(User.class);
 		final User user = userDao.findOne(id);
@@ -111,9 +132,12 @@ public class UserServiceImp implements UserService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#update(sample.models.User, long, java.util.List)
+	 */
 	@Override
 	@Transactional
-	public void update(User user, long iduser, List<Long> deletedImages) {
+	public void update(final User user, final long iduser, final List<Long> deletedImages) {
 		// TODO Auto-generated method stub
 		userDao.setClazz(User.class);
 		final User dbuser = userDao.findOne(iduser);
@@ -131,7 +155,7 @@ public class UserServiceImp implements UserService {
 					if (user.getAddressList() != null) {
 						if (user.getAddressList().size() > 0) {
 							for (final Address address : useraddrslist) {
-								if (dbAddress.getIdadress() == address.getIdadress()) {
+								if (dbAddress.getIdadress().equals(address.getIdadress())) {
 									save = 1;
 									break;
 								}
@@ -172,9 +196,12 @@ public class UserServiceImp implements UserService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.services.UserService#updatePass(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	@Transactional
-	public void updatePass(String email, String password, String newPass) {
+	public void updatePass(final String email, final String password, final String newPass) {
 		// TODO Auto-generated method stub
 		User user = null;
 		if (email == null) {
@@ -183,12 +210,19 @@ public class UserServiceImp implements UserService {
 				user.setPassword(newPass);
 				userDao.saveOrUpdate(user);
 			}
+
 		} else {
-			if (email.equals(user.getEmail())) {
-				user = userDao.getUser(email);
-				user.setPassword(password);
-				userDao.saveOrUpdate(user);
+
+			user = userDao.getUser(email);
+			if (user != null) {
+				if (user.getEmail() != null) {
+					if (user.getEmail().equals(email)) {
+						user.setPassword(password);
+						userDao.saveOrUpdate(user);
+					}
+				}
 			}
+
 		}
 
 	}

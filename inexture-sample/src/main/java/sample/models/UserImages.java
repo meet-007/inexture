@@ -22,6 +22,12 @@ public class UserImages  implements Serializable{
 
 	/** Logger for this class. */
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/** The iduser images. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +38,25 @@ public class UserImages  implements Serializable{
 	@ManyToOne
 	private User iduser;
 
+	/** The image. */
 	@Lob
 	/** The image. */
 	private byte[] image;
 
+	/**
+	 * Gets the iduser.
+	 *
+	 * @return the iduser
+	 */
 	public User getIduser() {
 		return iduser;
 	}
 
+	/**
+	 * Gets the iduser images.
+	 *
+	 * @return the iduser images
+	 */
 	public Long getIduserImages() {
 		return iduserImages;
 	}
@@ -47,20 +64,40 @@ public class UserImages  implements Serializable{
 
 
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	public byte[] getImage() {
-		return image;
+		return image.clone();
 	}
 
-	public void setIduser(User iduser) {
+	/**
+	 * Sets the iduser.
+	 *
+	 * @param iduser the new iduser
+	 */
+	public void setIduser(final User iduser) {
 		this.iduser = iduser;
 	}
 
-	public void setIduserImages(Long iduserImages) {
+	/**
+	 * Sets the iduser images.
+	 *
+	 * @param iduserImages the new iduser images
+	 */
+	public void setIduserImages(final Long iduserImages) {
 		this.iduserImages = iduserImages;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	/**
+	 * Sets the image.
+	 *
+	 * @param image the new image
+	 */
+	public void setImage(final byte[] image) {
+		this.image = image.clone();
 	}
 
 

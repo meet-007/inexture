@@ -10,24 +10,48 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractHibernateDao.
+ *
+ * @param <T> the generic type
+ */
+@SuppressWarnings("PMD")
 public abstract class AbstractHibernateDao<T extends Serializable> {
 
+	/** The clazz. */
 	private Class<T> clazz;
 
+	/** The session factory. */
 	@Autowired
-	SessionFactory sessionFactory;
+	public SessionFactory sessionFactory;
 
 
+	/**
+	 * Clear.
+	 */
 	public void clear() {
 		getCurrentSession().clear();
 
 	}
 
-	public void create(T entity) {
+	/**
+	 * Creates the.
+	 *
+	 * @param entity the entity
+	 */
+	public void create(final T entity) {
 		getCurrentSession().persist(entity);
 	}
 
-	public List<T> createQuery(String name,Object ...parameters) {
+	/**
+	 * Creates the query.
+	 *
+	 * @param name the name
+	 * @param parameters the parameters
+	 * @return the list
+	 */
+	public List<T> createQuery(final String name,final Object ...parameters) {
 		final Query query = getCurrentSession().createNamedQuery(name);
 		int i=0;
 		for(final Object pObject:parameters) {
@@ -38,7 +62,13 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
 	}
 
-	public boolean delete(T entity) {
+	/**
+	 * Delete.
+	 *
+	 * @param entity the entity
+	 * @return true, if successful
+	 */
+	public boolean delete(final T entity) {
 		try {
 			getCurrentSession().delete(entity);
 			return true;
@@ -49,39 +79,79 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 
 	}
 
-	public boolean deleteById(long entityId) {
+	/**
+	 * Delete by id.
+	 *
+	 * @param entityId the entity id
+	 * @return true, if successful
+	 */
+	public boolean deleteById(final long entityId) {
 		final T entity = findOne(entityId);
 		return delete(entity);
 	}
 
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
 	public List<T> findAll() {
-		final List<T> mylist = getCurrentSession().createQuery("from " + clazz.getSimpleName()).list();
-		// System.out.println("###################################################"+clazz.getSimpleName());
-		return mylist;
+
+		return  getCurrentSession().createQuery("from " + clazz.getSimpleName()).list();
 	}
 
-	public T findOne(long id) {
+	/**
+	 * Find one.
+	 *
+	 * @param id the id
+	 * @return the t
+	 */
+	public T findOne(final long id) {
 		return getCurrentSession().get(clazz, id);
 	}
 
+	/**
+	 * Flush.
+	 */
 	public void flush() {
 		getCurrentSession().flush();
 
 	}
 
+	/**
+	 * Gets the current session.
+	 *
+	 * @return the current session
+	 */
 	protected final Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public Serializable save(T entity) {
+	/**
+	 * Save.
+	 *
+	 * @param entity the entity
+	 * @return the serializable
+	 */
+	public Serializable save(final T entity) {
 		return getCurrentSession().save(entity);
 	}
 
-	public void saveOrUpdate(T entity) {
+	/**
+	 * Save or update.
+	 *
+	 * @param entity the entity
+	 */
+	public void saveOrUpdate(final T entity) {
 		getCurrentSession().saveOrUpdate(entity);
 	}
 
-	public final void setClazz(Class<T> clazzToSet) {
+	/**
+	 * Sets the clazz.
+	 *
+	 * @param clazzToSet the new clazz
+	 */
+	public final void setClazz(final Class<T> clazzToSet) {
 		this.clazz = clazzToSet;
 	}
 

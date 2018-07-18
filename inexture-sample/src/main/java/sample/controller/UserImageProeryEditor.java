@@ -6,17 +6,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sample.models.UserImages;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserImageProeryEditor.
+ */
 public class UserImageProeryEditor implements org.springframework.core.convert.converter.Converter<MultipartFile, UserImages>{
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = LogManager.getLogger(UserImageProeryEditor.class.getName());
 
+	/* (non-Javadoc)
+	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
+	 */
 	@Override
-	public UserImages convert(MultipartFile source) {
+	public UserImages convert(final MultipartFile source) {
 		// TODO Auto-generated method stub
 		final UserImages uiImages = new UserImages();
 		try {
-			uiImages.setImage(source.getBytes());
+			uiImages.setImage(source.getBytes() );
 		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("convert(MultipartFile)", e); //$NON-NLS-1$
 		}
 		return uiImages;
 	}

@@ -120,13 +120,13 @@
 					<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
 				</configuration>
 				<executions>
-					<!-- <execution> -->
-					<!-- <id>analyze-compile</id> -->
-					<!-- <phase>compile</phase> -->
-					<!-- <goals> -->
-					<!-- <goal>check</goal> -->
-					<!-- </goals> -->
-					<!-- </execution> -->
+					<execution>
+						<id>analyze-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -157,15 +157,15 @@
 						<ruleset>newruleset.xml</ruleset>
 					</rulesets>
 				</configuration>
-				<!-- <executions> -->
-				<!-- <execution> -->
-				<!-- <id>pmd-check</id> -->
-				<!-- <phase>compile</phase> -->
-				<!-- <goals> -->
-				<!-- <goal>check</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- </executions> -->
+				<executions>
+					<execution>
+						<id>pmd-check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

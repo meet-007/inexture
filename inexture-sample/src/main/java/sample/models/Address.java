@@ -11,8 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.lang.NonNull;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class Address.
@@ -21,6 +19,11 @@ import org.springframework.lang.NonNull;
 @Table(name="address")
 public class Address implements Serializable {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** Logger for this class. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,101 +31,187 @@ public class Address implements Serializable {
 	private Long idadress;
 
 	/** The iduser. */
-	@NonNull
+
 	@ManyToOne(optional=false)
 	private User user;
 
-	@NotNull(message="{addressline1.null.errormsg}")
-	@Size(max=100,message="{addressline1.length.errormsg}")
+	/** The addressline 1. */
+	@NotNull
+	@Size(max=100)
 	/** The addressline 1. */
 	private String addressline1;
 
-	@NotNull(message="{addressline2.null.errormsg}")
-	@Size(max=100,message="{addressline2.length.errormsg}")
+	/** The addressline 2. */
+	@NotNull
+	@Size(max=100)
 	/** The addressline 2. */
 	private String addressline2;
 
-	@NotNull(message="{pin.null.errormsg}")
+	/** The pin. */
+	@NotNull
 	//@Size(min=6,max=6,message="pin.length.errormsg")
 	/** The pin. */
 	private Integer pin;
 
-	@NotNull(message="{city.null.errormsg}")
-	@Size(max=45,message="{city.length.errormsg}")
+	/** The city. */
+	@NotNull
+	@Size(max=45)
 	/** The city. */
 	private String city;
 
-	@NotNull(message="{state.null.errormsg}")
-	@Size(max=45,message="{state.length.errormsg}")
+	/** The state. */
+	@NotNull
+	@Size(max=45)
 	/** The state. */
 	private String state;
 
-	@NotNull(message="{country.null.errormsg}")
-	@Size(max=100,message="{country.length.errormsg}")
+	/** The country. */
+	@NotNull
+	@Size(max=100)
 	/** The country. */
 	private String country;
 
+	/**
+	 * Gets the addressline 1.
+	 *
+	 * @return the addressline 1
+	 */
 	public String getAddressline1() {
 		return addressline1;
 	}
 
+	/**
+	 * Gets the addressline 2.
+	 *
+	 * @return the addressline 2
+	 */
 	public String getAddressline2() {
 		return addressline2;
 	}
 
+	/**
+	 * Gets the city.
+	 *
+	 * @return the city
+	 */
 	public String getCity() {
 		return city;
 	}
 
+	/**
+	 * Gets the country.
+	 *
+	 * @return the country
+	 */
 	public String getCountry() {
 		return country;
 	}
 
+	/**
+	 * Gets the idadress.
+	 *
+	 * @return the idadress
+	 */
 	public Long getIdadress() {
 		return idadress;
 	}
 
+	/**
+	 * Gets the pin.
+	 *
+	 * @return the pin
+	 */
 	public Integer getPin() {
 		return pin;
 	}
 
+	/**
+	 * Gets the state.
+	 *
+	 * @return the state
+	 */
 	public String getState() {
 		return state;
 	}
 
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
 	public User getUser() {
 		return user;
 	}
 
-	public void setAddressline1(String addressline1) {
+	/**
+	 * Sets the addressline 1.
+	 *
+	 * @param addressline1 the new addressline 1
+	 */
+	public void setAddressline1(final String addressline1) {
 		this.addressline1 = addressline1;
 	}
 
-	public void setAddressline2(String addressline2) {
+	/**
+	 * Sets the addressline 2.
+	 *
+	 * @param addressline2 the new addressline 2
+	 */
+	public void setAddressline2(final String addressline2) {
 		this.addressline2 = addressline2;
 	}
 
-	public void setCity(String city) {
+	/**
+	 * Sets the city.
+	 *
+	 * @param city the new city
+	 */
+	public void setCity(final String city) {
 		this.city = city;
 	}
 
-	public void setCountry(String country) {
+	/**
+	 * Sets the country.
+	 *
+	 * @param country the new country
+	 */
+	public void setCountry(final String country) {
 		this.country = country;
 	}
 
-	public void setIdadress(Long idadress) {
+	/**
+	 * Sets the idadress.
+	 *
+	 * @param idadress the new idadress
+	 */
+	public void setIdadress(final Long idadress) {
 		this.idadress = idadress;
 	}
 
-	public void setPin(Integer pin) {
+	/**
+	 * Sets the pin.
+	 *
+	 * @param pin the new pin
+	 */
+	public void setPin(final Integer pin) {
 		this.pin = pin;
 	}
 
-	public void setState(String state) {
+	/**
+	 * Sets the state.
+	 *
+	 * @param state the new state
+	 */
+	public void setState(final String state) {
 		this.state = state;
 	}
 
-	public void setUser(User user) {
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
+	public void setUser(final User user) {
 		this.user = user;
 	}
 

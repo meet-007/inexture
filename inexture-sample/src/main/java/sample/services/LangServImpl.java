@@ -20,9 +20,13 @@ import sample.models.LangMaster;
 @Service
 public class LangServImpl implements LangServ {
 
+	/** The generic hibernate dao. */
 	@Autowired
-	GenericHibernateDao<LangMaster> genericHibernateDao;
+	private GenericHibernateDao<LangMaster> genericHibernateDao;
 
+	/* (non-Javadoc)
+	 * @see sample.services.LangServ#findAll()
+	 */
 	@Override
 	@Transactional
 	public List<LangMaster> findAll() {

@@ -9,14 +9,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sample.services.UserService;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdminController.
+ *
+ * @author inexture
+ */
 @Controller
 @RequestMapping("/user/admin")
 public class AdminController {
 
+	/** The user service. */
 	@Autowired
-	UserService userService;
+	private  UserService userService;
+
+	/**
+	 * Show all user.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping(value="/ShowAllUser",method=RequestMethod.GET)
-	String showAllUser(Model model) {
+	public String showAllUser(final Model model) {
 		model.addAttribute("userslist",userService.findAll());
 		return "ManageUser";
 	}

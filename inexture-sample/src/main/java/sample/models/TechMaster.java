@@ -20,6 +20,11 @@ public class TechMaster implements Serializable {
 
 	/** Logger for this class. */
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The idtech. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,30 +33,61 @@ public class TechMaster implements Serializable {
 	/** The tech. */
 	private String tech;
 
+	/** The users. */
 	@OneToMany(mappedBy="tech")
 	private List<User> users;
 
+	/**
+	 * Gets the idtech.
+	 *
+	 * @return the idtech
+	 */
 	public Long getIdtech() {
 		return idtech;
 	}
 
+	/**
+	 * Gets the tech.
+	 *
+	 * @return the tech
+	 */
 	public String getTech() {
 		return tech;
 	}
 
+	/**
+	 * Gets the users.
+	 *
+	 * @return the users
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setIdtech(Long idtech) {
+	/**
+	 * Sets the idtech.
+	 *
+	 * @param idtech the new idtech
+	 */
+	public void setIdtech(final Long idtech) {
 		this.idtech = idtech;
 	}
 
-	public void setTech(String tech) {
+	/**
+	 * Sets the tech.
+	 *
+	 * @param tech the new tech
+	 */
+	public void setTech(final String tech) {
 		this.tech = tech;
 	}
 
-	public void setUsers(List<User> users) {
+	/**
+	 * Sets the users.
+	 *
+	 * @param users the new users
+	 */
+	public void setUsers(final List<User> users) {
 		this.users = users;
 	}
 

@@ -33,7 +33,7 @@
 
 
 						
-						<sf:errors path="user.*"/>
+						<sf:errors path="user.*" element="div" cssClass="alert alert-danger"/>
 
 						<c:choose>
 							<%-- 						<c:when test="${not empty param.iduser}"> --%>

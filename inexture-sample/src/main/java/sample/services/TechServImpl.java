@@ -20,12 +20,16 @@ import sample.models.TechMaster;
 @Service
 public class TechServImpl implements TechService {
 
+	/** The generic hibernate dao. */
 	@Autowired
-	GenericHibernateDao<TechMaster> genericHibernateDao;
+	private GenericHibernateDao<TechMaster> genericHibernateDao;
 
+	/* (non-Javadoc)
+	 * @see sample.services.TechService#findAll()
+	 */
 	@Override
 	@Transactional
-	public List<sample.models.TechMaster> findAll() {
+	public List<TechMaster> findAll() {
 		// TODO Auto-generated method stub
 		genericHibernateDao.setClazz(TechMaster.class);
 		return genericHibernateDao.findAll();
